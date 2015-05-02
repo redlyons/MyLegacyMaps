@@ -5,7 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using MyLegacyMaps.Models;
+using MyLegacyMaps.DataAccess;
+using MyLegacyMaps.Security;
+using MyLegacyMaps.Managers;
 
 namespace MyLegacyMaps
 {

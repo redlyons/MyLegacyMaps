@@ -1,19 +1,22 @@
-namespace MyLegacyMaps.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MyLegacyMaps.Models.ApplicationDbContext>
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
+
+
+namespace MyLegacyMaps.Migrations
+{  
+
+    internal sealed class Configuration : DbMigrationsConfiguration<MyLegacyMaps.DataAccess.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "MyLegacyMaps.Models.ApplicationDbContext";
+            ContextKey = "MyLegacyMaps.DataAccess.ApplicationDbContext";
         }
 
-        protected override void Seed(MyLegacyMaps.Models.ApplicationDbContext context)
+        protected override void Seed(MyLegacyMaps.DataAccess.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
