@@ -8,16 +8,18 @@ using MyLegacyMaps.Security;
 
 namespace MyLegacyMaps.DataAccess
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class MyLegacyMapsContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public MyLegacyMapsContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static MyLegacyMapsContext Create()
         {
-            return new ApplicationDbContext();
+            return new MyLegacyMapsContext();
         }
+
+        public System.Data.Entity.DbSet<MyLegacyMaps.Models.Map> Maps { get; set; }
     }
 }

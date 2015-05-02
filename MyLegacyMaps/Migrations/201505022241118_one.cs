@@ -3,10 +3,23 @@ namespace MyLegacyMaps.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class one : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Maps",
+                c => new
+                    {
+                        MapId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        FileName = c.String(),
+                        Orientation = c.Int(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.MapId);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -94,6 +107,7 @@ namespace MyLegacyMaps.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Maps");
         }
     }
 }
