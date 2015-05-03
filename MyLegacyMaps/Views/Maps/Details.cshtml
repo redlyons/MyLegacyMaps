@@ -1,14 +1,14 @@
 ﻿@model MyLegacyMaps.Models.Map
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Map Details";
 }
-
-<h2>Details</h2>
-
+@Styles.Render("~/Css/Map.css")
+@Scripts.Render("~/Scripts/MapDetails.js")
 <div>
-    <h4>Map</h4>
-    <hr />
+    @Html.Hidden("mapFileName", Model.FileName)
+    <p>@Html.ActionLink("Back to List", "Index")</p>
+    <div id="content"></div>
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -45,6 +45,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MapId }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.MapId }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

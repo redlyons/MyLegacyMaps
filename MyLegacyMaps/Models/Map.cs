@@ -13,5 +13,6 @@ namespace MyLegacyMaps.Models
         public string FileName { get; set; }
         public int Orientation { get; set; }
         public bool IsActive { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

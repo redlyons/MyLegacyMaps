@@ -166,9 +166,9 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Migrations\201505022241118_one.cs" />
-    <Compile Include="Migrations\201505022241118_one.Designer.cs">
-      <DependentUpon>201505022241118_one.cs</DependentUpon>
+    <Compile Include="Migrations\201505030004039_one.cs" />
+    <Compile Include="Migrations\201505030004039_one.Designer.cs">
+      <DependentUpon>201505030004039_one.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
@@ -200,10 +200,43 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\Map.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Maps\air-france.png" />
+    <Content Include="Images\Maps\alaska.png" />
+    <Content Include="Images\Maps\baseball.png" />
+    <Content Include="Images\Maps\blue-flag.png" />
+    <Content Include="Images\Maps\california.png" />
+    <Content Include="Images\Maps\cheiftans.png" />
+    <Content Include="Images\Maps\children-world.png" />
+    <Content Include="Images\Maps\colorado.png" />
+    <Content Include="Images\Maps\dinasours.png" />
+    <Content Include="Images\Maps\dinosaurs.png" />
+    <Content Include="Images\Maps\endangered-species.png" />
+    <Content Include="Images\Maps\fishing-bitteroot.png" />
+    <Content Include="Images\Maps\fishing-yakima.png" />
+    <Content Include="Images\Maps\fishing-yellowstone.png" />
+    <Content Include="Images\Maps\fishing.png" />
+    <Content Include="Images\Maps\gibralter.png" />
+    <Content Include="Images\Maps\green-flag.png" />
+    <Content Include="Images\Maps\hawaii-scuba.png" />
+    <Content Include="Images\Maps\horse-breeds.png" />
+    <Content Include="Images\Maps\mlm_earth-logo.png" />
+    <Content Include="Images\Maps\mlm_kcoa_map.png" />
+    <Content Include="Images\Maps\mlm_map_flags2_2000x1333-150.png" />
+    <Content Include="Images\Maps\mlm_map_new-world1_2000x1333-150.png" />
+    <Content Include="Images\Maps\mlm_map_raceways-adv4.png" />
+    <Content Include="Images\Maps\mlm_rsvp_kc_memorial_map.png" />
+    <Content Include="Images\Maps\motorsports.png" />
+    <Content Include="Images\Maps\NorthAmerica.png" />
+    <Content Include="Images\Maps\oahu.png" />
+    <Content Include="Images\Maps\raceways.png" />
+    <Content Include="Images\Maps\skiing-north-america.png" />
+    <Content Include="Images\Maps\washington-adv.png" />
+    <Content Include="Images\Maps\yosemite.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\mylegacymaps.pubxml" />
@@ -215,6 +248,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MapDetails.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -264,7 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\maps\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -274,8 +307,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505022241118_one.resx">
-      <DependentUpon>201505022241118_one.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505030004039_one.resx">
+      <DependentUpon>201505030004039_one.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

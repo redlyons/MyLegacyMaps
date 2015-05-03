@@ -19,7 +19,9 @@ namespace MyLegacyMaps.Controllers
         // GET: Maps
         public async Task<ActionResult> Index()
         {
-            return View(await db.Maps.ToListAsync());
+            var mapList = await db.Maps.ToListAsync();
+
+            return View(mapList.OrderBy(m => m.Name));
         }
 
         // GET: Maps/Details/5
