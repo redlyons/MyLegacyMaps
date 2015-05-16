@@ -237,6 +237,8 @@
     <Content Include="Images\Maps\skiing-north-america.png" />
     <Content Include="Images\Maps\washington-adv.png" />
     <Content Include="Images\Maps\yosemite.png" />
+    <Content Include="Images\mlm_earth-logo50x50.png" />
+    <Content Include="Images\sample-map.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\mylegacymaps.pubxml" />
