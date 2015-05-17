@@ -1,0 +1,20 @@
+﻿.redflag {
+    background-image: url("../../images/icons/red-flag.png");
+}
+.blueflag {
+    background-image: url("../../images/icons/checked-flag.png");
+} 
+.greenflag {
+    background-image: url("../../images/icons/yellow-flag.png");
+} 
+.customLogo {
+    background-image: url("../../images/icons/enterprise-logo.png");
+}   
+
+.makeMeDraggable {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    left: 100px;
+    top: 100px;                   
+} 

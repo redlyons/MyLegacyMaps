@@ -4,10 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My Legacy Maps</title>
-    @Styles.Render("~/Content/css")
+ 
+   
+    @Styles.Render("~/content/css")
+    @Styles.Render("~/content/mlm/flags.css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
-
+    @*@Scripts.Render("~/scripts/jquery-1.10.2.min.js")*@
+    @Scripts.Render("~/scripts/jquery-ui-1.7.1.min.js")
+    @Scripts.Render("~/scripts/jquery-ui-1.8.9.min.js")        
+    @Scripts.Render("~/scripts/mlm/mapdetails.js")
+    
+  
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,7 +43,10 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My Legacy Maps</p>
+            <div style="padding-left: 10px;">
+                <h4>*Business Model and Graphic Content are Patent and/or Copyright protected.</h4>
+            </div>
+            <p>&copy; @DateTime.Now.Year - My LegacyMaps&trade;</p>
         </footer>
     </div>
 
