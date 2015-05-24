@@ -8,6 +8,15 @@ namespace MyLegacyMaps.Migrations
         public override void Up()
         {
             CreateTable(
+               "dbo.Flags",
+               c => new
+               {
+                   FlagId = c.Int(nullable: false, identity: true),
+                   Name = c.String()
+               })
+               .PrimaryKey(t => t.FlagId);
+
+            CreateTable(
                 "dbo.Maps",
                 c => new
                     {
@@ -109,6 +118,7 @@ namespace MyLegacyMaps.Migrations
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Maps");
+            DropTable("dbo.Flags");
         }
     }
 }

@@ -102,15 +102,6 @@ namespace MyLegacyMaps.Migrations
                     IsActive = true,
                     DateCreated = DateTime.Now
                 },    
-                 new Map
-                {
-                    Name = "Cheiftans",
-                    Description = "",
-                    FileName = "cheiftans.png",
-                    Orientation = 1,
-                    IsActive = true,
-                    DateCreated = DateTime.Now
-                },    
                 new Map
                 {
                     Name = "Endangered Species",
@@ -232,23 +223,27 @@ namespace MyLegacyMaps.Migrations
             };
         #endregion
 
-        #region Flags Seed Data
-        List<Flag> _flags = new List<Flag>
+        #region Flag Types Seed Data
+        List<FlagType> _flags = new List<FlagType>
         {
-            new Flag
+            new FlagType
             {
+                FlagTypeId = 1,
                 Name = "Was Here"
             },
-            new Flag
+            new FlagType
             {
+                FlagTypeId = 2,
                 Name = "Here Now"
             },
-            new Flag
+            new FlagType
             {
+                FlagTypeId = 3,
                 Name = "Want To Go Here"
             },
-            new Flag
+            new FlagType
             {
+                FlagTypeId = 4,
                 Name = "Custom Logo"
             },
         };
@@ -282,7 +277,7 @@ namespace MyLegacyMaps.Migrations
             //           
 
             _maps.ForEach(map => context.Maps.AddOrUpdate(m => m.Name, map));
-            _flags.ForEach(flag => context.Flags.AddOrUpdate(f => f.Name, flag));
+            _flags.ForEach(flag => context.FlagTypes.AddOrUpdate(f => f.Name, flag));
             context.SaveChanges();
         }
     }

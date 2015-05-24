@@ -159,6 +159,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdoptedMapsController.cs" />
+    <Compile Include="Controllers\FlagsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
@@ -171,10 +172,6 @@
     <Compile Include="Migrations\201505030004039_one.cs" />
     <Compile Include="Migrations\201505030004039_one.Designer.cs">
       <DependentUpon>201505030004039_one.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505240308497_AddFlags.cs" />
-    <Compile Include="Migrations\201505240308497_AddFlags.Designer.cs">
-      <DependentUpon>201505240308497_AddFlags.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
@@ -197,6 +194,7 @@
     <Compile Include="Models\Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\AdoptedMap.cs" />
     <Compile Include="Models\Flag.cs" />
+    <Compile Include="Models\FlagType.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Security\ApplicatonUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -321,6 +319,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Views\Flags\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -332,9 +331,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505030004039_one.resx">
       <DependentUpon>201505030004039_one.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505240308497_AddFlags.resx">
-      <DependentUpon>201505240308497_AddFlags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

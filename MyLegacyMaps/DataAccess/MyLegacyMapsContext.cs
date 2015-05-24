@@ -28,8 +28,10 @@ namespace MyLegacyMaps.DataAccess
            // modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
        
-        public System.Data.Entity.DbSet<MyLegacyMaps.Models.Map> Maps { get; set; }
-        public System.Data.Entity.DbSet<MyLegacyMaps.Models.Flag> Flags { get; set; }
-        public System.Data.Entity.DbSet<MyLegacyMaps.Models.AdoptedMap> AdoptedMaps { get; set; }
+        public DbSet<Map> Maps { get; set; }
+        public DbSet<AdoptedMap> AdoptedMaps { get; set; }
+        public DbSet<Flag> Flags { get; set; }
+        public DbSet<FlagType> FlagTypes { get; set; }
+        
     }
 }
