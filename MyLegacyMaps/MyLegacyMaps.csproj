@@ -210,6 +210,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="content\Site.css" />
+    <Content Include="images\close.png" />
     <Content Include="images\icons\checked-flag.png" />
     <Content Include="images\icons\enterprise-logo.png" />
     <Content Include="images\icons\red-flag.png" />
@@ -258,15 +259,19 @@
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery-ui-1.8.9.min.js" />
+    <Content Include="scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\mlm\flagModal.js" />
     <Content Include="scripts\mlm\mapdetails.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\respond.js" />
     <Content Include="scripts\respond.min.js" />
     <Content Include="scripts\_references.js" />
+    <Content Include="Templates\Modals\WasHere.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
