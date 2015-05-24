@@ -38,11 +38,201 @@ namespace MyLegacyMaps.Migrations
                     Orientation = 1,
                     IsActive = true,
                     DateCreated = DateTime.Now
-                },       
+                },   
+                new Map
+                {
+                    Name = "Motor Sports Raceways",
+                    Description = "",
+                    FileName = "mlm_map_raceways-adv4.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Dinosaurs of the World",
+                    Description = "",
+                    FileName = "dinosaurs.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Air France",
+                    Description = "",
+                    FileName = "air-france.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "California",
+                    Description = "",
+                    FileName = "california.png",
+                    Orientation = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                new Map
+                {
+                    Name = "Cheiftans",
+                    Description = "",
+                    FileName = "cheiftans.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Children of the World",
+                    Description = "",
+                    FileName = "children-world.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Colorado",
+                    Description = "",
+                    FileName = "colorado.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                 new Map
+                {
+                    Name = "Cheiftans",
+                    Description = "",
+                    FileName = "cheiftans.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Endangered Species",
+                    Description = "",
+                    FileName = "endangered-species.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Fishing",
+                    Description = "",
+                    FileName = "fishing.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                new Map
+                {
+                    Name = "Fishing Bitteroot",
+                    Description = "",
+                    FileName = "fishing-bitteroot.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Fishing Yakima",
+                    Description = "",
+                    FileName = "fishing-yakima.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Fishing Yellowstone",
+                    Description = "",
+                    FileName = "fishing-yellowstone.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                }, 
+                new Map
+                {
+                    Name = "Gibraltar",
+                    Description = "",
+                    FileName = "gibralter.png",
+                    Orientation = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Hawaii Scuba",
+                    Description = "",
+                    FileName = "hawaii-scuba.png",
+                    Orientation = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Horse Breeds",
+                    Description = "",
+                    FileName = "horse-breeds.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                }, 
+                new Map
+                {
+                    Name = "Kitsap County Adventure",
+                    Description = "",
+                    FileName = "mlm_kcoa_map.png",
+                    Orientation = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Kitsap County Memorials",
+                    Description = "",
+                    FileName = "mlm_rsvp_kc_memorial_map.png",
+                    Orientation = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },    
+                new Map
+                {
+                    Name = "Oahu",
+                    Description = "",
+                    FileName = "oahu.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                new Map
+                {
+                    Name = "Washington",
+                    Description = "",
+                    FileName = "washington-adv.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                new Map
+                {
+                    Name = "Yosemite",
+                    Description = "",
+                    FileName = "yosemite.png",
+                    Orientation = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
 
             };
         #endregion
 
+        #region Flags Seed Data
         List<Flag> _flags = new List<Flag>
         {
             new Flag
@@ -62,6 +252,7 @@ namespace MyLegacyMaps.Migrations
                 Name = "Custom Logo"
             },
         };
+        #endregion
 
         public Configuration()
         {
