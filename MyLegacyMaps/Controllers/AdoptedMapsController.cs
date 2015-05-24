@@ -11,6 +11,7 @@ using MyLegacyMaps.DataAccess;
 using MyLegacyMaps.Models;
 using Microsoft.AspNet.Identity;
 
+
 namespace MyLegacyMaps.Controllers
 {
     public class AdoptedMapsController : Controller
@@ -20,8 +21,16 @@ namespace MyLegacyMaps.Controllers
         // GET: AdoptedMaps
         public async Task<ActionResult> Index()
         {
+
+
             string userId = User.Identity.GetUserId();
-            var adoptedMaps = await db.AdoptedMaps.Where(m => m.UserId == userId).ToListAsync();
+            var result = db.AdoptedMaps.Where(a => a.UserId == userId);
+
+            if(result == null)
+            {
+                return HttpNotFound();
+            }
+            var adoptedMaps = await result.ToListAsync();
             return View(adoptedMaps.OrderBy(m => m.Name));
         }
 
@@ -32,11 +41,16 @@ namespace MyLegacyMaps.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);
-            if (adoptedMap == null)
+            AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);           
+            var map = await db.Maps.FindAsync(adoptedMap.MapId);
+            if (adoptedMap == null || map == null)
             {
                 return HttpNotFound();
             }
+
+            adoptedMap.FileName = map.FileName;
+
+
             return View(adoptedMap);
         }
 
@@ -68,7 +82,7 @@ namespace MyLegacyMaps.Controllers
                     MapId = mapId, 
                     UserId = userId, 
                     Name = data["mapName"],
-                    ShareStatus = 1,
+                    ShareStatus = 1
                 };
                 db.AdoptedMaps.Add(adoptedMap);
                 await db.SaveChangesAsync();

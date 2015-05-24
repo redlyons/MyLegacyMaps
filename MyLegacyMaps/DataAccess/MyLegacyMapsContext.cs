@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyLegacyMaps.Security;
-
+using MyLegacyMaps.Models;
 
 namespace MyLegacyMaps.DataAccess
 {
@@ -22,7 +22,9 @@ namespace MyLegacyMaps.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AdoptedMap>().Ignore(a => a.FileName);
             base.OnModelCreating(modelBuilder);
+
            // modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
        

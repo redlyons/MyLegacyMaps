@@ -1,50 +1,68 @@
 ﻿@model MyLegacyMaps.Models.AdoptedMap
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Adopted Map";
 }
-
-<h2>Details</h2>
-
 <div>
-    <h4>AdoptedMap</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
+    <div>
+        @*@Html.AntiForgeryToken();*@
+        @Html.Hidden("mapId", Model.MapId);
+        @Html.Hidden("mapName", Model.Name);
+        @Html.Hidden("mapFileName", Model.FileName)
 
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
+        <div id="content"></div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserId)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MapId)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserId)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MapId)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MapId)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MapId)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ShareStatus)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ShareStatus)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ShareStatus)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.ShareStatus)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FileName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FileName)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        <label>Add Flags:</label>
+        <button id="btnWasHere" type="button">I was here</button>
+        <button id="btnHereNow" type="button">I'm here now</button>
+        <button id="btnWantToGoHere" type="button">I'm planning to go here</button>
+        <button id="btnCustomLogo" type="button">Custom Logo</button>
+
+    </p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.AdoptedMapId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AdoptedMapId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

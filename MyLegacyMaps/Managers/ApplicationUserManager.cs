@@ -13,7 +13,6 @@ using Microsoft.Owin.Security;
 using MyLegacyMaps.DataAccess;
 using MyLegacyMaps.Security;
 using MyLegacyMaps.Services;
-using Microsoft.AspNet.Identity;
 
 namespace MyLegacyMaps.Managers
 {
