@@ -20,7 +20,9 @@ namespace MyLegacyMaps.Controllers
         // GET: AdoptedMaps
         public async Task<ActionResult> Index()
         {
-            return View(await db.AdoptedMaps.ToListAsync());
+            string userId = User.Identity.GetUserId();
+            var adoptedMaps = await db.AdoptedMaps.Where(m => m.UserId == userId).ToListAsync();
+            return View(adoptedMaps.OrderBy(m => m.Name));
         }
 
         // GET: AdoptedMaps/Details/5
@@ -57,9 +59,17 @@ namespace MyLegacyMaps.Controllers
         {            
             string userId = User.Identity.GetUserId();
             int mapId = 0;
-            if(!String.IsNullOrEmpty(userId) && Int32.TryParse(HttpContext.Request.Form["mapId"], out mapId) && mapId > 0)
+            var data = HttpContext.Request.Form;
+
+            if(data != null && !String.IsNullOrEmpty(userId) && Int32.TryParse(data["mapId"], out mapId) && mapId > 0)
             {
-                adoptedMap = new AdoptedMap { MapId = mapId, UserId = userId, ShareStatus = 1 };
+                adoptedMap = new AdoptedMap
+                { 
+                    MapId = mapId, 
+                    UserId = userId, 
+                    Name = data["mapName"],
+                    ShareStatus = 1,
+                };
                 db.AdoptedMaps.Add(adoptedMap);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

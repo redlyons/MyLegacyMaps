@@ -9,6 +9,7 @@
     <div>
         @Html.AntiForgeryToken();
         @Html.Hidden("mapId", Model.MapId);
+        @Html.Hidden("mapName", Model.Name);
         @Html.Hidden("mapFileName", Model.FileName)
 
         <p>@Html.ActionLink("Back to List", "Index")</p>
