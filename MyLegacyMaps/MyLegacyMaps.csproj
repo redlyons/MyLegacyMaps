@@ -316,6 +316,7 @@
     <Content Include="Views\AdoptedMaps\Details.cshtml" />
     <Content Include="Views\AdoptedMaps\Edit.cshtml" />
     <Content Include="Views\AdoptedMaps\Index.cshtml" />
+    <Content Include="Views\Shared\Partials\MapCanvas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
