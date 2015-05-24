@@ -3,8 +3,12 @@
     ViewBag.Title = "Map Details";
 }
 
+@using (Html.BeginForm("Create", "AdoptedMaps", FormMethod.Post))
+{ 
 <div>
     <div>
+        @Html.AntiForgeryToken();
+        @Html.Hidden("mapId", Model.MapId);
         @Html.Hidden("mapFileName", Model.FileName)
 
         <p>@Html.ActionLink("Back to List", "Index")</p>
@@ -56,5 +60,10 @@
 
     </p>
     <p>
+        <input type="submit" value="Save Map" class="btn" />
+    </p>
+    <p>
         @Html.ActionLink("Back to List", "Index")
     </p>
+</div>
+}

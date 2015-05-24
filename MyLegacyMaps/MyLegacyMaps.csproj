@@ -158,9 +158,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdoptedMapsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
+    <Compile Include="DataAccess\Initializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,6 +171,10 @@
     <Compile Include="Migrations\201505030004039_one.cs" />
     <Compile Include="Migrations\201505030004039_one.Designer.cs">
       <DependentUpon>201505030004039_one.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505240308497_AddFlags.cs" />
+    <Compile Include="Migrations\201505240308497_AddFlags.Designer.cs">
+      <DependentUpon>201505240308497_AddFlags.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
@@ -190,6 +196,7 @@
     <Compile Include="DataAccess\MyLegacyMapsContext.cs" />
     <Compile Include="Models\Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\AdoptedMap.cs" />
+    <Compile Include="Models\Flag.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Security\ApplicatonUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -304,9 +311,15 @@
     <Content Include="Views\Maps\Details.cshtml" />
     <Content Include="Views\Maps\Edit.cshtml" />
     <Content Include="Views\Maps\Index.cshtml" />
+    <Content Include="Views\AdoptedMaps\Create.cshtml" />
+    <Content Include="Views\AdoptedMaps\Delete.cshtml" />
+    <Content Include="Views\AdoptedMaps\Details.cshtml" />
+    <Content Include="Views\AdoptedMaps\Edit.cshtml" />
+    <Content Include="Views\AdoptedMaps\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Extensions\" />
     <Folder Include="scripts\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +332,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505030004039_one.resx">
       <DependentUpon>201505030004039_one.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505240308497_AddFlags.resx">
+      <DependentUpon>201505240308497_AddFlags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -339,7 +355,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53648</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55030/</IISUrl>
+          <IISUrl>https://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

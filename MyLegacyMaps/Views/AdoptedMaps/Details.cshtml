@@ -1,0 +1,50 @@
+﻿@model MyLegacyMaps.Models.AdoptedMap
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AdoptedMap</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MapId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MapId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShareStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShareStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdoptedMapId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

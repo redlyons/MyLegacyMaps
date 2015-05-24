@@ -9,114 +9,124 @@ using System.Web;
 using System.Web.Mvc;
 using MyLegacyMaps.DataAccess;
 using MyLegacyMaps.Models;
+using Microsoft.AspNet.Identity;
 
 namespace MyLegacyMaps.Controllers
 {
-    public class MapsController : Controller
+    public class AdoptedMapsController : Controller
     {
         private MyLegacyMapsContext db = new MyLegacyMapsContext();
 
-        // GET: Maps
-        [AllowAnonymous]
+        // GET: AdoptedMaps
         public async Task<ActionResult> Index()
         {
-            var mapList = await db.Maps.ToListAsync();
-
-            return View(mapList.OrderBy(m => m.Name));
+            return View(await db.AdoptedMaps.ToListAsync());
         }
 
-        // GET: Maps/Details/5
-        [AllowAnonymous]
+        // GET: AdoptedMaps/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Map map = await db.Maps.FindAsync(id);
-            if (map == null)
+            AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);
+            if (adoptedMap == null)
             {
                 return HttpNotFound();
             }
-            return View(map);
+            return View(adoptedMap);
         }
 
-        // GET: Maps/Create
+        // GET: AdoptedMaps/Create
         public ActionResult Create()
         {
+            if(!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             return View();
         }
 
-        // POST: Maps/Create
+        // POST: AdoptedMaps/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MapId,Name,FileName,Orientation,IsActive")] Map map)
-        {
-            if (ModelState.IsValid)
+        public async Task<ActionResult> Create([Bind(Include = "UserId,MapId,Name,ShareStatus")] AdoptedMap adoptedMap)
+        {            
+            string userId = User.Identity.GetUserId();
+            int mapId = 0;
+            if(!String.IsNullOrEmpty(userId) && Int32.TryParse(HttpContext.Request.Form["mapId"], out mapId) && mapId > 0)
             {
-                db.Maps.Add(map);
+                adoptedMap = new AdoptedMap { MapId = mapId, UserId = userId, ShareStatus = 1 };
+                db.AdoptedMaps.Add(adoptedMap);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
-            }
 
-            return View(map);
+            }
+            //if (ModelState.IsValid)
+            //{
+                
+               
+            //}
+
+            return View(adoptedMap);
         }
 
-        // GET: Maps/Edit/5
+        // GET: AdoptedMaps/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Map map = await db.Maps.FindAsync(id);
-            if (map == null)
+            AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);
+            if (adoptedMap == null)
             {
                 return HttpNotFound();
             }
-            return View(map);
+            return View(adoptedMap);
         }
 
-        // POST: Maps/Edit/5
+        // POST: AdoptedMaps/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MapId,Name,FileName,Orientation,IsActive")] Map map)
+        public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId,UserId,MapId,Name,ShareStatus")] AdoptedMap adoptedMap)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(map).State = EntityState.Modified;
+                db.Entry(adoptedMap).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(map);
+            return View(adoptedMap);
         }
 
-        // GET: Maps/Delete/5
+        // GET: AdoptedMaps/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Map map = await db.Maps.FindAsync(id);
-            if (map == null)
+            AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);
+            if (adoptedMap == null)
             {
                 return HttpNotFound();
             }
-            return View(map);
+            return View(adoptedMap);
         }
 
-        // POST: Maps/Delete/5
+        // POST: AdoptedMaps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Map map = await db.Maps.FindAsync(id);
-            db.Maps.Remove(map);
+            AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);
+            db.AdoptedMaps.Remove(adoptedMap);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

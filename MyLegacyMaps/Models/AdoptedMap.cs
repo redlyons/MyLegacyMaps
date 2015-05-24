@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace MyLegacyMaps.Models
 {
     public class AdoptedMap
     {
-        public int AdoptedMapdId { get; set; }
+        [Key]
+        public int AdoptedMapId { get; set; }
+        [Required]
         public string UserId { get; set; }
+        [Required]
         public int MapId { get; set; }
         public string Name { get; set; }
         public int ShareStatus { get; set; }

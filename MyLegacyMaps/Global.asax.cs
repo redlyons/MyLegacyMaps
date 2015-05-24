@@ -13,10 +13,9 @@ namespace MyLegacyMaps
     {
         protected void Application_Start()
         {
+            Database.SetInitializer(new MyLegacyMaps.DataAccess.Initializer());
 
-            //Database.SetInitializer(
-            //   new DropCreateDatabaseAlways<MyLegacyMaps.DataAccess.MyLegacyMapsContext>()
-            //);
+            
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

@@ -20,6 +20,14 @@ namespace MyLegacyMaps.DataAccess
             return new MyLegacyMapsContext();
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+           // modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
+       
         public System.Data.Entity.DbSet<MyLegacyMaps.Models.Map> Maps { get; set; }
+        public System.Data.Entity.DbSet<MyLegacyMaps.Models.Flag> Flags { get; set; }
+        public System.Data.Entity.DbSet<MyLegacyMaps.Models.AdoptedMap> AdoptedMaps { get; set; }
     }
 }
