@@ -3,19 +3,44 @@ namespace MyLegacyMaps.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class one : DbMigration
+    public partial class intial : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-               "dbo.Flags",
-               c => new
-               {
-                   FlagId = c.Int(nullable: false, identity: true),
-                   Name = c.String()
-               })
-               .PrimaryKey(t => t.FlagId);
-
+                "dbo.AdoptedMaps",
+                c => new
+                    {
+                        AdoptedMapId = c.Int(nullable: false, identity: true),
+                        UserId = c.String(nullable: false),
+                        MapId = c.Int(nullable: false),
+                        Name = c.String(),
+                        ShareStatus = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.AdoptedMapId);
+            
+            CreateTable(
+                "dbo.Flags",
+                c => new
+                    {
+                        FlagId = c.Int(nullable: false, identity: true),
+                        FlagTypeId = c.Int(nullable: false),
+                        AdoptedMapId = c.Int(nullable: false),
+                        Name = c.String(),
+                        Xpos = c.Double(nullable: false),
+                        Ypos = c.Double(nullable: false),
+                    })
+                .PrimaryKey(t => t.FlagId);
+            
+            CreateTable(
+                "dbo.FlagTypes",
+                c => new
+                    {
+                        FlagTypeId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.FlagTypeId);
+            
             CreateTable(
                 "dbo.Maps",
                 c => new
@@ -118,7 +143,9 @@ namespace MyLegacyMaps.Migrations
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Maps");
+            DropTable("dbo.FlagTypes");
             DropTable("dbo.Flags");
+            DropTable("dbo.AdoptedMaps");
         }
     }
 }

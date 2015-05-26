@@ -1,8 +1,9 @@
 ﻿
-var redflag = "<div class='makeMeDraggable redflag masterTooltip' title='Name:      Date:   '></div>";
+var redflag = "<div class='makeMeDraggable redflag masterTooltip' data-xpos='' data-ypos='' title='Name:      Date:   '></div>";
 var blueflag = "<div class='makeMeDraggable blueflag masterTooltip'  title='Name:      Date:   '></div>";
 var greenflag = "<div class='makeMeDraggable greenflag masterTooltip'  title='Name:      Date:   '></div>";
 var customLogo = "<div class='makeMeDraggable customLogo masterTooltip' title='Name:      Date:   ' style='height:75px; width:550px;'></div>"
+var flagId = 1;
 
 function init() {
     $('.makeMeDraggable').draggable({
@@ -12,8 +13,9 @@ function init() {
     });
 
     $(".makeMeDraggable").click(function () {
+        var flag = this;
         $.get('../../templates/modals/WasHere.html', function (data) {
-            modal.open({ content: data });
+            modal.open({ content: data, element: flag });
         });
     });
 
@@ -23,14 +25,17 @@ function init() {
 function handleDragStop(event, ui) {
     var offsetXPos = parseInt(ui.offset.left);
     var offsetYPos = parseInt(ui.offset.top);
-    //alert("Pin Location: (" + offsetXPos + ", " + offsetYPos + ")\n");
+    $(this).attr('data-xpos', offsetXPos);
+    $(this).attr('data-ypos', offsetYPos);
+   
 }
 
 $(document).ready(function () {
     $('body').css('background', 'url("/images/maps/' + $('#mapFileName').val() + '") no-repeat');
 
     $("#btnWasHere").click(function () {
-        $("#content").append(redflag);
+        $(redflag).attr("id", "flag" + flagId++).appendTo("#content");
+        //$("#content").append(redflag.attr);
         init();
     });
     $("#btnHereNow").click(function () {

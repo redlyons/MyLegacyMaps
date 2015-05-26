@@ -12,14 +12,11 @@
 
 
 
+@Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml")
 
-@using (Html.BeginForm("Edit", "AdoptedMaps", FormMethod.Post))
-{
+@Html.AntiForgeryToken();
+@Html.Hidden("adoptedMapId", Model.AdoptedMapId);
+@Html.Hidden("mapFileName", Model.FileName);
 
-    @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml")
-
-    @Html.AntiForgeryToken();
-    @Html.Hidden("mapFileName", Model.FileName);
-}
 
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MyLegacyMaps.DataAccess;
 using MyLegacyMaps.Models;
 
@@ -38,26 +39,28 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: Flags/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Flags/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "FlagId,FlagTypeId,AdoptedMapId,Name,Xpos,Ypos")] Flag flag)
+        //[ValidateAntiForgeryToken]
+        //public Task<bool> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos")] Flag flag)
+        public ActionResult Create(int adoptedMapId, int flagTypeId, int xPos, int yPos)
         {
-            if (ModelState.IsValid)
-            {
-                db.Flags.Add(flag);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    db.Flags.Add(flag);
+            //    await db.SaveChangesAsync();
+            //    return RedirectToAction("Index");
+            //}
 
-            return View(flag);
+            //return Task.FromResult<bool>(true);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         // GET: Flags/Edit/5

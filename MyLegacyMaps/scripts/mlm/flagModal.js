@@ -22,7 +22,8 @@
     // Open the modal
     method.open = function (settings) {
         $content.empty().append(settings.content);
-
+        $modal.attr('data-xpos', $(settings.element).attr('data-xpos'));
+        $modal.attr('data-ypos', $(settings.element).attr('data-ypos'));
         $modal.css({
             width: settings.width || 'auto',
             height: settings.height || 'auto'

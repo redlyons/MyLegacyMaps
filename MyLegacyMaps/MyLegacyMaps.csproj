@@ -169,9 +169,13 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Migrations\201505030004039_one.cs" />
+    <None Include="Migrations\201505030004039_one.cs.bak" />
     <Compile Include="Migrations\201505030004039_one.Designer.cs">
-      <DependentUpon>201505030004039_one.cs</DependentUpon>
+      <DependentUpon>201505030004039_one.cs.bak</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505242132157_intial.cs" />
+    <Compile Include="Migrations\201505242132157_intial.Designer.cs">
+      <DependentUpon>201505242132157_intial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
@@ -203,74 +207,74 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\bootstrap.css" />
-    <Content Include="content\bootstrap.min.css" />
-    <Content Include="content\mlm\flags.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\mlm\flags.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="content\Site.css" />
-    <Content Include="images\close.png" />
-    <Content Include="images\icons\checked-flag.png" />
-    <Content Include="images\icons\enterprise-logo.png" />
-    <Content Include="images\icons\red-flag.png" />
-    <Content Include="images\icons\yellow-flag.png" />
-    <Content Include="images\maps\air-france.png" />
-    <Content Include="images\maps\alaska.png" />
-    <Content Include="images\maps\baseball.png" />
-    <Content Include="images\maps\blue-flag.png" />
-    <Content Include="images\maps\california.png" />
-    <Content Include="images\maps\cheiftans.png" />
-    <Content Include="images\maps\children-world.png" />
-    <Content Include="images\maps\colorado.png" />
-    <Content Include="images\maps\dinasours.png" />
-    <Content Include="images\maps\dinosaurs.png" />
-    <Content Include="images\maps\endangered-species.png" />
-    <Content Include="images\maps\fishing-bitteroot.png" />
-    <Content Include="images\maps\fishing-yakima.png" />
-    <Content Include="images\maps\fishing-yellowstone.png" />
-    <Content Include="images\maps\fishing.png" />
-    <Content Include="images\maps\gibralter.png" />
-    <Content Include="images\maps\green-flag.png" />
-    <Content Include="images\maps\hawaii-scuba.png" />
-    <Content Include="images\maps\horse-breeds.png" />
-    <Content Include="images\maps\mlm_earth-logo.png" />
-    <Content Include="images\maps\mlm_kcoa_map.png" />
-    <Content Include="images\maps\mlm_map_flags2_2000x1333-150.png" />
-    <Content Include="images\maps\mlm_map_new-world1_2000x1333-150.png" />
-    <Content Include="images\maps\mlm_map_raceways-adv4.png" />
-    <Content Include="images\maps\mlm_rsvp_kc_memorial_map.png" />
-    <Content Include="images\maps\motorsports.png" />
-    <Content Include="images\maps\NorthAmerica.png" />
-    <Content Include="images\maps\oahu.png" />
-    <Content Include="images\maps\raceways.png" />
-    <Content Include="images\maps\skiing-north-america.png" />
-    <Content Include="images\maps\washington-adv.png" />
-    <Content Include="images\maps\yosemite.png" />
-    <Content Include="images\mlm_earth-logo50x50.png" />
-    <Content Include="images\sample-map.png" />
-    <Content Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\close.png" />
+    <Content Include="Images\icons\checked-flag.png" />
+    <Content Include="Images\icons\enterprise-logo.png" />
+    <Content Include="Images\icons\red-flag.png" />
+    <Content Include="Images\icons\yellow-flag.png" />
+    <Content Include="Images\maps\air-france.png" />
+    <Content Include="Images\maps\alaska.png" />
+    <Content Include="Images\maps\baseball.png" />
+    <Content Include="Images\maps\blue-flag.png" />
+    <Content Include="Images\maps\california.png" />
+    <Content Include="Images\maps\cheiftans.png" />
+    <Content Include="Images\maps\children-world.png" />
+    <Content Include="Images\maps\colorado.png" />
+    <Content Include="Images\maps\dinasours.png" />
+    <Content Include="Images\maps\dinosaurs.png" />
+    <Content Include="Images\maps\endangered-species.png" />
+    <Content Include="Images\maps\fishing-bitteroot.png" />
+    <Content Include="Images\maps\fishing-yakima.png" />
+    <Content Include="Images\maps\fishing-yellowstone.png" />
+    <Content Include="Images\maps\fishing.png" />
+    <Content Include="Images\maps\gibralter.png" />
+    <Content Include="Images\maps\green-flag.png" />
+    <Content Include="Images\maps\hawaii-scuba.png" />
+    <Content Include="Images\maps\horse-breeds.png" />
+    <Content Include="Images\maps\mlm_earth-logo.png" />
+    <Content Include="Images\maps\mlm_kcoa_map.png" />
+    <Content Include="Images\maps\mlm_map_flags2_2000x1333-150.png" />
+    <Content Include="Images\maps\mlm_map_new-world1_2000x1333-150.png" />
+    <Content Include="Images\maps\mlm_map_raceways-adv4.png" />
+    <Content Include="Images\maps\mlm_rsvp_kc_memorial_map.png" />
+    <Content Include="Images\maps\motorsports.png" />
+    <Content Include="Images\maps\NorthAmerica.png" />
+    <Content Include="Images\maps\oahu.png" />
+    <Content Include="Images\maps\raceways.png" />
+    <Content Include="Images\maps\skiing-north-america.png" />
+    <Content Include="Images\maps\washington-adv.png" />
+    <Content Include="Images\maps\yosemite.png" />
+    <Content Include="Images\mlm_earth-logo50x50.png" />
+    <Content Include="Images\sample-map.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\mylegacymaps.pubxml" />
-    <None Include="scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="scripts\code.jquery.com\jquery-ui-1.11.4.js" />
-    <Content Include="scripts\jquery-ui-1.7.1.min.js" />
-    <Content Include="scripts\jquery-1.10.2.js" />
-    <Content Include="scripts\jquery-1.10.2.min.js" />
-    <None Include="scripts\jquery.validate-vsdoc.js" />
-    <Content Include="scripts\jquery-ui-1.8.9.min.js" />
-    <Content Include="scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="scripts\jquery.validate.js" />
-    <Content Include="scripts\jquery.validate.min.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="scripts\mlm\flagModal.js" />
-    <Content Include="scripts\mlm\mapdetails.js" />
-    <Content Include="scripts\modernizr-2.6.2.js" />
-    <Content Include="scripts\respond.js" />
-    <Content Include="scripts\respond.min.js" />
-    <Content Include="scripts\_references.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\code.jquery.com\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\jquery-ui-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.9.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mlm\flagModal.js" />
+    <Content Include="Scripts\mlm\mapdetails.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
     <Content Include="Templates\Modals\WasHere.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -288,7 +292,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -324,18 +328,20 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Views\Flags\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505030004039_one.resx">
-      <DependentUpon>201505030004039_one.cs</DependentUpon>
+      <DependentUpon>201505030004039_one.cs.bak</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505242132157_intial.resx">
+      <DependentUpon>201505242132157_intial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

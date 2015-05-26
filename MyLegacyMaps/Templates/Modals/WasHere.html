@@ -11,11 +11,17 @@
 </div>
 <script type="text/javascript">
     $('#btnBuyNow').click(function () {
+        var xPos = $('#modal').attr('data-xpos');
+        var yPos = $('#modal').attr('data-ypos');
+        alert('x = ' + xPos + ' y= ' + yPos);
         var myData = {
-            id: 1
+            adoptedMapId: $('#adoptedMapId').val(),
+            flagTypeId: 1,
+            xPos: xPos,
+            yPos: yPos,
         }
         $.ajax({
-            url: '@Url.Action("Maps/Edit")',
+            url: window.location.origin + "/flags/create/",
             type: 'POST',
             dataType: "json",
             contentType: 'application/json',
