@@ -1,31 +1,35 @@
 ﻿@model IEnumerable<MyLegacyMaps.Models.Map>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Maps</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>       
-        <th></th>
-    </tr>
+@using (Html.BeginForm())
+{
+    <p>
+       @Html.DropDownList("ddlMapTypeId", (SelectList)ViewBag.MapTypes, "-- All --")  <input type="submit" value="submit" />
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>       
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
       
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.MapId }) |*@
-            @Html.ActionLink("View", "Details", new { id=item.MapId })
-            @*@Html.ActionLink("Delete", "Delete", new { id=item.MapId })*@
-        </td>
-    </tr>
-}
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.MapId }) |*@
+                @Html.ActionLink("View", "Details", new { id=item.MapId })
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.MapId })*@
+            </td>
+        </tr>
+    }
 
-</table>
+    </table>
+}

@@ -21,8 +21,39 @@ namespace MyLegacyMaps.Controllers
         public async Task<ActionResult> Index()
         {
             var mapList = await db.Maps.ToListAsync();
+            //var mapTypes = await db.MapTypes.ToListAsync();
+            ViewBag.mapTypes = getMapTypes(0);
 
             return View(mapList.OrderBy(m => m.Name));
+        }
+        [HttpPost]
+        public async Task<ActionResult>Index(FormCollection values)
+        {
+            int mapTypeId = 0;
+            if (!String.IsNullOrWhiteSpace(values["ddlMapTypeId"]))
+            {
+                Int32.TryParse(values["ddlMapTypeId"], out mapTypeId);
+            }
+            ViewBag.mapTypes = getMapTypes(mapTypeId);
+            
+            if (mapTypeId > 0)
+            {
+                return View(db.Maps.Where(m => m.MapTypeId == mapTypeId).OrderBy(m => m.Name));
+            }
+            else
+            {
+                var maps = await db.Maps.ToListAsync();
+                return View(maps.OrderBy(m => m.Name));
+            }              
+        }
+    
+
+        public SelectList getMapTypes(int selectedMapTypeId)
+        {
+            IEnumerable<SelectListItem> types = (from m in db.MapTypes select m).AsEnumerable().OrderBy(m=>m.Name).Select(m => new SelectListItem() { Text = m.Name, Value = m.MapTypeId.ToString() });
+            return (selectedMapTypeId > 0)
+                    ? new SelectList(types, "Value", "Text", selectedMapTypeId)
+                    : new SelectList(types, "Value", "Text");
         }
 
         // GET: Maps/Details/5

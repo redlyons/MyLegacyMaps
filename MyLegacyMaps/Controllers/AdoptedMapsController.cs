@@ -48,9 +48,7 @@ namespace MyLegacyMaps.Controllers
                 return HttpNotFound();
             }
 
-            adoptedMap.FileName = map.FileName;
-
-
+            adoptedMap.Map = map;
             return View(adoptedMap);
         }
 

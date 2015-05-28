@@ -17,6 +17,7 @@ namespace MyLegacyMaps.Migrations
                     Name = "Alaska",
                     Description = "The ultimate wilderness adventure.",
                     FileName = "alaska.png",
+                    MapTypeId = 2,
                     Orientation = 1,
                     IsActive = true,
                     DateCreated = DateTime.Now
@@ -71,6 +72,7 @@ namespace MyLegacyMaps.Migrations
                     Name = "California",
                     Description = "",
                     FileName = "california.png",
+                    MapTypeId = 2,
                     Orientation = 2,
                     IsActive = true,
                     DateCreated = DateTime.Now
@@ -98,6 +100,7 @@ namespace MyLegacyMaps.Migrations
                     Name = "Colorado",
                     Description = "",
                     FileName = "colorado.png",
+                    MapTypeId = 2,
                     Orientation = 1,
                     IsActive = true,
                     DateCreated = DateTime.Now
@@ -206,6 +209,7 @@ namespace MyLegacyMaps.Migrations
                     Name = "Washington",
                     Description = "",
                     FileName = "washington-adv.png",
+                    MapTypeId = 2,
                     Orientation = 1,
                     IsActive = true,
                     DateCreated = DateTime.Now
@@ -249,10 +253,24 @@ namespace MyLegacyMaps.Migrations
         };
         #endregion
 
+        List<MapType> _mapTypes = new List<MapType>
+        {
+            new MapType
+            {
+                MapTypeId = 1,
+                Name = "Real Estate"
+            },
+            new MapType
+            {
+                MapTypeId = 2,
+                Name = "U.S. States"
+            }
+        };
+
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            AutomaticMigrationDataLossAllowed = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "MyLegacyMaps.DataAccess.ApplicationDbContext";
         }
 
@@ -278,6 +296,7 @@ namespace MyLegacyMaps.Migrations
 
             _maps.ForEach(map => context.Maps.AddOrUpdate(m => m.Name, map));
             _flags.ForEach(flag => context.FlagTypes.AddOrUpdate(f => f.Name, flag));
+            _mapTypes.ForEach(type => context.MapTypes.AddOrUpdate(mt => mt.Name, type));
             context.SaveChanges();
         }
     }

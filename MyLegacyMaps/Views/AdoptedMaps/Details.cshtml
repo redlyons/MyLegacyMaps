@@ -16,7 +16,7 @@
 
 @Html.AntiForgeryToken();
 @Html.Hidden("adoptedMapId", Model.AdoptedMapId);
-@Html.Hidden("mapFileName", Model.FileName);
+@Html.Hidden("mapFileName", Model.Map.FileName);
 
 
 
