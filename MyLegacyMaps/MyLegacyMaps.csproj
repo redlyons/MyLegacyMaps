@@ -176,10 +176,6 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <None Include="Migrations\201505030004039_one.cs.bak" />
-    <Compile Include="Migrations\201505030004039_one.Designer.cs">
-      <DependentUpon>201505030004039_one.cs.bak</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201505242132157_intial.cs" />
     <Compile Include="Migrations\201505242132157_intial.Designer.cs">
       <DependentUpon>201505242132157_intial.cs</DependentUpon>
@@ -252,6 +248,15 @@
     <Content Include="Images\maps\mlm_map_flags2_2000x1333-150.png" />
     <Content Include="Images\maps\mlm_map_new-world1_2000x1333-150.png" />
     <Content Include="Images\maps\mlm_map_raceways-adv4.png" />
+    <Content Include="Images\maps\mlm_map_rem_wa_clallam_port-angeles_2000x1333.png" />
+    <Content Include="Images\maps\mlm_map_rem_wa_clallam_quimper-peninsula_1333x2000.png" />
+    <Content Include="Images\maps\mlm_map_rem_wa_clallam_sequim_2000x1333.png" />
+    <Content Include="Images\maps\mlm_map_rem_wa_downtown-seattle_2000x1333.png" />
+    <Content Include="Images\maps\mlm_rem_wa_king_belle-mi_map_1333x2000.png" />
+    <Content Include="Images\maps\mlm_rem_wa_king_kirk-red_map_1333x2000.png" />
+    <Content Include="Images\maps\mlm_rem_wa_king_mercer-is_map_1333x2000.png" />
+    <Content Include="Images\maps\mlm_rem_wa_king_n-seattle_map_2000x1333.png" />
+    <Content Include="Images\maps\mlm_rem_wa_king_s-seattle_map_2000x1333.png" />
     <Content Include="Images\maps\mlm_rsvp_kc_memorial_map.png" />
     <Content Include="Images\maps\motorsports.png" />
     <Content Include="Images\maps\NorthAmerica.png" />
@@ -346,9 +351,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505030004039_one.resx">
-      <DependentUpon>201505030004039_one.cs.bak</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505242132157_intial.resx">
       <DependentUpon>201505242132157_intial.cs</DependentUpon>
     </EmbeddedResource>

@@ -229,12 +229,102 @@ namespace MyLegacyMaps.Migrations
                     IsActive = true,
                     DateCreated = DateTime.Now
                 },   
+                new Map
+                {
+                    Name = "Port Angeles",
+                    Description = "",
+                    FileName = "mlm_map_rem_wa_clallam_port-angeles_2000x1333.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },                 
+                new Map
+                {
+                    Name = "Quimper Penisula",
+                    Description = "",
+                    FileName = "mlm_map_rem_wa_clallam_quimper-peninsula_1333x2000.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                new Map
+                {
+                    Name = "Sequim",
+                    Description = "",
+                    FileName = "mlm_map_rem_wa_clallam_sequim_2000x1333.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                }, 
+                new Map
+                {
+                    Name = "Downtown Seattle",
+                    Description = "",
+                    FileName = "mlm_map_rem_wa_downtown-seattle_2000x1333.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                }, 
+                 new Map
+                {
+                    Name = "Bellevue",
+                    Description = "",
+                    FileName = "mlm_rem_wa_king_belle-mi_map_1333x2000.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                 new Map
+                {
+                    Name = "Kirkland",
+                    Description = "",
+                    FileName = "mlm_rem_wa_king_kirk-red_map_1333x2000.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                 new Map
+                {
+                    Name = "Mercer Island",
+                    Description = "",
+                    FileName = "mlm_rem_wa_king_mercer-is_map_1333x2000.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                 new Map
+                {
+                    Name = "North Seattle",
+                    Description = "",
+                    FileName = "mlm_rem_wa_king_n-seattle_map_2000x1333.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
+                 new Map
+                {
+                    Name = "South Seattle",
+                    Description = "",
+                    FileName = "mlm_rem_wa_king_s-seattle_map_2000x1333.png",
+                    Orientation = 1,
+                    MapTypeId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.Now
+                },   
 
             };
         #endregion
 
         #region Flag Types Seed Data
-        List<FlagType> _flags = new List<FlagType>
+        List<FlagType> _flagTypes = new List<FlagType>
         {
             new FlagType
             {
@@ -330,21 +420,10 @@ namespace MyLegacyMaps.Migrations
         protected override void Seed(MyLegacyMaps.DataAccess.MyLegacyMapsContext context)
         {
             //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //           
-
             _maps.ForEach(map => context.Maps.AddOrUpdate(m => m.Name, map));
-            _flags.ForEach(flag => context.FlagTypes.AddOrUpdate(f => f.Name, flag));
-            _mapTypes.ForEach(type => context.MapTypes.AddOrUpdate(mt => mt.Name, type));
+            _flagTypes.ForEach(type => context.FlagTypes.AddOrUpdate(t => t.Name, type));
+            _mapTypes.ForEach(type => context.MapTypes.AddOrUpdate(t => t.Name, type));
+            _shareStatusTypes.ForEach(type => context.SharedStatusTypes.AddOrUpdate(t => t.Name, type));
             context.SaveChanges();
         }
     }
