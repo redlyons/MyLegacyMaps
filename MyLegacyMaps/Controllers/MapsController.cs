@@ -15,16 +15,36 @@ namespace MyLegacyMaps.Controllers
     public class MapsController : Controller
     {
         private MyLegacyMapsContext db = new MyLegacyMapsContext();
+        private const string MAPTYPEID_COOKIE = "mlm_map_filterid";
 
         // GET: Maps
         [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var mapList = await db.Maps.ToListAsync();
-            //var mapTypes = await db.MapTypes.ToListAsync();
-            ViewBag.mapTypes = getMapTypes(0);
+            var cookieVal = (this.ControllerContext.HttpContext.Request.Cookies[MAPTYPEID_COOKIE] != null)
+                ? this.ControllerContext.HttpContext.Request.Cookies[MAPTYPEID_COOKIE].Value
+                : String.Empty;
 
-            return View(mapList.OrderBy(m => m.Name));
+            int mapTypeId = 0;
+            if (!String.IsNullOrEmpty(cookieVal))
+            {
+                if (!Int32.TryParse(cookieVal, out mapTypeId))
+                {
+                    mapTypeId = 0;
+                }
+            }
+            ViewBag.mapTypes = getMapTypes(mapTypeId);
+
+            if (mapTypeId > 0)
+            {
+                return View(db.Maps.Where(m => m.MapTypeId == mapTypeId).OrderBy(m => m.Name));
+            }
+            else
+            {
+                var maps = await db.Maps.ToListAsync();
+                return View(maps.OrderBy(m => m.Name));
+            }       
         }
 
         [AllowAnonymous]
@@ -36,6 +56,12 @@ namespace MyLegacyMaps.Controllers
             {
                 Int32.TryParse(values["ddlMapTypeId"], out mapTypeId);
             }
+
+            //save selection state in cookie
+            HttpCookie cookie = new HttpCookie(MAPTYPEID_COOKIE, mapTypeId.ToString());
+            this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+
+            //get map type drop down options
             ViewBag.mapTypes = getMapTypes(mapTypeId);
             
             if (mapTypeId > 0)
@@ -52,7 +78,7 @@ namespace MyLegacyMaps.Controllers
 
         public SelectList getMapTypes(int selectedMapTypeId)
         {
-            IEnumerable<SelectListItem> types = (from m in db.MapTypes select m).AsEnumerable().OrderBy(m=>m.Name).Select(m => new SelectListItem() { Text = m.Name, Value = m.MapTypeId.ToString() });
+            IEnumerable<SelectListItem> types = (from m in db.MapTypes where m.IsActive == true select m).AsEnumerable().OrderBy(m=>m.Name).Select(m => new SelectListItem() { Text = m.Name, Value = m.MapTypeId.ToString() });
             return (selectedMapTypeId > 0)
                     ? new SelectList(types, "Value", "Text", selectedMapTypeId)
                     : new SelectList(types, "Value", "Text");
