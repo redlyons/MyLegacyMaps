@@ -5,21 +5,15 @@ using MyLegacyMaps.Models;
 
 namespace MyLegacyMaps.DataAccess.Mappings
 {
-    public class MapTypeSchema : EntityTypeConfiguration<MapType>
+    public class ShareStatusTypeSchema : EntityTypeConfiguration<ShareStatusType>
     {
-        public MapTypeSchema()
+        public ShareStatusTypeSchema()
         {
-            //PK
-            HasKey(p => p.MapTypeId);
+            HasKey(p => p.ShareStatustypeId);
 
             Property(p => p.Name)
                 .HasMaxLength(30)
                 .IsRequired();
-
-            HasMany(p => p.Maps)
-                .WithOptional(p => p.MapType)
-                .HasForeignKey(p => p.MapTypeId);
-
         }
     }
 }

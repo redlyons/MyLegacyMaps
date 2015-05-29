@@ -7,6 +7,12 @@ namespace MyLegacyMaps.Models
 {
     public class Map
     {
+        public Map()
+        {
+            //prevent null ref exception
+            AdoptedMaps = new HashSet<AdoptedMap>();
+        }
+
         public int MapId { get; set; }
         public int? MapTypeId { get; set; }
         public virtual MapType MapType { get; set; }

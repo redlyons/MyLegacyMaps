@@ -13,7 +13,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShareStatus)
+            @Html.DisplayNameFor(model => model.ShareStatusTypeId)
         </th>        
     </tr>
 
@@ -23,7 +23,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShareStatus)
+            @Html.DisplayFor(modelItem => item.ShareStatusTypeId)
         </td>       
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.AdoptedMapId }) |

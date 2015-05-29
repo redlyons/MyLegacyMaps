@@ -64,6 +64,7 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "air-france.png",
                     Orientation = 1,
+                    MapTypeId = 5,
                     IsActive = true,
                     DateCreated = DateTime.Now
                 },    
@@ -120,6 +121,7 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "fishing.png",
                     Orientation = 1,
+                    MapTypeId =3,
                     IsActive = true,
                     DateCreated = DateTime.Now
                 },   
@@ -129,6 +131,7 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "fishing-bitteroot.png",
                     Orientation = 1,
+                    MapTypeId =3,
                     IsActive = true,
                     DateCreated = DateTime.Now
                 },    
@@ -147,6 +150,7 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "fishing-yellowstone.png",
                     Orientation = 1,
+                    MapTypeId =3,
                     IsActive = true,
                     DateCreated = DateTime.Now
                 }, 
@@ -156,6 +160,7 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "gibralter.png",
                     Orientation = 2,
+                     MapTypeId = 5,
                     IsActive = true,
                     DateCreated = DateTime.Now
                 },    
@@ -220,6 +225,7 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "yosemite.png",
                     Orientation = 1,
+                    MapTypeId = 4,
                     IsActive = true,
                     DateCreated = DateTime.Now
                 },   
@@ -233,39 +239,81 @@ namespace MyLegacyMaps.Migrations
             new FlagType
             {
                 FlagTypeId = 1,
-                Name = "Was Here"
+                Name = "Was Here",  
+                IsActive = true
             },
             new FlagType
             {
                 FlagTypeId = 2,
-                Name = "Here Now"
+                Name = "Here Now",  
+                IsActive = true
             },
             new FlagType
             {
                 FlagTypeId = 3,
-                Name = "Want To Go Here"
+                Name = "Want To Go Here",  
+                IsActive = true
             },
             new FlagType
             {
                 FlagTypeId = 4,
-                Name = "Custom Logo"
+                Name = "Custom Logo",  
+                IsActive = true
             },
         };
         #endregion
 
+        #region MapTypes
         List<MapType> _mapTypes = new List<MapType>
         {
             new MapType
             {
                 MapTypeId = 1,
-                Name = "Real Estate"
+                Name = "Real Estate",  
+                IsActive = true
             },
             new MapType
             {
                 MapTypeId = 2,
-                Name = "U.S. States"
+                Name = "U.S. States",  
+                IsActive = true
+            },
+            new MapType
+            {
+                MapTypeId = 3,
+                Name = "Fishing",  
+                IsActive = true
+            },
+            new MapType
+            {
+                MapTypeId = 4,
+                Name = "U.S. National Parks",  
+                IsActive = true
+            },
+            new MapType
+            { 
+                MapTypeId = 5,
+                Name = "Europe",  
+                IsActive = true            
             }
         };
+        #endregion
+
+        #region SharedStatusTypes
+        List<ShareStatusType> _shareStatusTypes = new List<ShareStatusType>
+        {
+            new ShareStatusType
+            {
+                ShareStatustypeId = 1,
+                Name = "Private"
+            },
+            new ShareStatusType
+            {
+                ShareStatustypeId = 2,
+                Name = "Public"
+            }
+        };
+        #endregion
 
         public Configuration()
         {

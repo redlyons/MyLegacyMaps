@@ -42,13 +42,13 @@ namespace MyLegacyMaps.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);           
-            var map = await db.Maps.FindAsync(adoptedMap.MapId);
-            if (adoptedMap == null || map == null)
+            //var map = await db.Maps.FindAsync(adoptedMap.MapId);
+            if (adoptedMap == null)// || map == null)
             {
                 return HttpNotFound();
             }
 
-            adoptedMap.Map = map;
+            //adoptedMap.Map = map;
             return View(adoptedMap);
         }
 
@@ -67,7 +67,7 @@ namespace MyLegacyMaps.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "UserId,MapId,Name,ShareStatus")] AdoptedMap adoptedMap)
+        public async Task<ActionResult> Create([Bind(Include = "UserId,MapId,Name,ShareStatusTypeId")] AdoptedMap adoptedMap)
         {            
             string userId = User.Identity.GetUserId();
             int mapId = 0;
@@ -80,7 +80,7 @@ namespace MyLegacyMaps.Controllers
                     MapId = mapId, 
                     UserId = userId, 
                     Name = data["mapName"],
-                    ShareStatus = 1
+                    ShareStatusTypeId = 1
                 };
                 db.AdoptedMaps.Add(adoptedMap);
                 await db.SaveChangesAsync();

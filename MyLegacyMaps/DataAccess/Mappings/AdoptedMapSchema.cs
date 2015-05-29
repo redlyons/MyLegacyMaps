@@ -8,24 +8,32 @@ namespace MyLegacyMaps.DataAccess.Mappings
     {
         public AdoptedMapSchema()
         {
+            //PK
             HasKey(p => p.AdoptedMapId);
 
+            //FK
             Property(p => p.UserId)
                 .IsRequired();
 
+            //FK
             Property(p => p.MapId)
                 .IsRequired();
 
-            HasRequired(p => p.Map);
-
+            //FK
+            Property(p => p.ShareStatusTypeId)
+                .IsRequired();
+            
             Property(p => p.Name)
                 .HasMaxLength(60)
                 .IsRequired();
 
-            
+            HasMany(p => p.Flags)
+                .WithRequired()
+                .HasForeignKey(am => am.AdoptedMapId);
+
+            HasRequired(p => p.Map);
            
-           // HasKey(p => p.MapId);
-           // HasKey(p => p.UserId);
+          
         }
     }
 }

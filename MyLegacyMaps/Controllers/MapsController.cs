@@ -26,6 +26,8 @@ namespace MyLegacyMaps.Controllers
 
             return View(mapList.OrderBy(m => m.Name));
         }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult>Index(FormCollection values)
         {

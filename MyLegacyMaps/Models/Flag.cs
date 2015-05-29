@@ -6,12 +6,11 @@ namespace MyLegacyMaps.Models
 {
     public class Flag
     {
-        [Key]
         public int FlagId { get; set; }
         public int FlagTypeId { get; set; }
         public int AdoptedMapId { get; set; }       
         public string Name { get; set; }
-        public double Xpos { get; set; }
-        public double Ypos { get; set; }
+        public decimal Xpos { get; set; }
+        public decimal Ypos { get; set; }
     }
 }

@@ -24,16 +24,18 @@ namespace MyLegacyMaps.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<AdoptedMap>().Ignore(a => a.FileName);
-           
             modelBuilder.Configurations.Add(new MapSchema());
+            modelBuilder.Configurations.Add(new MapTypeSchema());
             modelBuilder.Configurations.Add(new AdoptedMapSchema());
+            modelBuilder.Configurations.Add(new FlagSchema());
+            modelBuilder.Configurations.Add(new FlagTypeSchema());
+            modelBuilder.Configurations.Add(new ShareStatusTypeSchema()); 
            
-               
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            base.OnModelCreating(modelBuilder);
+                    
         }
        
         public DbSet<Map> Maps { get; set; }
@@ -41,5 +43,6 @@ namespace MyLegacyMaps.DataAccess
         public DbSet<Flag> Flags { get; set; }
         public DbSet<FlagType> FlagTypes { get; set; }
         public DbSet<MapType> MapTypes { get; set; }
+        public DbSet<ShareStatusType> SharedStatusTypes { get; set; }
     }
 }

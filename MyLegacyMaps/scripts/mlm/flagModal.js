@@ -22,6 +22,8 @@
     // Open the modal
     method.open = function (settings) {
         $content.empty().append(settings.content);
+
+        //stash flag coordinates for use on post
         $modal.attr('data-xpos', $(settings.element).attr('data-xpos'));
         $modal.attr('data-ypos', $(settings.element).attr('data-ypos'));
         $modal.css({

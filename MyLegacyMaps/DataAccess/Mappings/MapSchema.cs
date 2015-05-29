@@ -8,6 +8,9 @@ namespace MyLegacyMaps.DataAccess.Mappings
     {
         public MapSchema()
         {
+            //PK
+            HasKey(p => p.MapId);
+
             Property(p => p.Name)
                 .HasMaxLength(60)
                 .IsRequired();

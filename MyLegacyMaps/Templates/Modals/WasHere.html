@@ -13,7 +13,7 @@
     $('#btnBuyNow').click(function () {
         var xPos = $('#modal').attr('data-xpos');
         var yPos = $('#modal').attr('data-ypos');
-        alert('x = ' + xPos + ' y= ' + yPos);
+        //alert('x = ' + xPos + ' y= ' + yPos);
         var myData = {
             adoptedMapId: $('#adoptedMapId').val(),
             flagTypeId: 1,
@@ -27,7 +27,7 @@
             contentType: 'application/json',
             data: JSON.stringify(myData),
             success: function (data) { alert('success'); },
-            error: function (data) { alert(data); }
+            error: function (data) { alert('error'); }
         });
     });
 </script>

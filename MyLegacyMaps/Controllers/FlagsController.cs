@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyLegacyMaps.DataAccess;
+using MyLegacyMaps.DataAccess.Resources;
 using MyLegacyMaps.Models;
 
 namespace MyLegacyMaps.Controllers
@@ -50,8 +51,20 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         //[ValidateAntiForgeryToken]
         //public Task<bool> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos")] Flag flag)
-        public ActionResult Create(int adoptedMapId, int flagTypeId, int xPos, int yPos)
+        public ActionResult Create(int adoptedMapId, int flagTypeId, decimal xPos, decimal yPos)
         {
+            var newFlag = new Flag
+            {
+                AdoptedMapId = adoptedMapId,
+                FlagTypeId = flagTypeId,
+                Xpos = xPos,
+                Ypos = yPos
+            };
+
+            var statusCode = (FlagResource.AddFlag(newFlag))
+                ? HttpStatusCode.OK
+                : HttpStatusCode.InternalServerError;
+                
             //if (ModelState.IsValid)
             //{
             //    db.Flags.Add(flag);
@@ -60,7 +73,7 @@ namespace MyLegacyMaps.Controllers
             //}
 
             //return Task.FromResult<bool>(true);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return new HttpStatusCodeResult(statusCode);
         }
 
         // GET: Flags/Edit/5
