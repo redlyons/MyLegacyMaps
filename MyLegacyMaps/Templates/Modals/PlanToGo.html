@@ -1,0 +1,33 @@
+﻿<div id='dlgWasHere' style="height:320px; width:300px; padding:0px 10px;">
+    <p style="text-align:center;"><strong>Travel Way Point</strong></p>
+    <strong>Date:</strong> <input type="text" /> <br>
+    <strong>Place:</strong> <input type="text" /><br>
+    <strong>Videos:</strong> <input type="text" /> <br />
+    <strong>Pictures:</strong> <input type="text" /> <br />
+    <strong>Travel Journal Entry:</strong> <textarea rows="4" cols="100" /> <br /> <br />
+    <p style="text-align:center">
+        <a id="btnBuyNow" href="#" class="tryitbtn">Buy Now !!!</a>        
+    </p>
+</div>
+<script type="text/javascript">
+    $('#btnBuyNow').click(function () {
+        var xPos = $('#modal').attr('data-xpos');
+        var yPos = $('#modal').attr('data-ypos');
+        //alert('x = ' + xPos + ' y= ' + yPos);
+        var myData = {
+            adoptedMapId: $('#adoptedMapId').val(),
+            flagTypeId: 3,
+            xPos: xPos,
+            yPos: yPos,
+        }
+        $.ajax({
+            url: window.location.origin + "/flags/create/",
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (data) { alert('success'); },
+            error: function (data) { alert('error'); }
+        });
+    });
+</script>

@@ -1,18 +1,19 @@
-﻿.redflag {
+﻿.flgWasHere {
     background-image: url("../../images/icons/red-flag.png");
+
 }
-.blueflag {
+.flgHereNow {
     background-image: url("../../images/icons/checked-flag.png");
 } 
-.greenflag {
+.flgPlanToGo {
     background-image: url("../../images/icons/yellow-flag.png");
 } 
-.customLogo {
+.flgCustomLogo {
     background-image: url("../../images/icons/enterprise-logo.png");
 }   
 
 .makeMeDraggable {
-    position: relative;
+    position: fixed;
     width: 200px;
     height: 150px;
     left: 100px;

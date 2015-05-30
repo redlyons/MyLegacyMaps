@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Adopted Map";
+    var flagElem = "\"<div class='makeMeDraggable {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
+                         "style='{3}' title='Name:      Date:   '></div>\"";                        
 }
 
 @section Scripts{
@@ -17,6 +19,20 @@
 @Html.AntiForgeryToken();
 @Html.Hidden("adoptedMapId", Model.AdoptedMapId);
 @Html.Hidden("mapFileName", Model.Map.FileName);
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        @foreach(var flag in @Model.Flags)
+        {                        
+            var elem =
+                String.Format(flagElem,flag.GetCssClass(),flag.Xpos,flag.Ypos,flag.GetStyle());
+           
+            @Html.Raw(String.Format("$('#content').append({0}); MLM.wireUpFlags();", elem));
+        }
+    });
+</script>
+
+
 
 
 

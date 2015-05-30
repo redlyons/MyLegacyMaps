@@ -22,16 +22,6 @@ namespace MyLegacyMaps.DataAccess.Mappings
             Property(p => p.Name)
                 .HasMaxLength(100)
                 .IsOptional();
-
-            Property(p => p.Xpos)
-                .HasPrecision(10, 2)
-                .IsRequired();
-
-            Property(p => p.Ypos)
-                .HasPrecision(10, 2)
-                .IsRequired();
-
-
         }
 
     }

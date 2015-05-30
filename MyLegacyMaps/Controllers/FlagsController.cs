@@ -51,7 +51,7 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         //[ValidateAntiForgeryToken]
         //public Task<bool> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos")] Flag flag)
-        public ActionResult Create(int adoptedMapId, int flagTypeId, decimal xPos, decimal yPos)
+        public ActionResult Create(int adoptedMapId, int flagTypeId, int xPos, int yPos)
         {
             var newFlag = new Flag
             {
