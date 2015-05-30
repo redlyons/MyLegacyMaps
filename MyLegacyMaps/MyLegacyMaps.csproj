@@ -289,9 +289,13 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Templates\Modals\EditCustomLogo.html" />
     <Content Include="Templates\Modals\CustomLogo.html" />
+    <Content Include="Templates\Modals\EditHereNow.html" />
     <Content Include="Templates\Modals\HereNow.html" />
+    <Content Include="Templates\Modals\EditPlanToGo.html" />
     <Content Include="Templates\Modals\PlanToGo.html" />
+    <Content Include="Templates\Modals\EditWasHere.html" />
     <Content Include="Templates\Modals\WasHere.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

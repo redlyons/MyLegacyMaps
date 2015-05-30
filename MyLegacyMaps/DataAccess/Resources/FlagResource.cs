@@ -15,25 +15,30 @@ namespace MyLegacyMaps.DataAccess.Resources
     {
        
 
-        static public bool AddFlag(Flag flag)
+        static public async Task<bool> AddFlag(Flag flag)
         {
-            if (flag == null) return false;
+            if(flag == null)
+            {                
+                return await Task.FromResult(false);
+            }
 
+            var result = false;
             try
             {
                 using (var context = new MyLegacyMapsContext())
                 {
                     context.Flags.Add(flag);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
-
-                return true;
+                result = true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                return false;
+                result = false;
+               
             }
+            return await Task.FromResult(result);
 
         }
 

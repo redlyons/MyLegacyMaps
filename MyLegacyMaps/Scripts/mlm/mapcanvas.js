@@ -2,12 +2,11 @@
 var MLM = {}
 MLM.MapCanvas = (function () {
     
-    var flgWasHere = "<div class='makeMeDraggable flgWasHere masterTooltip' data-xpos='50' data-ypos='50' title='Name:      Date:   '></div>";
-    var flgHereNow = "<div class='makeMeDraggable flgHereNow masterTooltip' data-xpos='50' data-ypos='50' title='Name:      Date:   '></div>";
-    var flgPlanToGo = "<div class='makeMeDraggable flgPlanToGo masterTooltip' data-xpos='50' data-ypos='50'  title='Name:      Date:   '></div>";
-    var flgCustomLogo = "<div class='makeMeDraggable flgCustomLogo masterTooltip' data-xpos='50' data-ypos='50' title='Name:      Date:   ' style='height:75px; width:550px;'></div>"
-    var flagId = 1;
-
+    var flgWasHere = "<div class='makeMeDraggable flgWasHere masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='1' title='Name:      Date:   '></div>";
+    var flgHereNow = "<div class='makeMeDraggable flgHereNow masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='2' title='Name:      Date:   '></div>";
+    var flgPlanToGo = "<div class='makeMeDraggable flgPlanToGo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='3'  title='Name:      Date:   '></div>";
+    var flgCustomLogo = "<div class='makeMeDraggable flgCustomLogo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='4' title='Name:      Date:   ' style='height:75px; width:550px;'></div>"
+    
     return {
 
         init: function () {
@@ -20,8 +19,7 @@ MLM.MapCanvas = (function () {
 
         wireUpButtonEvents: function () {
             $("#btnWasHere").click(function () {
-                $(flgWasHere).attr("id", "flag" + flagId++).appendTo("#content");
-                //$("#content").append(flgWasHere.attr);
+                $(flgWasHere).appendTo("#content");
                 MLM.MapCanvas.wireUpFlags();
             });
             $("#btnHereNow").click(function () {
@@ -73,14 +71,21 @@ MLM.MapCanvas = (function () {
             $(".makeMeDraggable").click(function () {
                 var flag = this;
                 var template = "";
+                var adoptedMapId = ($('#adoptedMapId') != null)?  $('#adoptedMapId').val() : 0;
+                var flagId = ($(flag).attr("data-flagid") != null)? $(flag).attr("data-flagid") : 0;
+                
                 if ($(flag).hasClass('flgWasHere')) template = 'WasHere.html';
                 else if ($(flag).hasClass('flgHereNow')) template = 'HereNow.html';
                 else if ($(flag).hasClass('flgPlanToGo')) template = 'PlanToGo.html';
                 else if ($(flag).hasClass('flgCustomLogo')) template = 'CustomLogo.html';
                 else return;
+                
+                if (adoptedMapId > 0 && flagId > 0) {
+                    template = "Edit" + template;
+                }               
 
                 $.get('../../templates/modals/' + template, function (data) {
-                    MLM.Modal.open({ content: data, element: flag });
+                    MLM.Modal.open({ content: data, element: flag, adoptedMapId: adoptedMapId });
                 });
             });
 
@@ -105,7 +110,17 @@ MLM.Modal = (function () {
     $overlay,
     $modal,
     $content,
-    $close;
+    $close,
+    flag = {
+        adoptedMapId: 0,
+        flagId: 0,
+        flagTypeId: 0,
+        yPos: 0,
+        xPos: 0,
+        name: ''
+    },
+    flagElement,
+    token;
 
     // Center the modal in the viewport
     method.center = function () {
@@ -122,11 +137,22 @@ MLM.Modal = (function () {
 
     // Open the modal
     method.open = function (settings) {
+
+        var form = $('#__AjaxAntiForgeryForm');
+        token = $('input[name="__RequestVerificationToken"]', form).val();
+
         $content.empty().append(settings.content);
 
         //stash flag coordinates for use on post
-        $modal.attr('data-xpos', $(settings.element).attr('data-xpos'));
-        $modal.attr('data-ypos', $(settings.element).attr('data-ypos'));
+        flag.adoptedMapId = settings.adoptedMapId;
+        flag.flagId = $(settings.element).attr('data-flagid');
+        flag.flagTypeId = $(settings.element).attr('data-flagtypeid');
+        flag.xPos = $(settings.element).attr('data-xpos');
+        flag.yPos = $(settings.element).attr('data-ypos');
+        flagElement = $(settings.element);
+
+        //$modal.attr('data-xpos', $(settings.element).attr('data-xpos'));
+        //$modal.attr('data-ypos', $(settings.element).attr('data-ypos'));
         $modal.css({
             width: settings.width || 'auto',
             height: settings.height || 'auto'
@@ -144,6 +170,47 @@ MLM.Modal = (function () {
         $overlay.hide();
         $content.empty();
         $(window).unbind('resize.modal');
+    };
+
+    method.buyNow = function (data) {
+        $.ajax({
+            url: window.location.origin + "/flags/create/",
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                flagTypeId: flag.flagTypeId,
+                adoptedMapId: flag.adoptedMapId,
+                name: data.name,
+                xPos: flag.xPos,
+                yPos: flag.yPos
+            },
+            success: function (data) {
+                method.close();
+            },
+            error: function (data) {
+                alert('error');
+            }
+        });
+    };
+
+    method.saveFlag = function (data) {
+
+    };
+
+    method.deleteFlag = function () {
+        $.ajax({
+            url: window.location.origin + "/flags/delete/?id=" + flag.flagId,
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+            },
+            success: function (data) {
+                flagElement.remove();
+                method.close();
+            },
+            error: function (data) { alert('error'); }
+        });
+
     };
 
     // Generate the HTML and add it to the document
@@ -164,6 +231,8 @@ MLM.Modal = (function () {
         e.preventDefault();
         method.close();
     });
+
+    
 
     return method;
 }());

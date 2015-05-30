@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Adopted Map";
     var flagElem = "\"<div class='makeMeDraggable {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
-                         "style='{3}' title='Name:      Date:   '></div>\"";                        
+                         "data-flagtypeid={3} style='{4}' title='Name:      Date:   ' data-flagId={5}></div>\"";                        
 }
 
 @section Scripts{
@@ -11,20 +11,21 @@
     <script src="~/scripts/mlm/mapcanvas.js"></script>   
 }
 
-
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.Hidden("adoptedMapId", Model.AdoptedMapId);
+    @Html.Hidden("mapFileName", Model.Map.FileName);@Html.AntiForgeryToken()
+}
 
 @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml")
-
-@Html.AntiForgeryToken();
-@Html.Hidden("adoptedMapId", Model.AdoptedMapId);
-@Html.Hidden("mapFileName", Model.Map.FileName);
 
 <script type="text/javascript">
     $(document).ready(function () {
         @foreach(var flag in @Model.Flags)
         {                        
             var elem =
-                String.Format(flagElem,flag.GetCssClass(),flag.Xpos,flag.Ypos,flag.GetStyle());
+                String.Format(flagElem,flag.GetCssClass(),flag.Xpos,flag.Ypos,flag.FlagTypeId,flag.GetStyle(),flag.FlagId);
            
             @Html.Raw(String.Format("$('#content').append({0}); MLM.MapCanvas.wireUpFlags();", elem));
         }

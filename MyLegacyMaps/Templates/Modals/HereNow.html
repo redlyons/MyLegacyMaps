@@ -11,23 +11,10 @@
 </div>
 <script type="text/javascript">
     $('#btnBuyNow').click(function () {
-        var xPos = $('#modal').attr('data-xpos');
-        var yPos = $('#modal').attr('data-ypos');
-        //alert('x = ' + xPos + ' y= ' + yPos);
-        var myData = {
-            adoptedMapId: $('#adoptedMapId').val(),
-            flagTypeId: 2,
-            xPos: xPos,
-            yPos: yPos,
-        }
-        $.ajax({
-            url: window.location.origin + "/flags/create/",
-            type: 'POST',
-            dataType: "json",
-            contentType: 'application/json',
-            data: JSON.stringify(myData),
-            success: function (data) { alert('success'); },
-            error: function (data) { alert('error'); }
-        });
+        var data = {
+            name: $('#txtPlace').val()
+        };
+
+        MLM.Modal.buyNow(data);
     });
 </script>

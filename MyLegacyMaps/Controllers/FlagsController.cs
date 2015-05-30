@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web;
+using System.Web.Routing;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyLegacyMaps.DataAccess;
@@ -46,34 +47,24 @@ namespace MyLegacyMaps.Controllers
         //}
 
         // POST: Flags/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public Task<bool> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos")] Flag flag)
-        public ActionResult Create(int adoptedMapId, int flagTypeId, int xPos, int yPos)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos")] Flag flag)
         {
-            var newFlag = new Flag
+            try
             {
-                AdoptedMapId = adoptedMapId,
-                FlagTypeId = flagTypeId,
-                Xpos = xPos,
-                Ypos = yPos
-            };
-
-            var statusCode = (FlagResource.AddFlag(newFlag))
-                ? HttpStatusCode.OK
-                : HttpStatusCode.InternalServerError;
-                
-            //if (ModelState.IsValid)
-            //{
-            //    db.Flags.Add(flag);
-            //    await db.SaveChangesAsync();
-            //    return RedirectToAction("Index");
-            //}
-
-            //return Task.FromResult<bool>(true);
-            return new HttpStatusCodeResult(statusCode);
+                if (ModelState.IsValid)
+                {
+                    db.Flags.Add(flag);
+                    await db.SaveChangesAsync();
+                    return new HttpStatusCodeResult(HttpStatusCode.OK);
+                }                
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            catch(Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: Flags/Edit/5
@@ -96,15 +87,15 @@ namespace MyLegacyMaps.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "FlagId,FlagTypeId,AdoptedMapId,Name,Xpos,Ypos")] Flag flag)
+        public ActionResult Edit([Bind(Include = "Name,Xpos,Ypos")] int flagId, string name, int xPos, int yPos)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(flag).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(flag);
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(flag).State = EntityState.Modified;
+            //    await db.SaveChangesAsync();
+            //    return RedirectToAction("Index");
+            //}
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         // GET: Flags/Delete/5
@@ -127,10 +118,20 @@ namespace MyLegacyMaps.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Flag flag = await db.Flags.FindAsync(id);
-            db.Flags.Remove(flag);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                Flag flag = await db.Flags.FindAsync(id);
+                if (flag != null)
+                {
+                    db.Flags.Remove(flag);
+                    await db.SaveChangesAsync();
+                }
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         protected override void Dispose(bool disposing)
