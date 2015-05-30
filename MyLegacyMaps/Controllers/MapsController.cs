@@ -59,6 +59,7 @@ namespace MyLegacyMaps.Controllers
 
             //save selection state in cookie
             HttpCookie cookie = new HttpCookie(MAPTYPEID_COOKIE, mapTypeId.ToString());
+            cookie.HttpOnly = true;
             this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
 
             //get map type drop down options
