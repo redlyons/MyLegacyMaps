@@ -6,12 +6,16 @@
     <strong>Pictures:</strong> <input id="txtFlagGalleryUrl" type="text" /> <br />
     <strong>Travel Journal Entry:</strong> <textarea id="txtFlagDescription" rows="4" cols="100" /> <br /> <br />
     <p style="text-align:center">
-        <a id="btnBuyNow" href="#" class="tryitbtn">Buy Now !!!</a>
+        <a id="btnSaveFlag" href="#">Save</a>
+        <a id="btnDeleteFlag" href="#">Delete</a>
     </p>
 </div>
 <script type="text/javascript">
-    $('#btnBuyNow').click(function () {
-        MLM.Modal.buyNow();
+    $('#btnSaveFlag').click(function () {
+        MLM.Modal.saveFlag();
+    });
+    $('#btnDeleteFlag').click(function () {
+        MLM.Modal.deleteFlag();
     });
     $(function () {
         $("#txtFlagDate").datepicker();

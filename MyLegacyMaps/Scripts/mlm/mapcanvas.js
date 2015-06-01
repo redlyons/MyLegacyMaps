@@ -117,7 +117,11 @@ MLM.Modal = (function () {
         flagTypeId: 0,
         yPos: 0,
         xPos: 0,
-        name: ''
+        name: '',
+        description: '',
+        videoUrl: '',
+        date: ''
+
     },
     flagElement,
     token;
@@ -151,8 +155,10 @@ MLM.Modal = (function () {
         flag.yPos = $(settings.element).attr('data-ypos');
         flagElement = $(settings.element);
 
-        //$modal.attr('data-xpos', $(settings.element).attr('data-xpos'));
-        //$modal.attr('data-ypos', $(settings.element).attr('data-ypos'));
+        if (flag.flagId != null){
+            method.getFlag(flag.flagId);           
+        }
+       
         $modal.css({
             width: settings.width || 'auto',
             height: settings.height || 'auto'
@@ -172,15 +178,18 @@ MLM.Modal = (function () {
         $(window).unbind('resize.modal');
     };
 
-    method.buyNow = function (data) {
-        $.ajax({
+    method.buyNow = function () {
+       $.ajax({
             url: window.location.origin + "/flags/create/",
             type: 'POST',
             data: {
                 __RequestVerificationToken: token,
                 flagTypeId: flag.flagTypeId,
                 adoptedMapId: flag.adoptedMapId,
-                name: data.name,
+                name: $('#txtFlagName').val(),
+                description: $('#txtFlagDescription').val(),
+                videoUrl: $('#txtFlagVideoUrl').val(),
+                date: $('#txtFlagDate').val(),
                 xPos: flag.xPos,
                 yPos: flag.yPos
             },
@@ -188,14 +197,61 @@ MLM.Modal = (function () {
                 method.close();
             },
             error: function (data) {
-                alert('error');
+                console.log('error on create');
             }
         });
     };
 
     method.saveFlag = function (data) {
+        $.ajax({
+            url: window.location.origin + "/flags/edit/",
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                flagId: flag.flagId,
+                flagTypeId: flag.flagTypeId,
+                adoptedMapId: flag.adoptedMapId,
+                name: $('#txtFlagName').val(),
+                description: $('#txtFlagDescription').val(),
+                videoUrl: $('#txtFlagVideoUrl').val(),
+                date: $('#txtFlagDate').val(),
+                xPos: flag.xPos,
+                yPos: flag.yPos
+            },
+            success: function (data) {
+                method.close();
+            },
+            error: function (data) {
+                console.log("error on save");
+            }
+        });
 
     };
+
+    method.getFlag = function (flagId) {
+        $.ajax({
+            url: window.location.origin + "/flags/details/" + flagId,
+            type: 'GET',
+            success: function (data) {
+                flag.name = data.Name;
+                flag.description = data.Description;
+                flag.videoUrl = data.VideoUrl;
+                flag.date = data.Date;
+
+                if (flag.name != null)
+                    $('#txtFlagName').val(flag.name).html();
+                if (flag.videoUrl != null)
+                    $('#txtFlagVideoUrl').val(flag.videoUrl).html();
+                if (flag.description != null)
+                    $('#txtFlagDescription').val(flag.description).html();
+                if (flag.date != null)
+                    $('#txtFlagDate').datepicker("setDate", new Date( parseInt(flag.date.substr(6))));
+            },
+            error: function (data) {                
+                console.log("get flag error");
+            }
+        });
+    },
 
     method.deleteFlag = function () {
         $.ajax({
@@ -208,10 +264,12 @@ MLM.Modal = (function () {
                 flagElement.remove();
                 method.close();
             },
-            error: function (data) { alert('error'); }
+            error: function (data) {
+                console.log("delete flag error")
+            }
         });
 
-    };
+    };   
 
     // Generate the HTML and add it to the document
     $overlay = $('<div id="overlay"></div>');
@@ -224,15 +282,12 @@ MLM.Modal = (function () {
     $modal.append($content, $close);
 
     $(document).ready(function () {
-        $('body').append($overlay, $modal);
+        $('body').append($overlay, $modal);        
     });
 
     $close.click(function (e) {
         e.preventDefault();
         method.close();
     });
-
-    
-
     return method;
 }());

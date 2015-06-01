@@ -394,12 +394,12 @@ namespace MyLegacyMaps.Migrations
         {
             new ShareStatusType
             {
-                ShareStatustypeId = 1,
+                ShareStatusTypeId = 1,
                 Name = "Private"
             },
             new ShareStatusType
             {
-                ShareStatustypeId = 2,
+                ShareStatusTypeId = 2,
                 Name = "Public"
             }
         };

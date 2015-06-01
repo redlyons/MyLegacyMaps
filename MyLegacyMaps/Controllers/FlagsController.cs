@@ -22,39 +22,57 @@ namespace MyLegacyMaps.Controllers
         // GET: Flags
         public async Task<ActionResult> Index()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             return View(await db.Flags.ToListAsync());
         }
 
         // GET: Flags/Details/5
+        [HttpGet]
         public async Task<ActionResult> Details(int? id)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Flag flag = await db.Flags.FindAsync(id);
+            var flag = await db.Flags.FindAsync(id);
             if (flag == null)
             {
                 return HttpNotFound();
             }
-            return View(flag);
+            var adoptedMap = await db.AdoptedMaps.FindAsync(flag.AdoptedMapId);
+            if(adoptedMap == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+            if(adoptedMap.UserId != User.Identity.GetUserId())
+            {
+                return new HttpUnauthorizedResult();
+            }
+            return Json(flag, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Flags/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
+       
         // POST: Flags/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos")] Flag flag)
+        public async Task<ActionResult> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos,Date,Description,VideoUrl,")] Flag flag)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             try
             {
                 if (ModelState.IsValid)
                 {
+                    flag.CreatedDate = flag.ModifiedDate = DateTime.Now;
                     db.Flags.Add(flag);
                     await db.SaveChangesAsync();
                     return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -68,39 +86,66 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: Flags/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Flag flag = await db.Flags.FindAsync(id);
-            if (flag == null)
-            {
-                return HttpNotFound();
-            }
-            return View(flag);
-        }
+        //public async Task<ActionResult> Edit(int? id)
+        //{
+        //    if (!HttpContext.User.Identity.IsAuthenticated)
+        //    {
+        //        return new HttpUnauthorizedResult();
+        //    }
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Flag flag = await db.Flags.FindAsync(id);
+        //    if (flag == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(flag);
+        //}
 
-        // POST: Flags/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Flags/Edit/5      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Name,Xpos,Ypos")] int flagId, string name, int xPos, int yPos)
+        public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId,FlagId,FlagTypeId,Name,Xpos,Ypos,Date,Description,VideoUrl")] Flag flag)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(flag).State = EntityState.Modified;
-            //    await db.SaveChangesAsync();
-            //    return RedirectToAction("Index");
-            //}
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
+            try
+            {
+                var adoptedMap = await db.AdoptedMaps.FindAsync(flag.AdoptedMapId);
+                if (adoptedMap == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                }
+                if (adoptedMap.UserId != User.Identity.GetUserId())
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                if (ModelState.IsValid)
+                {
+                    flag.ModifiedDate = DateTime.Now;
+                    db.Entry(flag).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return new HttpStatusCodeResult(HttpStatusCode.OK);
+                }
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            catch(Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: Flags/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -118,6 +163,10 @@ namespace MyLegacyMaps.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             try
             {
                 Flag flag = await db.Flags.FindAsync(id);

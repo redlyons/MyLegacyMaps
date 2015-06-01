@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Adopted Map";
     var flagElem = "\"<div class='makeMeDraggable {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
-                         "data-flagtypeid={3} style='{4}' title='Name:      Date:   ' data-flagId={5}></div>\"";                        
+                         "data-flagtypeid={3} data-flagId={4} style='{5}' title='Name: {6} Date: {7} ' ></div>\"";                        
 }
 
 @section Scripts{
@@ -25,7 +25,15 @@
         @foreach(var flag in @Model.Flags)
         {                        
             var elem =
-                String.Format(flagElem,flag.GetCssClass(),flag.Xpos,flag.Ypos,flag.FlagTypeId,flag.GetStyle(),flag.FlagId);
+                String.Format(flagElem,
+                              flag.GetCssClass(),
+                              flag.Xpos,
+                              flag.Ypos,
+                              flag.FlagTypeId,
+                              flag.FlagId,
+                              flag.GetStyle(),
+                              @Html.AttributeEncode(flag.Name),
+                              (flag.Date.HasValue)? flag.Date.Value.ToShortDateString() : "");
            
             @Html.Raw(String.Format("$('#content').append({0}); MLM.MapCanvas.wireUpFlags();", elem));
         }

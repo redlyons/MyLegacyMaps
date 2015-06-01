@@ -21,8 +21,10 @@ namespace MyLegacyMaps.Controllers
         // GET: AdoptedMaps
         public async Task<ActionResult> Index()
         {
-
-
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             string userId = User.Identity.GetUserId();
             var result = db.AdoptedMaps.Where(a => a.UserId == userId);
 
@@ -37,6 +39,10 @@ namespace MyLegacyMaps.Controllers
         // GET: AdoptedMaps/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -68,7 +74,12 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "UserId,MapId,Name,ShareStatusTypeId")] AdoptedMap adoptedMap)
-        {            
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             string userId = User.Identity.GetUserId();
             int mapId = 0;
             var data = HttpContext.Request.Form;
@@ -99,6 +110,10 @@ namespace MyLegacyMaps.Controllers
         // GET: AdoptedMaps/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -118,6 +133,10 @@ namespace MyLegacyMaps.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId,UserId,MapId,Name,ShareStatus")] AdoptedMap adoptedMap)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(adoptedMap).State = EntityState.Modified;
@@ -130,6 +149,10 @@ namespace MyLegacyMaps.Controllers
         // GET: AdoptedMaps/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return new HttpUnauthorizedResult();
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

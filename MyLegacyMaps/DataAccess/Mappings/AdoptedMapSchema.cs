@@ -32,6 +32,7 @@ namespace MyLegacyMaps.DataAccess.Mappings
                 .HasForeignKey(am => am.AdoptedMapId);
 
             HasRequired(p => p.Map);
+            HasRequired(p => p.ShareStatusType);
            
           
         }

@@ -7,7 +7,9 @@ namespace MyLegacyMaps.Models
 {
     public class ShareStatusType
     {
-        public int ShareStatustypeId { get; set; }
+        public int ShareStatusTypeId { get; set; }
         public string Name { get; set; }
+
+        public virtual ICollection<AdoptedMap> AdoptedMaps { get; set; }
     }
 }

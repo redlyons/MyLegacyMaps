@@ -22,6 +22,8 @@ namespace MyLegacyMaps.DataAccess.Mappings
             Property(p => p.Name)
                 .HasMaxLength(100)
                 .IsOptional();
+
+            
         }
 
     }

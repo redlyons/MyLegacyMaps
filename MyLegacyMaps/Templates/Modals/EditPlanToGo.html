@@ -1,13 +1,13 @@
 ﻿<div id='dlgWasHere' style="height:320px; width:300px; padding:0px 10px;">
-    <p style="text-align:center;"><strong>Travel Way Point</strong></p>
-    <strong>Date:</strong> <input type="text" /> <br>
-    <strong>Place:</strong> <input type="text" /><br>
-    <strong>Videos:</strong> <input type="text" /> <br />
-    <strong>Pictures:</strong> <input type="text" /> <br />
-    <strong>Travel Journal Entry:</strong> <textarea rows="4" cols="100" /> <br /> <br />
+    <p style="text-align:center;"><strong>Travel Way Point - Plan To Go</strong></p>
+    <strong>Date:</strong> <input id="txtFlagDate" type="text" /> <br>
+    <strong>Place:</strong> <input id="txtFlagName" type="text" /><br>
+    <strong>Videos:</strong> <input id="txtFlagVideoUrl" type="text" /> <br />
+    <strong>Pictures:</strong> <input id="txtFlagGalleryUrl" type="text" /> <br />
+    <strong>Travel Journal Entry:</strong> <textarea id="txtFlagDescription" rows="4" cols="100" /> <br /> <br />
     <p style="text-align:center">
         <a id="btnSaveFlag" href="#">Save</a>
-        <a id="btnDeleteFlag" href="#">Delete</a>     
+        <a id="btnDeleteFlag" href="#">Delete</a>
     </p>
 </div>
 <script type="text/javascript">
@@ -16,5 +16,8 @@
     });
     $('#btnDeleteFlag').click(function () {
         MLM.Modal.deleteFlag();
+    });
+    $(function () {
+        $("#txtFlagDate").datepicker();
     });
 </script>

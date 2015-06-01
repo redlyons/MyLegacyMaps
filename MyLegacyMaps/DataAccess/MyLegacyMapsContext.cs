@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace MyLegacyMaps.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
             modelBuilder.Configurations.Add(new MapSchema());
             modelBuilder.Configurations.Add(new MapTypeSchema());
             modelBuilder.Configurations.Add(new AdoptedMapSchema());

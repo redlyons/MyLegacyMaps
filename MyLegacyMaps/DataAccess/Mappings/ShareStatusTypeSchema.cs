@@ -9,11 +9,16 @@ namespace MyLegacyMaps.DataAccess.Mappings
     {
         public ShareStatusTypeSchema()
         {
-            HasKey(p => p.ShareStatustypeId);
+            //PK
+            HasKey(p => p.ShareStatusTypeId);
 
             Property(p => p.Name)
                 .HasMaxLength(30)
                 .IsRequired();
+
+            HasMany(p => p.AdoptedMaps)
+                .WithRequired(p => p.ShareStatusType)
+                .HasForeignKey(p => p.ShareStatusTypeId);
         }
     }
 }

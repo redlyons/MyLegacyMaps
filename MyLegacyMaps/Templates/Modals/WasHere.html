@@ -1,20 +1,19 @@
 ﻿<div id='dlgWasHere' style="height:320px; width:300px; padding:0px 10px;">
-    <p style="text-align:center;"><strong>Travel Way Point</strong></p>
-    <strong>Date:</strong> <input type="text" /> <br>
-    <strong>Place:</strong> <input type="text" /><br>
-    <strong>Videos:</strong> <input type="text" /> <br />
-    <strong>Pictures:</strong> <input type="text" /> <br />
-    <strong>Travel Journal Entry:</strong> <textarea rows="4" cols="100" /> <br /> <br />
+    <p style="text-align:center;"><strong>Travel Way Point - Was Here</strong></p>
+    <strong>Date:</strong> <input id="txtFlagDate" type="text" /> <br>
+    <strong>Place:</strong> <input id="txtFlagName" type="text" /><br>
+    <strong>Videos:</strong> <input id="txtFlagVideoUrl" type="text" /> <br />
+    <strong>Pictures:</strong> <input id="txtFlagGalleryUrl" type="text" /> <br />
+    <strong>Travel Journal Entry:</strong> <textarea id="txtFlagDescription" rows="4" cols="100" /> <br /> <br />
     <p style="text-align:center">
         <a id="btnBuyNow" href="#" class="tryitbtn">Buy Now !!!</a>        
     </p>
 </div>
 <script type="text/javascript">
-    $('#btnBuyNow').click(function () {
-        var data = {
-            name: $('#txtPlace').val()
-        };
-
-        MLM.Modal.buyNow(data);
+    $('#btnBuyNow').click(function () {        
+        MLM.Modal.buyNow();
+    });
+    $(function () {
+        $("#txtFlagDate").datepicker();
     });
 </script>

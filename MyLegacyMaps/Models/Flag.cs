@@ -14,6 +14,11 @@ namespace MyLegacyMaps.Models
         public string Name { get; set; }
         public int Xpos { get; set; }
         public int Ypos { get; set; }
+        public string Description { get; set; }
+        public string VideoUrl { get; set; }
+        public DateTime? Date { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         public string GetCssClass()
         {

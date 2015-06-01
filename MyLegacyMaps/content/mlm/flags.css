@@ -13,7 +13,7 @@
 }   
 
 .makeMeDraggable {
-    position: fixed;
+    position: absolute;
     width: 200px;
     height: 150px;
     left: 100px;
