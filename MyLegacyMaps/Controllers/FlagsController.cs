@@ -17,45 +17,52 @@ namespace MyLegacyMaps.Controllers
 {
     public class FlagsController : Controller
     {
-        private MyLegacyMapsContext db = new MyLegacyMapsContext();
+        private readonly MyLegacyMapsContext db = new MyLegacyMapsContext();
 
         // GET: Flags
-        public async Task<ActionResult> Index()
-        {
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return new HttpUnauthorizedResult();
-            }
-            return View(await db.Flags.ToListAsync());
-        }
+        //public async Task<ActionResult> Index()
+        //{
+        //    if (!HttpContext.User.Identity.IsAuthenticated)
+        //    {
+        //        return new HttpUnauthorizedResult();
+        //    }
+        //    return View(await db.Flags.ToListAsync());
+        //}
 
         // GET: Flags/Details/5
         [HttpGet]
         public async Task<ActionResult> Details(int? id)
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
+            try
             {
-                return new HttpUnauthorizedResult();
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var flag = await db.Flags.FindAsync(id);
+                if (flag == null)
+                {
+                    return HttpNotFound();
+                }
+                var adoptedMap = await db.AdoptedMaps.FindAsync(flag.AdoptedMapId);
+                if (adoptedMap == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                }
+                if (adoptedMap.UserId != User.Identity.GetUserId())
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                return Json(flag, JsonRequestBehavior.AllowGet);
             }
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var flag = await db.Flags.FindAsync(id);
-            if (flag == null)
-            {
-                return HttpNotFound();
-            }
-            var adoptedMap = await db.AdoptedMaps.FindAsync(flag.AdoptedMapId);
-            if(adoptedMap == null)
+            catch(Exception)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
-            if(adoptedMap.UserId != User.Identity.GetUserId())
-            {
-                return new HttpUnauthorizedResult();
-            }
-            return Json(flag, JsonRequestBehavior.AllowGet);
         }
 
        
@@ -63,21 +70,22 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos,Date,Description,VideoUrl,")] Flag flag)
-        {
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return new HttpUnauthorizedResult();
-            }
+        {           
             try
             {
-                if (ModelState.IsValid)
+                if (!HttpContext.User.Identity.IsAuthenticated)
                 {
-                    flag.CreatedDate = flag.ModifiedDate = DateTime.Now;
-                    db.Flags.Add(flag);
-                    await db.SaveChangesAsync();
-                    return new HttpStatusCodeResult(HttpStatusCode.OK);
-                }                
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return new HttpUnauthorizedResult();
+                }
+                if (!ModelState.IsValid)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }               
+
+                flag.CreatedDate = flag.ModifiedDate = DateTime.Now;
+                db.Flags.Add(flag);
+                await db.SaveChangesAsync();
+                return Json(flag, JsonRequestBehavior.AllowGet);
             }
             catch(Exception)
             {
@@ -109,12 +117,14 @@ namespace MyLegacyMaps.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId,FlagId,FlagTypeId,Name,Xpos,Ypos,Date,Description,VideoUrl")] Flag flag)
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return new HttpUnauthorizedResult();
-            }
+           
             try
             {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
                 var adoptedMap = await db.AdoptedMaps.FindAsync(flag.AdoptedMapId);
                 if (adoptedMap == null)
                 {
@@ -124,14 +134,15 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpUnauthorizedResult();
                 }
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    flag.ModifiedDate = DateTime.Now;
-                    db.Entry(flag).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
-                    return new HttpStatusCodeResult(HttpStatusCode.OK);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                
+                flag.ModifiedDate = DateTime.Now;
+                db.Entry(flag).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return Json(flag, JsonRequestBehavior.AllowGet);
             }
             catch(Exception)
             {
@@ -140,41 +151,51 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: Flags/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return new HttpUnauthorizedResult();
-            }
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Flag flag = await db.Flags.FindAsync(id);
-            if (flag == null)
-            {
-                return HttpNotFound();
-            }
-            return View(flag);
-        }
+        //public async Task<ActionResult> Delete(int? id)
+        //{
+        //    try
+        //    {
+        //        if (!HttpContext.User.Identity.IsAuthenticated)
+        //        {
+        //            return new HttpUnauthorizedResult();
+        //        }
+        //        if (id == null)
+        //        {
+        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //        }
+        //        Flag flag = await db.Flags.FindAsync(id);
+        //        if (flag == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
+        //        return View(flag);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+        //    }
+        //}
 
         // POST: Flags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return new HttpUnauthorizedResult();
-            }
+            
             try
             {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                                
                 Flag flag = await db.Flags.FindAsync(id);
                 if (flag != null)
                 {
                     db.Flags.Remove(flag);
                     await db.SaveChangesAsync();
                 }
+                
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch(Exception)

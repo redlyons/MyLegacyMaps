@@ -94,7 +94,7 @@ MLM.MapCanvas = (function () {
         handleDragStop: function (event, ui) {
             var offsetXPos = parseInt(ui.offset.left);
             var offsetYPos = parseInt(ui.offset.top);
-            console.log("x = ", offsetXPos, "y = ", offsetYPos);
+            //console.log("x = ", offsetXPos, "y = ", offsetYPos);
             $(this).attr('data-xpos', offsetXPos);
             $(this).attr('data-ypos', offsetYPos);
 
@@ -194,6 +194,8 @@ MLM.Modal = (function () {
                 yPos: flag.yPos
             },
             success: function (data) {
+                $(flagElement).attr("data-flagId", data.FlagId);
+                $(flagElement).attr("title", method.getToolTip(data));
                 method.close();
             },
             error: function (data) {
@@ -219,6 +221,7 @@ MLM.Modal = (function () {
                 yPos: flag.yPos
             },
             success: function (data) {
+                $(flagElement).attr("title", method.getToolTip(data));
                 method.close();
             },
             error: function (data) {
@@ -269,7 +272,24 @@ MLM.Modal = (function () {
             }
         });
 
-    };   
+    };
+
+    method.getToolTip = function (response) {
+        var displayName = (response.Name != null)? response.Name : "";        
+        return "Name: " + displayName + " Date: " + method.getDisplayDate(response);
+    };
+
+    method.getDisplayDate = function (response) {
+        if (response.Date != null) {
+            var dt = new Date(parseInt(response.Date.substr(6)));
+            var yyyy = dt.getFullYear().toString();
+            var mm = (dt.getMonth() + 1).toString(); // getMonth() is zero-based         
+            var dd = dt.getDate().toString();
+            return mm + "/" + dd + "/" + yyyy;
+            // displayDate = yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
+        }
+        return "";
+    };
 
     // Generate the HTML and add it to the document
     $overlay = $('<div id="overlay"></div>');
