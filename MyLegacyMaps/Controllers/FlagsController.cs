@@ -12,23 +12,21 @@ using Microsoft.AspNet.Identity;
 using MyLegacyMaps.DataAccess;
 using MyLegacyMaps.DataAccess.Resources;
 using MyLegacyMaps.Models;
+using MLM.Logging;
 
 namespace MyLegacyMaps.Controllers
 {
     public class FlagsController : Controller
     {
         private readonly MyLegacyMapsContext db = new MyLegacyMapsContext();
+        private ILogger log = null;
 
-        // GET: Flags
-        //public async Task<ActionResult> Index()
-        //{
-        //    if (!HttpContext.User.Identity.IsAuthenticated)
-        //    {
-        //        return new HttpUnauthorizedResult();
-        //    }
-        //    return View(await db.Flags.ToListAsync());
-        //}
+        public FlagsController(ILogger logger)
+        {
+            log = logger;
+        }
 
+        
         // GET: Flags/Details/5
         [HttpGet]
         public async Task<ActionResult> Details(int? id)
@@ -59,8 +57,10 @@ namespace MyLegacyMaps.Controllers
                 }
                 return Json(flag, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                log.Error(ex, "Error in FlagsController GET Details id = {0} ",
+                   (id.HasValue) ? id.Value.ToString() : "null");
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
         }
@@ -87,30 +87,13 @@ namespace MyLegacyMaps.Controllers
                 await db.SaveChangesAsync();
                 return Json(flag, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                log.Error(ex, String.Format("Error in FlagsController POST Create Userid = {0} ",
+                    HttpContext.User.Identity.GetUserId()));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
-        }
-
-        // GET: Flags/Edit/5
-        //public async Task<ActionResult> Edit(int? id)
-        //{
-        //    if (!HttpContext.User.Identity.IsAuthenticated)
-        //    {
-        //        return new HttpUnauthorizedResult();
-        //    }
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Flag flag = await db.Flags.FindAsync(id);
-        //    if (flag == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(flag);
-        //}
+        }       
 
         // POST: Flags/Edit/5      
         [HttpPost]
@@ -144,8 +127,10 @@ namespace MyLegacyMaps.Controllers
                 await db.SaveChangesAsync();
                 return Json(flag, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                log.Error(ex, String.Format("Error in FlagsController POST Edit Userid = {0} ",
+                   HttpContext.User.Identity.GetUserId()));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
         }
@@ -196,10 +181,13 @@ namespace MyLegacyMaps.Controllers
                     await db.SaveChangesAsync();
                 }
                 
+
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                log.Error(ex, String.Format("Error in FlagsController POST Edit Userid = {0} id = {1} ",
+                    HttpContext.User.Identity.GetUserId(), id));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
         }

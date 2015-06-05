@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using MyLegacyMaps.DataAccess;
 using MyLegacyMaps.Models;
 using Microsoft.AspNet.Identity;
+using MLM.Logging;
 
 
 namespace MyLegacyMaps.Controllers
@@ -17,56 +18,79 @@ namespace MyLegacyMaps.Controllers
     public class AdoptedMapsController : Controller
     {
         private MyLegacyMapsContext db = new MyLegacyMapsContext();
+        private ILogger log = null;
+
+        public AdoptedMapsController(ILogger logger)
+        {
+            log = logger;
+        }
 
         // GET: AdoptedMaps
         public async Task<ActionResult> Index()
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
+            try
             {
-                return new HttpUnauthorizedResult();
-            }
-            string userId = User.Identity.GetUserId();
-            var result = db.AdoptedMaps.Where(a => a.UserId == userId);
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                string userId = User.Identity.GetUserId();
+                var result = db.AdoptedMaps.Where(a => a.UserId == userId);
 
-            if(result == null)
-            {
-                return HttpNotFound();
+                if (result == null)
+                {
+                    return HttpNotFound();
+                }
+                var adoptedMaps = await result.ToListAsync();
+                return View(adoptedMaps.OrderBy(m => m.Name));
             }
-            var adoptedMaps = await result.ToListAsync();
-            return View(adoptedMaps.OrderBy(m => m.Name));
+            catch(Exception ex)
+            {
+                log.Error(ex, "Error in AdoptedMapsController GET Index");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: AdoptedMaps/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
+            try
             {
-                return new HttpUnauthorizedResult();
-            }
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);           
-            //var map = await db.Maps.FindAsync(adoptedMap.MapId);
-            if (adoptedMap == null)// || map == null)
-            {
-                return HttpNotFound();
-            }
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                AdoptedMap adoptedMap = await db.AdoptedMaps.FindAsync(id);
+                //var map = await db.Maps.FindAsync(adoptedMap.MapId);
+                if (adoptedMap == null)// || map == null)
+                {
+                    return HttpNotFound();
+                }
 
-            //adoptedMap.Map = map;
-            return View(adoptedMap);
+                //adoptedMap.Map = map;
+                return View(adoptedMap);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex, "Error in AdoptedMapsController GET Details id = {0} ", 
+                    (id.HasValue)? id.Value.ToString() : "null");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: AdoptedMaps/Create
-        public ActionResult Create()
-        {
-            if(!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return new HttpUnauthorizedResult();
-            }
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    if(!HttpContext.User.Identity.IsAuthenticated)
+        //    {
+        //        return new HttpUnauthorizedResult();
+        //    }
+        //    return View();
+        //}
 
         // POST: AdoptedMaps/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -75,36 +99,43 @@ namespace MyLegacyMaps.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "UserId,MapId,Name,ShareStatusTypeId")] AdoptedMap adoptedMap)
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return new HttpUnauthorizedResult();
-            }
+            var userId = "";
+            try
+            { 
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
 
-            string userId = User.Identity.GetUserId();
-            int mapId = 0;
-            var data = HttpContext.Request.Form;
+                userId = User.Identity.GetUserId();
+                if(String.IsNullOrWhiteSpace(userId))
+                {
+                    return new HttpUnauthorizedResult();
+                }
 
-            if(data != null && !String.IsNullOrEmpty(userId) && Int32.TryParse(data["mapId"], out mapId) && mapId > 0)
-            {
-                adoptedMap = new AdoptedMap
-                { 
-                    MapId = mapId, 
-                    UserId = userId, 
-                    Name = data["mapName"],
-                    ShareStatusTypeId = 1
-                };
+                if (adoptedMap == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "null post data");
+                }
+               
+                if (!ModelState.IsValid)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                adoptedMap.UserId = userId;
+                adoptedMap.ShareStatusTypeId = 1; //default to private
                 db.AdoptedMaps.Add(adoptedMap);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
-
+                //return View(adoptedMap);
             }
-            //if (ModelState.IsValid)
-            //{
-                
-               
-            //}
-
-            return View(adoptedMap);
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdoptedMapsController POST Create userId = {0} mapId = {1}",
+                    userId, adoptedMap.MapId);
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         // GET: AdoptedMaps/Edit/5

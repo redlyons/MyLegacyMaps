@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLegacyMaps", "MyLegacyMap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLegacyMaps.Tests", "MyLegacyMaps.Tests\MyLegacyMaps.Tests.csproj", "{A8D1A39C-B10A-4256-A72A-761DCBF559E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLM.Logging", "MLM.Logging\MLM.Logging.csproj", "{F4C89972-A7F3-40A6-BDB8-8417E00F404D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A8D1A39C-B10A-4256-A72A-761DCBF559E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8D1A39C-B10A-4256-A72A-761DCBF559E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8D1A39C-B10A-4256-A72A-761DCBF559E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4C89972-A7F3-40A6-BDB8-8417E00F404D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4C89972-A7F3-40A6-BDB8-8417E00F404D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4C89972-A7F3-40A6-BDB8-8417E00F404D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C89972-A7F3-40A6-BDB8-8417E00F404D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
