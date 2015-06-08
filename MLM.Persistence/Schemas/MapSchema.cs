@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data.Entity.ModelConfiguration;
-using MyLegacyMaps.Models;
+using MLM.Models;
 
-namespace MyLegacyMaps.DataAccess.Mappings
+namespace MLM.Schemas
 {
     public class MapSchema : EntityTypeConfiguration<Map>
     {

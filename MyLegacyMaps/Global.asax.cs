@@ -8,6 +8,7 @@ using System.Web.Routing;
 using System.Data.Entity;
 using MyLegacyMaps.App_Start;
 using MLM.Logging;
+using MLM.Persistence;
 
 namespace MyLegacyMaps
 {
@@ -15,13 +16,21 @@ namespace MyLegacyMaps
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new MyLegacyMaps.DataAccess.Initializer());            
+        //    Database.SetInitializer<MyLegacyMaps.DataAccess.MyLegacyMapsMembershipContext>(
+        //   new DropCreateDatabaseAlways<MyLegacyMaps.DataAccess.MyLegacyMapsMembershipContext>());
+
+            Database.SetInitializer<MLM.Persistence.MyLegacyMapsContext>(
+              new DropCreateDatabaseIfModelChanges<MLM.Persistence.MyLegacyMapsContext>()); 
+    
 
             AreaRegistration.RegisterAllAreas();
             DependenciesConfig.RegisterDependencies();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);            
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+          
+            DbConfiguration.SetConfiguration(new MLM.Persistence.EFConfiguration());
         }
     }
 }

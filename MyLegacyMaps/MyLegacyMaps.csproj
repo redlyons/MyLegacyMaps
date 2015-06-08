@@ -173,23 +173,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
-    <Compile Include="DataAccess\Mappings\AdoptedMapSchema.cs" />
-    <Compile Include="DataAccess\Initializer.cs" />
-    <Compile Include="DataAccess\Mappings\FlagSchema.cs" />
-    <Compile Include="DataAccess\Mappings\FlagTypeSchema.cs" />
-    <Compile Include="DataAccess\Mappings\MapSchema.cs" />
-    <Compile Include="DataAccess\Mappings\MapTypeSchema.cs" />
-    <Compile Include="DataAccess\Mappings\ShareStatusTypeSchema.cs" />
-    <Compile Include="DataAccess\Resources\FlagResource.cs" />
+    <Compile Include="Extensions\ModelConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Migrations\201505242132157_intial.cs" />
-    <Compile Include="Migrations\201505242132157_intial.Designer.cs">
-      <DependentUpon>201505242132157_intial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
@@ -207,7 +196,7 @@
     <Compile Include="Models\Account\SendCodeViewModel.cs" />
     <Compile Include="Models\Account\SetPasswordViewModel.cs" />
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="DataAccess\MyLegacyMapsContext.cs" />
+    <Compile Include="DataAccess\MyLegacyMapsMembershipContext.cs" />
     <Compile Include="Models\Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\AdoptedMap.cs" />
     <Compile Include="Models\Flag.cs" />
@@ -356,7 +345,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
@@ -368,14 +356,17 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505242132157_intial.resx">
-      <DependentUpon>201505242132157_intial.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MLM.Logging\MLM.Logging.csproj">
       <Project>{f4c89972-a7f3-40a6-bdb8-8417e00f404d}</Project>
       <Name>MLM.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MLM.Models\MLM.Models.csproj">
+      <Project>{a0170455-e367-4167-81ba-6edc945d707d}</Project>
+      <Name>MLM.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MLM.Persistence\MLM.Persistence.csproj">
+      <Project>{6434b33e-f0a2-40aa-a328-3c71e3897ae0}</Project>
+      <Name>MLM.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

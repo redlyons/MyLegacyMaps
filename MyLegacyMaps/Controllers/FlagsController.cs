@@ -9,20 +9,23 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using MyLegacyMaps.DataAccess;
-using MyLegacyMaps.DataAccess.Resources;
-using MyLegacyMaps.Models;
+using MLM.Persistence.Interfaces;
 using MLM.Logging;
+using MyLegacyMaps.Models;
+using MyLegacyMaps.Extensions;
 
 namespace MyLegacyMaps.Controllers
 {
     public class FlagsController : Controller
     {
-        private readonly MyLegacyMapsContext db = new MyLegacyMapsContext();
-        private ILogger log = null;
+        private readonly IFlagsRepository flagRepository = null;
+        private readonly IAdoptedMapsRepository adoptedMapRepository = null;
+        private readonly ILogger log = null;
 
-        public FlagsController(ILogger logger)
+        public FlagsController(IFlagsRepository flagsRepository, IAdoptedMapsRepository adoptedMapsRepository, ILogger logger)
         {
+            flagRepository = flagsRepository;
+            adoptedMapRepository = adoptedMapsRepository;
             log = logger;
         }
 
@@ -37,25 +40,30 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpUnauthorizedResult();
                 }
-                if (id == null)
+                if (!id.HasValue  || (int)id.Value <= 0)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                var flag = await db.Flags.FindAsync(id);
-                if (flag == null)
+
+
+                var respFlag = await flagRepository.FindFlagByIdAsync((int)id);
+                if (!respFlag.IsSuccess())
                 {
-                    return HttpNotFound();
+                    return new HttpStatusCodeResult(respFlag.HttpStatusCode);
                 }
-                var adoptedMap = await db.AdoptedMaps.FindAsync(flag.AdoptedMapId);
-                if (adoptedMap == null)
+
+
+                var respAdoptedMap = await adoptedMapRepository.FindByAdoptedMapIdAsync(respFlag.Item.AdoptedMapId);
+                if (!respAdoptedMap.IsSuccess())
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                    return new HttpStatusCodeResult(respAdoptedMap.HttpStatusCode);
                 }
-                if (adoptedMap.UserId != User.Identity.GetUserId())
+
+                if (respAdoptedMap.Item.UserId != User.Identity.GetUserId())
                 {
                     return new HttpUnauthorizedResult();
                 }
-                return Json(flag, JsonRequestBehavior.AllowGet);
+                return Json(respFlag.Item.ToViewModel(), JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
@@ -80,12 +88,16 @@ namespace MyLegacyMaps.Controllers
                 if (!ModelState.IsValid)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }               
-
+                }
+                
                 flag.CreatedDate = flag.ModifiedDate = DateTime.Now;
-                db.Flags.Add(flag);
-                await db.SaveChangesAsync();
-                return Json(flag, JsonRequestBehavior.AllowGet);
+                var resp = await flagRepository.AddFlagAsync(flag.ToDomainModel());
+                if(!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                return Json(resp.Item.ToViewModel(), JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
@@ -107,25 +119,28 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpUnauthorizedResult();
                 }
-
-                var adoptedMap = await db.AdoptedMaps.FindAsync(flag.AdoptedMapId);
-                if (adoptedMap == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
-                }
-                if (adoptedMap.UserId != User.Identity.GetUserId())
-                {
-                    return new HttpUnauthorizedResult();
-                }
                 if (!ModelState.IsValid)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+
+                var adoptedMapResp = await adoptedMapRepository.FindByAdoptedMapIdAsync(flag.AdoptedMapId);
+                if (!adoptedMapResp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(adoptedMapResp.HttpStatusCode);
+                }
+                if (adoptedMapResp.Item.UserId != User.Identity.GetUserId())
+                {
+                    return new HttpUnauthorizedResult();
+                }                
                 
                 flag.ModifiedDate = DateTime.Now;
-                db.Entry(flag).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return Json(flag, JsonRequestBehavior.AllowGet);
+                var flagResp = await flagRepository.SaveFlagAsync(flag.ToDomainModel());
+                if (!flagResp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(flagResp.HttpStatusCode);
+                }
+                return Json(flagResp.Item.ToViewModel(), JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
@@ -164,7 +179,7 @@ namespace MyLegacyMaps.Controllers
         // POST: Flags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             
             try
@@ -173,32 +188,42 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpUnauthorizedResult();
                 }
-                                
-                Flag flag = await db.Flags.FindAsync(id);
-                if (flag != null)
+                if (!id.HasValue || (int)id.Value <= 0)
                 {
-                    db.Flags.Remove(flag);
-                    await db.SaveChangesAsync();
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                
+
+
+                var respFlagGet = await flagRepository.FindFlagByIdAsync((int)id);
+                if (!respFlagGet.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(respFlagGet.HttpStatusCode);
+                }
+                var adoptedMapResp = await adoptedMapRepository.FindByAdoptedMapIdAsync(respFlagGet.Item.AdoptedMapId);
+                if (!adoptedMapResp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(adoptedMapResp.HttpStatusCode);
+                }
+                if (adoptedMapResp.Item.UserId != User.Identity.GetUserId())
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+
+                var respFlagDel = await flagRepository.DeleteFlagAsync(respFlagGet.Item);
+                if(!respFlagDel.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(respFlagDel.HttpStatusCode);
+                }
 
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch(Exception ex)
             {
-                log.Error(ex, String.Format("Error in FlagsController POST Edit Userid = {0} id = {1} ",
+                log.Error(ex, String.Format("Error in FlagsController POST DeleteConfirmed Userid = {0} id = {1} ",
                     HttpContext.User.Identity.GetUserId(), id));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        }       
     }
 }

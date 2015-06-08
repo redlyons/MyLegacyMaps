@@ -5,9 +5,9 @@ namespace MyLegacyMaps.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using System.Collections.Generic;
-    using MyLegacyMaps.Models;
+    using MLM.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MyLegacyMaps.DataAccess.MyLegacyMapsContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MLM.Persistence.MyLegacyMapsContext>
     {
         #region Maps Seed Data
         List<Map> _maps = new List<Map>
@@ -409,7 +409,7 @@ namespace MyLegacyMaps.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "MyLegacyMaps.DataAccess.ApplicationDbContext";
+            ContextKey = "MLM.Persistence.MyLegacyMapsContext";
         }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -417,7 +417,7 @@ namespace MyLegacyMaps.Migrations
            
         //}
 
-        protected override void Seed(MyLegacyMaps.DataAccess.MyLegacyMapsContext context)
+        protected override void Seed(MLM.Persistence.MyLegacyMapsContext context)
         {
             //  This method will be called after migrating to the latest version.
             _maps.ForEach(map => context.Maps.AddOrUpdate(m => m.Name, map));

@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MyLegacyMaps.DataAccess;
 using MyLegacyMaps.Models;
+using MyLegacyMaps.Extensions;
 using MLM.Logging;
+using MLM.Persistence.Interfaces;
 
 namespace MyLegacyMaps.Controllers
 {
     public class MapsController : Controller
     {
-        private MyLegacyMapsContext db = new MyLegacyMapsContext();
+        private IMapsRepository mapsRepository = null;
         private const string MAPTYPEID_COOKIE = "mlm_map_filterid";
         private ILogger log = null;
-
-
-        public MapsController(ILogger logger)
+        
+        public MapsController(IMapsRepository repositiory, ILogger logger)
         {
+            mapsRepository = repositiory;
             log = logger;
         }
 
@@ -31,7 +30,6 @@ namespace MyLegacyMaps.Controllers
         {
             try
             {
-                var mapList = await db.Maps.ToListAsync();
                 var cookieVal = (this.ControllerContext.HttpContext.Request.Cookies[MAPTYPEID_COOKIE] != null)
                     ? this.ControllerContext.HttpContext.Request.Cookies[MAPTYPEID_COOKIE].Value
                     : String.Empty;
@@ -44,17 +42,19 @@ namespace MyLegacyMaps.Controllers
                         mapTypeId = 0;
                     }
                 }
-                ViewBag.mapTypes = getMapTypes(mapTypeId);
 
-                if (mapTypeId > 0)
+                var resp = await mapsRepository.GetMapsAsync(mapTypeId);
+                var mapTypesOptions = await GetMapTypeOptions(mapTypeId);
+                if(!resp.IsSuccess())
                 {
-                    return View(db.Maps.Where(m => m.MapTypeId == mapTypeId).OrderBy(m => m.Name));
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
-                else
-                {
-                    var maps = await db.Maps.ToListAsync();
-                    return View(maps.OrderBy(m => m.Name));
-                }
+
+               
+                var mapsViewModel = resp.Item.ToViewModel();
+                ViewBag.mapTypes = mapTypesOptions;
+                return View(mapsViewModel.OrderBy(m => m.Name));
+
             }
             catch(Exception ex)
             {
@@ -63,6 +63,10 @@ namespace MyLegacyMaps.Controllers
             }
         }
 
+        /// <summary>
+        /// Filter Maps by MapTypeId
+        /// </summary>
+        /// <param name="values">ddlMapTypeId</param>
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult>Index(FormCollection values)
@@ -70,8 +74,7 @@ namespace MyLegacyMaps.Controllers
             int mapTypeId = 0;
 
             try
-            { 
-               
+            {                
                 if (!String.IsNullOrWhiteSpace(values["ddlMapTypeId"]))
                 {
                     Int32.TryParse(values["ddlMapTypeId"], out mapTypeId);
@@ -82,19 +85,18 @@ namespace MyLegacyMaps.Controllers
                 cookie.HttpOnly = true;
                 this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
 
-                //get map type drop down options
-                ViewBag.mapTypes = getMapTypes(mapTypeId);
-            
-                if (mapTypeId > 0)
+                var resp = await mapsRepository.GetMapsAsync(mapTypeId);
+                var mapTypesOptions = await GetMapTypeOptions(mapTypeId);
+
+                if (!resp.IsSuccess())
                 {
-                    return View(db.Maps.Where(m => m.MapTypeId == mapTypeId).OrderBy(m => m.Name));
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
-                else
-                {
-                    var maps = await db.Maps.ToListAsync();
-                    return View(maps.OrderBy(m => m.Name));
-                } 
-                       
+
+                
+                var mapsViewModel = resp.Item.ToViewModel();
+                ViewBag.mapTypes = mapTypesOptions;
+                return View(mapsViewModel.OrderBy(m => m.Name));                      
             }
             catch(Exception ex)
             {
@@ -105,12 +107,26 @@ namespace MyLegacyMaps.Controllers
         }
     
 
-        public SelectList getMapTypes(int selectedMapTypeId)
+        public async Task<SelectList> GetMapTypeOptions(int selectedMapTypeId)
         {
-            IEnumerable<SelectListItem> types = (from m in db.MapTypes where m.IsActive == true select m).AsEnumerable().OrderBy(m=>m.Name).Select(m => new SelectListItem() { Text = m.Name, Value = m.MapTypeId.ToString() });
-            return (selectedMapTypeId > 0)
+           // IEnumerable<SelectListItem> types = (from m in db.MapTypes where m.IsActive == true select m).AsEnumerable().OrderBy(m=>m.Name).Select(m => new SelectListItem() { Text = m.Name, Value = m.MapTypeId.ToString() });
+
+           
+            var resp = await mapsRepository.GetMapTypesAsync();
+            if(!resp.IsSuccess())
+            {
+                return new SelectList(new List<MapType>(), "Value", "Text"); //empty list
+            }
+            var mapTypes = resp.Item.ToViewModel();
+
+            IEnumerable<SelectListItem> types = mapTypes.OrderBy(m => m.Name).Select(m => 
+                new SelectListItem() { Text = m.Name, Value = m.MapTypeId.ToString() });
+            
+            var mapTypeOptions =  (selectedMapTypeId > 0)
                     ? new SelectList(types, "Value", "Text", selectedMapTypeId)
                     : new SelectList(types, "Value", "Text");
+
+            return mapTypeOptions;
         }
 
         // GET: Maps/Details/5
@@ -121,22 +137,23 @@ namespace MyLegacyMaps.Controllers
             { 
                 if (id == null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "missing id parameter");
                 }
-                Map map = await db.Maps.FindAsync(id);
-                if (map == null)
+
+                var resp = await mapsRepository.FindMapByIdAsync((int)id.Value);
+                if(!resp.IsSuccess())
                 {
-                    return HttpNotFound();
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
-                return View(map);
+                return View(resp.Item.ToViewModel());
             }
             catch (Exception ex)
             {
                 log.Error(ex, "Error in MapsController GET Details id = {0} ",
                   (id.HasValue) ? id.Value.ToString() : "null");
+
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
-            }
-           
+            }           
         }
 
         // GET: Maps/Create
@@ -218,15 +235,6 @@ namespace MyLegacyMaps.Controllers
         //    db.Maps.Remove(map);
         //    await db.SaveChangesAsync();
         //    return RedirectToAction("Index");
-        //}
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //}       
     }
 }

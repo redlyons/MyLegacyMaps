@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
-using MyLegacyMaps.Models;
+using MLM.Models;
 
-namespace MyLegacyMaps.DataAccess.Mappings
+namespace MLM.Schemas
 {
     public class ShareStatusTypeSchema : EntityTypeConfiguration<ShareStatusType>
     {
