@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Data.Entity.SqlServer;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Threading.Tasks;
+using System.Data.Entity.SqlServer;
 using MLM.Models;
 using MLM.Schemas;
 
@@ -13,6 +14,11 @@ namespace MLM.Persistence
             : base("DefaultConnection")
         {
         }
+
+        //public static MyLegacyMapsContext Create()
+        //{
+        //    return new MyLegacyMapsContext();
+        //}
           
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

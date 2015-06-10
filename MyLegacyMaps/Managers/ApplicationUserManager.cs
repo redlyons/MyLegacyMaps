@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using MyLegacyMaps.DataAccess;
-using MyLegacyMaps.Security;
+using MyLegacyMaps.Models.Account;
 using MyLegacyMaps.Services;
+using MLM.Persistence;
 
 namespace MyLegacyMaps.Managers
 {

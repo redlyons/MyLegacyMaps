@@ -70,7 +70,7 @@ namespace MLM.Persistence
             return resp;
         }
 
-        public async Task<ResourceResponse<AdoptedMap>> AddAdoptedMapAsync(AdoptedMap adoptedMap)
+        public async Task<ResourceResponse<AdoptedMap>> CreateAdoptedMapAsync(AdoptedMap adoptedMap)
         {
             var resp = new ResourceResponse<AdoptedMap>();
             try

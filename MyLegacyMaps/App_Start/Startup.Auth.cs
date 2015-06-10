@@ -5,9 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using MyLegacyMaps.DataAccess;
-using MyLegacyMaps.Security;
 using MyLegacyMaps.Managers;
+using MyLegacyMaps.Models.Account;
 
 namespace MyLegacyMaps
 {
@@ -64,7 +63,7 @@ namespace MyLegacyMaps
             //{
             //    ClientId = "",
             //    ClientSecret = ""
-            //});
+            //});          
         }
     }
 }

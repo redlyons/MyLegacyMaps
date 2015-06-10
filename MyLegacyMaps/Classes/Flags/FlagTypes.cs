@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MyLegacyMaps.Classes
+namespace MyLegacyMaps.Classes.Flags
 {
-    public enum enFlagTypes
+    public enum FlagTypes
     {
         WasHere = 1,
         HereNow = 2,

@@ -1,11 +1,15 @@
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using MyLegacyMaps.Models.Account;
+using MLM.Models;
+
 namespace MyLegacyMaps.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-    using System.Collections.Generic;
-    using MLM.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<MLM.Persistence.MyLegacyMapsContext>
     {
@@ -425,6 +429,34 @@ namespace MyLegacyMaps.Migrations
             _mapTypes.ForEach(type => context.MapTypes.AddOrUpdate(t => t.Name, type));
             _shareStatusTypes.ForEach(type => context.SharedStatusTypes.AddOrUpdate(t => t.Name, type));
             context.SaveChanges();
+
+
+            var membershipContext = MyLegacyMapsMembershipContext.Create();
+            AddUserAndRole(membershipContext);
+            membershipContext.SaveChanges();
         }
+
+
+        bool AddUserAndRole(MyLegacyMapsMembershipContext context)
+        {
+            IdentityResult ir;
+            var rm = new RoleManager<IdentityRole>
+                (new RoleStore<IdentityRole>(context));
+            ir = rm.Create(new IdentityRole("mapManager"));
+            var um = new UserManager<MyLegacyMaps.Models.Account.ApplicationUser>(
+                new UserStore<MyLegacyMaps.Models.Account.ApplicationUser>(context));
+            var user = new MyLegacyMaps.Models.Account.ApplicationUser
+            {
+                UserName = "mlm_admin@mylegacymaps.com",
+            };
+            ir = um.Create(user, "F7jvPhl2AV2XWpvpFFfx");
+            if (ir.Succeeded == false)
+                return ir.Succeeded;
+            ir = um.AddToRole(user.Id, "mapManager");
+            return ir.Succeeded;
+        }
+
+
+       
     }
 }

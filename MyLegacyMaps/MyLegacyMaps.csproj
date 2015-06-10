@@ -166,7 +166,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Classes\enFlagTypes.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Classes\Cookies\CookieHelper.cs" />
+    <Compile Include="Classes\Cookies\ICookieHelper.cs" />
+    <Compile Include="Classes\Flags\FlagTypes.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdoptedMapsController.cs" />
     <Compile Include="Controllers\FlagsController.cs" />
@@ -179,6 +182,14 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
+    <Compile Include="Migrations\201506080310033_init.cs" />
+    <Compile Include="Migrations\201506080310033_init.Designer.cs">
+      <DependentUpon>201506080310033_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506080347086_ApplicationUser.cs" />
+    <Compile Include="Migrations\201506080347086_ApplicationUser.Designer.cs">
+      <DependentUpon>201506080347086_ApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
@@ -196,7 +207,7 @@
     <Compile Include="Models\Account\SendCodeViewModel.cs" />
     <Compile Include="Models\Account\SetPasswordViewModel.cs" />
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="DataAccess\MyLegacyMapsMembershipContext.cs" />
+    <Compile Include="MyLegacyMapsMembershipContext.cs" />
     <Compile Include="Models\Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\AdoptedMap.cs" />
     <Compile Include="Models\Flag.cs" />
@@ -204,7 +215,7 @@
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\MapType.cs" />
     <Compile Include="Models\ShareStatusType.cs" />
-    <Compile Include="Security\ApplicatonUser.cs" />
+    <Compile Include="Models\Account\ApplicatonUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\SmsService.cs" />
@@ -342,9 +353,12 @@
     <Content Include="Views\AdoptedMaps\Edit.cshtml" />
     <Content Include="Views\AdoptedMaps\Index.cshtml" />
     <Content Include="Views\Shared\Partials\MapCanvas.cshtml" />
+    <Content Include="Views\Maps\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DataAccess\" />
+    <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
@@ -368,6 +382,14 @@
       <Project>{6434b33e-f0a2-40aa-a328-3c71e3897ae0}</Project>
       <Name>MLM.Persistence</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506080310033_init.resx">
+      <DependentUpon>201506080310033_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506080347086_ApplicationUser.resx">
+      <DependentUpon>201506080347086_ApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

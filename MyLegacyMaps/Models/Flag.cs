@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using MyLegacyMaps.Classes;
+using MyLegacyMaps.Classes.Flags;
 
 
 namespace MyLegacyMaps.Models
@@ -22,20 +22,20 @@ namespace MyLegacyMaps.Models
 
         public string GetCssClass()
         {
-            if(!Enum.IsDefined(typeof(enFlagTypes), this.FlagTypeId))
+            if(!Enum.IsDefined(typeof(FlagTypes), this.FlagTypeId))
             {
                 return String.Empty;
             }
             
-            switch((enFlagTypes)this.FlagTypeId)
+            switch((FlagTypes)this.FlagTypeId)
             {
-                case enFlagTypes.WasHere:
+                case FlagTypes.WasHere:
                     return "flgWasHere";
-                case enFlagTypes.HereNow:
+                case FlagTypes.HereNow:
                     return "flgHereNow";
-                case enFlagTypes.WantToGo:
+                case FlagTypes.WantToGo:
                     return "flgPlanToGo";
-                case enFlagTypes.CustomLogo:
+                case FlagTypes.CustomLogo:
                     return "flgCustomLogo";
                 default:
                     return String.Empty;
@@ -44,18 +44,18 @@ namespace MyLegacyMaps.Models
 
         public string GetStyle()
         {
-            if (!Enum.IsDefined(typeof(enFlagTypes), this.FlagTypeId))
+            if (!Enum.IsDefined(typeof(FlagTypes), this.FlagTypeId))
             {
                 return String.Empty;
             }
 
-            switch ((enFlagTypes)this.FlagTypeId)
+            switch ((FlagTypes)this.FlagTypeId)
             {
-                case enFlagTypes.WasHere:                   
-                case enFlagTypes.HereNow:                   
-                case enFlagTypes.WantToGo:
+                case FlagTypes.WasHere:                   
+                case FlagTypes.HereNow:                   
+                case FlagTypes.WantToGo:
                     return String.Format(" top:{0}px; left:{1}px;", this.Ypos, this.Xpos);
-                case enFlagTypes.CustomLogo:
+                case FlagTypes.CustomLogo:
                     return String.Format(" top:{0}px; left:{1}px; height:75px; width:550px;", this.Ypos, this.Xpos);
                 default:
                     return String.Empty;

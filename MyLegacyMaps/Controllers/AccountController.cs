@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MyLegacyMaps.Models.Account;
-using MyLegacyMaps.Security;
 using MyLegacyMaps.Managers;
 
 namespace MyLegacyMaps.Controllers
@@ -369,7 +368,14 @@ namespace MyLegacyMaps.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser 
+                { 
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    BirthDate = model.BirthDate,
+                    HomeTown = model.HomeTown
+                };
+
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

@@ -5,10 +5,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using MyLegacyMaps.Security;
-using MyLegacyMaps.Models;
+using MyLegacyMaps.Models.Account;
 
-namespace MyLegacyMaps.DataAccess
+namespace MyLegacyMaps
 {
     public class MyLegacyMapsMembershipContext : IdentityDbContext<ApplicationUser>
     {
@@ -28,6 +27,6 @@ namespace MyLegacyMaps.DataAccess
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             base.OnModelCreating(modelBuilder);
-        }        
+        }
     }
 }

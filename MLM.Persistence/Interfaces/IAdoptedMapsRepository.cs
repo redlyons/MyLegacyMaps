@@ -11,7 +11,7 @@ namespace MLM.Persistence.Interfaces
     {
         Task<ResourceResponse<List<AdoptedMap>>> GetAdoptedMapsByUserIdAsync(string userId);
         Task<ResourceResponse<AdoptedMap>> FindByAdoptedMapIdAsync(int id);
-        Task<ResourceResponse<AdoptedMap>> AddAdoptedMapAsync(AdoptedMap map);
+        Task<ResourceResponse<AdoptedMap>> CreateAdoptedMapAsync(AdoptedMap map);
         Task<ResourceResponse<AdoptedMap>> SaveAdoptedMapAsync(AdoptedMap adoptedMap);
         Task<ResourceResponse<bool>> DeleteAdoptedMapAsync(AdoptedMap adoptedMap);
         Task<ResourceResponse<List<ShareStatusType>>> GetShareTypesAsync();

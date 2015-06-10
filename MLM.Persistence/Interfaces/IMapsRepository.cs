@@ -12,5 +12,9 @@ namespace MLM.Persistence.Interfaces
         Task<ResourceResponse<List<Map>>> GetMapsAsync(int mapTypeId = 0);
         Task<ResourceResponse<Map>> FindMapByIdAsync(int id);
         Task<ResourceResponse<List<MapType>>> GetMapTypesAsync();
+
+        Task<ResourceResponse<Map>> CreateMapAsync(Map map);
+        Task<ResourceResponse<Map>> SaveMapAsync(Map adoptedMap);
+        
     }
 }

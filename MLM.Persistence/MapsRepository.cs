@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 using MLM.Models;
 using MLM.Persistence.Interfaces;
 using MLM.Logging;
@@ -29,7 +30,8 @@ namespace MLM.Persistence
                 Stopwatch timespan = Stopwatch.StartNew();
                 if (mapTypeId > 0)
                 {
-                    maps = await db.Maps.AsQueryable().Where(m => m.MapTypeId == mapTypeId).ToListAsync();
+                    maps = await db.Maps.AsQueryable().Where(m => m.MapTypeId == mapTypeId &&
+                        m.IsActive == true).ToListAsync();
                 }
                 else
                 {
@@ -90,7 +92,7 @@ namespace MLM.Persistence
                 log.TraceApi("SQL Database", "MyLegacyMapsContext.FindTaskByIdAsync", timespan.Elapsed, "id={0}", id);
 
                 resp.Item = map;
-                resp.HttpStatusCode = (map !=null)
+                resp.HttpStatusCode = (map !=null && map.IsActive)
                     ? System.Net.HttpStatusCode.OK
                     : System.Net.HttpStatusCode.NotFound;
             }
@@ -101,6 +103,70 @@ namespace MLM.Persistence
             }
             return resp;
         }
+
+
+        public async Task<ResourceResponse<Map>> CreateMapAsync(Map map)
+        {
+            var resp = new ResourceResponse<Map>();
+            try
+            {
+              
+                    Stopwatch timespan = Stopwatch.StartNew();
+                    db.Maps.Add(map);
+                    var result = await db.SaveChangesAsync();
+
+                    timespan.Stop();
+
+                    log.TraceApi("SQL Database", "MyLegacyMapsContext.CreateMapAsync", timespan.Elapsed,
+                        "Name={0}", map.Name);
+
+                    bool isSuccess = (result > 0);
+                    resp.Item = map;
+                    resp.HttpStatusCode = (isSuccess)
+                        ? System.Net.HttpStatusCode.OK
+                        : System.Net.HttpStatusCode.InternalServerError;
+               
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in MapsRepository.CreateMapAsync Name={0}",
+                   map.Name));
+
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;       
+        }
+
+        public async Task<ResourceResponse<Map>> SaveMapAsync(Map map)
+        {
+            var resp = new ResourceResponse<Map>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+                db.Entry(map).State = EntityState.Modified;
+                var result = await db.SaveChangesAsync();
+
+                timespan.Stop();
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.SaveAdoptedMapAsync", timespan.Elapsed,
+                    "MapId = {0} Name={1}", map.MapId, map.Name);
+
+                bool isSuccess = (result > 0);
+                resp.Item = map;
+                resp.HttpStatusCode = (isSuccess)
+                    ? System.Net.HttpStatusCode.OK
+                    : System.Net.HttpStatusCode.InternalServerError;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in MapsRepository.SaveMapAsync MapId = {0} Name={1}",
+                    map.MapId, map.Name));
+
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+        }
+
+       
 
         public void Dispose()
         {
@@ -120,7 +186,5 @@ namespace MLM.Persistence
                 }
             }
         }
-
-       
     }
 }

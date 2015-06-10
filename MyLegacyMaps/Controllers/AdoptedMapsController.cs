@@ -105,10 +105,7 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpUnauthorizedResult();
                 }
-                if (adoptedMap == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "null post data");
-                }               
+                      
                 if (!ModelState.IsValid)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -116,7 +113,7 @@ namespace MyLegacyMaps.Controllers
 
                 adoptedMap.UserId = HttpContext.User.Identity.GetUserId();
                 adoptedMap.ShareStatusTypeId = 1; //default to private
-                var resp = await adoptedMapsRepository.AddAdoptedMapAsync(adoptedMap.ToDomainModel());
+                var resp = await adoptedMapsRepository.CreateAdoptedMapAsync(adoptedMap.ToDomainModel());
 
                 if (!resp.IsSuccess())
                 {

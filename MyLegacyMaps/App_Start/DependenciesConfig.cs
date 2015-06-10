@@ -9,6 +9,7 @@ using Autofac.Integration.Mvc;
 using MLM.Logging;
 using MLM.Persistence;
 using MLM.Persistence.Interfaces;
+using MyLegacyMaps.Classes.Cookies;
 
 
 namespace MyLegacyMaps.App_Start
@@ -21,6 +22,7 @@ namespace MyLegacyMaps.App_Start
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
+            builder.RegisterType<CookieHelper>().As<ICookieHelper>();
             builder.RegisterType<MapsRepository>().As<IMapsRepository>();
             builder.RegisterType<AdoptedMapsRepository>().As<IAdoptedMapsRepository>();
             builder.RegisterType<FlagsRepository>().As<IFlagsRepository>();
