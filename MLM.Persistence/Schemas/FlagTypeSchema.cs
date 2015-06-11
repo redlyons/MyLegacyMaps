@@ -2,7 +2,7 @@
 using System.Data.Entity.ModelConfiguration;
 using MLM.Models;
 
-namespace MLM.Schemas
+namespace MLM.Persistence.Schemas
 {
     public class FlagTypeSchema : EntityTypeConfiguration<FlagType>
     {

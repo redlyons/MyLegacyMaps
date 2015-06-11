@@ -61,6 +61,7 @@
     <Compile Include="FlagType.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapType.cs" />
+    <Compile Include="OrientationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShareStatusType.cs" />
   </ItemGroup>

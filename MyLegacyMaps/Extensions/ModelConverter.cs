@@ -39,11 +39,16 @@ namespace MyLegacyMaps.Extensions
                 Name = value.Name,
                 Description = value.Description,
                 FileName = value.FileName,
-                IsActive = value.IsActive,
-                DateCreated = value.DateCreated,                
+                ImageUrl = value.ImageUrl,
+                ThumbUrl = value.ThumbUrl,
                 MapTypeId = value.MapTypeId,
-                Orientation = value.Orientation,
+                OrientationTypeId = value.OrientationTypeId,
+                IsActive = value.IsActive,
+                DateCreated = value.DateCreated,   
+                DateModified = value.DateModified,
+                ModifiedBy = value.ModifiedBy,                
                 MapType = value.MapType.ToDomainModel(),
+                OrientationType = value.OrientationType.ToDomainModel()
             };
         }
 
@@ -105,6 +110,19 @@ namespace MyLegacyMaps.Extensions
             };
         }
 
+        public static DomainModel.OrientationType ToDomainModel(this ViewModels.OrientationType value)
+        {
+            if (value == null)
+                return null;
+
+            return new DomainModel.OrientationType
+            {
+                OrientationTypeId = value.OrientationTypeId,
+                Name = value.Name
+            };
+
+        }
+
         public static ICollection<DomainModel.Flag> ToDomainModel( this ICollection<ViewModels.Flag> value)
         {
             if (value == null)
@@ -162,12 +180,17 @@ namespace MyLegacyMaps.Extensions
                 MapId = value.MapId,
                 Name = value.Name,
                 Description = value.Description,
+                ImageUrl = value.ImageUrl,
+                ThumbUrl = value.ThumbUrl,
                 FileName = value.FileName,
                 IsActive = value.IsActive,
-                DateCreated = value.DateCreated,
                 MapTypeId = value.MapTypeId,
-                Orientation = value.Orientation,
-                MapType = (value.MapType != null)? value.MapType.ToViewModel() : null
+                OrientationTypeId = value.OrientationTypeId,
+                DateCreated = value.DateCreated,
+                DateModified = value.DateModified,
+                ModifiedBy = value.ModifiedBy,               
+                MapType =  value.MapType.ToViewModel(),
+                OrientationType = value.OrientationType.ToViewModel()
             };
         }
 
@@ -272,6 +295,19 @@ namespace MyLegacyMaps.Extensions
                 retVal.Add(flag.ToViewModel());
             }
             return retVal;
+        }
+
+        public static ViewModels.OrientationType ToViewModel(this DomainModel.OrientationType value)
+        {
+            if (value == null)
+                return null;
+
+            return new ViewModels.OrientationType
+            {
+                OrientationTypeId = value.OrientationTypeId,
+                Name = value.Name
+            };
+
         }
         #endregion
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using MLM.Models;
 
-namespace MLM.Schemas
+namespace MLM.Persistence.Schemas
 {
     public class MapTypeSchema : EntityTypeConfiguration<MapType>
     {

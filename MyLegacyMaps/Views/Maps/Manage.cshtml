@@ -13,8 +13,28 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
-            </th>       
-            <th></th>
+            </th> 
+            <th>
+                Category
+            </th> 
+            <th>
+                Orientation
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>  
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>    
+            <th>
+                @Html.DisplayNameFor(model => model.DateModified)
+            </th>     
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </th>                
+            <th>
+
+            </th>
         </tr>
 
     @foreach (var item in Model) {
@@ -22,11 +42,27 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-      
+            <td>
+                @Html.DisplayFor(modelItem => item.MapType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrientationType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>   
+            <td>
+                @Html.DisplayFor(modelItem => item.DateModified)
+            </td>  
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedBy)
+            </td>          
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.MapId }) |
-                @Html.ActionLink("View", "Details", new { id=item.MapId })
-                @Html.ActionLink("Delete", "Delete", new { id=item.MapId })
+                @Html.ActionLink("View", "Details", new { id=item.MapId })              
             </td>
         </tr>
     }

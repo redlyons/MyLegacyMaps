@@ -98,6 +98,7 @@
     <Compile Include="Schemas\FlagTypeSchema.cs" />
     <Compile Include="Schemas\MapSchema.cs" />
     <Compile Include="Schemas\MapTypeSchema.cs" />
+    <Compile Include="Schemas\OrientationTypeSchema.cs" />
     <Compile Include="Schemas\ShareStatusTypeSchema.cs" />
   </ItemGroup>
   <ItemGroup>

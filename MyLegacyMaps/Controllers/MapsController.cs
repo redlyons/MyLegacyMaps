@@ -132,7 +132,7 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "missing id parameter");
                 }
 
-                var resp = await mapsRepository.FindMapByIdAsync((int)id.Value);
+                var resp = await mapsRepository.GetMapAsync((int)id.Value);
                 if(!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
@@ -165,7 +165,7 @@ namespace MyLegacyMaps.Controllers
                 ViewBag.mapTypes = await GetMapTypeOptions(mapTypeId);
 
                 // Get Maps by map type id
-                var resp = await mapsRepository.GetMapsAsync(mapTypeId);               
+                var resp = await mapsRepository.AdminGetMapsAsync(mapTypeId);               
                 if (!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
@@ -280,7 +280,7 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "missing id parameter");
                 }
 
-                var resp = await mapsRepository.FindMapByIdAsync((int)id.Value);
+                var resp = await mapsRepository.AdminGetMapAsync((int)id.Value);
                 if (!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);

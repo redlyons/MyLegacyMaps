@@ -22,55 +22,67 @@ namespace MyLegacyMaps.Migrations
                     Description = "The ultimate wilderness adventure.",
                     FileName = "alaska.png",
                     MapTypeId = 2,
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },
                 new Map
                 {
                     Name = "Baseball Stadiums",
                     Description = "Visit all the great baseball statidums in America and collect your memories as you go.",
                     FileName = "baseball.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },
                 new Map
                 {
                     Name = "Skiing of North America",
                     Description = "An adventure map of North America's most popular ski destinations.",
                     FileName = "skiing-north-america.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                 new Map
                 {
                     Name = "Motor Sports Raceways",
                     Description = "",
                     FileName = "mlm_map_raceways-adv4.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Dinosaurs of the World",
                     Description = "",
                     FileName = "dinosaurs.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Air France",
                     Description = "",
                     FileName = "air-france.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 5,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
@@ -78,27 +90,33 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "california.png",
                     MapTypeId = 2,
-                    Orientation = 2,
+                    OrientationTypeId = 2,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                 new Map
                 {
                     Name = "Cheiftans",
                     Description = "",
                     FileName = "cheiftans.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Children of the World",
                     Description = "",
                     FileName = "children-world.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
@@ -106,25 +124,29 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "colorado.png",
                     MapTypeId = 2,
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Endangered Species",
                     Description = "",
                     FileName = "endangered-species.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Fishing",
                     Description = "",
                     FileName = "fishing.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId =3,
                     IsActive = true,
                     DateCreated = DateTime.Now
@@ -134,84 +156,102 @@ namespace MyLegacyMaps.Migrations
                     Name = "Fishing Bitteroot",
                     Description = "",
                     FileName = "fishing-bitteroot.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId =3,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Fishing Yakima",
                     Description = "",
                     FileName = "fishing-yakima.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Fishing Yellowstone",
                     Description = "",
                     FileName = "fishing-yellowstone.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId =3,
                     IsActive = true,
-                    DateCreated = DateTime.Now
-                }, 
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
+                },
                 new Map
                 {
                     Name = "Gibraltar",
                     Description = "",
                     FileName = "gibralter.png",
-                    Orientation = 2,
+                    OrientationTypeId = 2,
                      MapTypeId = 5,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Hawaii Scuba",
                     Description = "",
                     FileName = "hawaii-scuba.png",
-                    Orientation = 2,
+                    OrientationTypeId = 2,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Horse Breeds",
                     Description = "",
                     FileName = "horse-breeds.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 }, 
                 new Map
                 {
                     Name = "Kitsap County Adventure",
                     Description = "",
                     FileName = "mlm_kcoa_map.png",
-                    Orientation = 2,
+                    OrientationTypeId = 2,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Kitsap County Memorials",
                     Description = "",
                     FileName = "mlm_rsvp_kc_memorial_map.png",
-                    Orientation = 2,
+                    OrientationTypeId = 2,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },    
                 new Map
                 {
                     Name = "Oahu",
                     Description = "",
                     FileName = "oahu.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                   DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                 new Map
                 {
@@ -219,109 +259,131 @@ namespace MyLegacyMaps.Migrations
                     Description = "",
                     FileName = "washington-adv.png",
                     MapTypeId = 2,
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                 new Map
                 {
                     Name = "Yosemite",
                     Description = "",
                     FileName = "yosemite.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 4,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                 new Map
                 {
                     Name = "Port Angeles",
                     Description = "",
                     FileName = "mlm_map_rem_wa_clallam_port-angeles_2000x1333.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },                 
                 new Map
                 {
                     Name = "Quimper Penisula",
                     Description = "",
                     FileName = "mlm_map_rem_wa_clallam_quimper-peninsula_1333x2000.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                 new Map
                 {
                     Name = "Sequim",
                     Description = "",
                     FileName = "mlm_map_rem_wa_clallam_sequim_2000x1333.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 }, 
                 new Map
                 {
                     Name = "Downtown Seattle",
                     Description = "",
                     FileName = "mlm_map_rem_wa_downtown-seattle_2000x1333.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 }, 
                  new Map
                 {
                     Name = "Bellevue",
                     Description = "",
                     FileName = "mlm_rem_wa_king_belle-mi_map_1333x2000.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                  new Map
                 {
                     Name = "Kirkland",
                     Description = "",
                     FileName = "mlm_rem_wa_king_kirk-red_map_1333x2000.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                  new Map
                 {
                     Name = "Mercer Island",
                     Description = "",
                     FileName = "mlm_rem_wa_king_mercer-is_map_1333x2000.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                  new Map
                 {
                     Name = "North Seattle",
                     Description = "",
                     FileName = "mlm_rem_wa_king_n-seattle_map_2000x1333.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
                  new Map
                 {
                     Name = "South Seattle",
                     Description = "",
                     FileName = "mlm_rem_wa_king_s-seattle_map_2000x1333.png",
-                    Orientation = 1,
+                    OrientationTypeId = 1,
                     MapTypeId = 1,
                     IsActive = true,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    ModifiedBy = "reynolds_rob"
                 },   
 
             };
@@ -409,6 +471,22 @@ namespace MyLegacyMaps.Migrations
         };
         #endregion
 
+        #region OrientationTypes
+        List<OrientationType> _orientationTypes = new List<OrientationType>
+        {
+            new OrientationType
+            {
+                OrientationTypeId = 1,
+                Name = "Horizontal"
+            },
+            new OrientationType
+            {
+                OrientationTypeId = 2,
+                Name = "Veritcal"
+            }
+        };
+        #endregion
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
@@ -428,6 +506,7 @@ namespace MyLegacyMaps.Migrations
             _flagTypes.ForEach(type => context.FlagTypes.AddOrUpdate(t => t.Name, type));
             _mapTypes.ForEach(type => context.MapTypes.AddOrUpdate(t => t.Name, type));
             _shareStatusTypes.ForEach(type => context.SharedStatusTypes.AddOrUpdate(t => t.Name, type));
+            _orientationTypes.ForEach(type => context.OrientationTypes.AddOrUpdate(t => t.Name, type));
             context.SaveChanges();
 
 

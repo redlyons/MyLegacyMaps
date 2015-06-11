@@ -35,7 +35,7 @@ namespace MLM.Persistence
                 }
                 else
                 {
-                    maps = await db.Maps.ToListAsync();
+                    maps = await db.Maps.AsQueryable().Where(m => m.IsActive == true).ToListAsync();
                 } 
 
                 timespan.Stop();
@@ -53,6 +53,8 @@ namespace MLM.Persistence
             return resp;
 
         }
+
+       
 
         public async Task<ResourceResponse<List<MapType>>> GetMapTypesAsync()
         {
@@ -79,7 +81,7 @@ namespace MLM.Persistence
 
         }
 
-        public async Task<ResourceResponse<Map>> FindMapByIdAsync(int id)
+        public async Task<ResourceResponse<Map>> GetMapAsync(int id)
         {
             Map map = null;           
             var resp = new ResourceResponse<Map>();
@@ -161,6 +163,72 @@ namespace MLM.Persistence
                 log.Error(ex, String.Format("Error in MapsRepository.SaveMapAsync MapId = {0} Name={1}",
                     map.MapId, map.Name));
 
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+        }
+
+        /// <summary>
+        /// Admin Only function
+        /// Gets a list of maps to manage (ignores isActive flag).
+        /// </summary>
+        /// <param name="mapTypeId"></param>
+        public async Task<ResourceResponse<List<Map>>> AdminGetMapsAsync(int mapTypeId = 0)
+        {
+            List<Map> maps = null;
+            var resp = new ResourceResponse<List<Map>>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+                if (mapTypeId > 0)
+                {
+                    maps = await db.Maps.AsQueryable().Where(m => m.MapTypeId == mapTypeId).ToListAsync();
+                }
+                else
+                {
+                    maps = await db.Maps.ToListAsync();
+                }
+
+                timespan.Stop();
+                log.TraceApi("SQL Database", String.Format("MyLegacyMapsContext.GetMapsAsync mapTypeId = {0}",
+                    mapTypeId), timespan.Elapsed);
+
+                resp.Item = maps;
+                resp.HttpStatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error in MapsRepository.GetMapsAsync()");
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        public async Task<ResourceResponse<Map>> AdminGetMapAsync(int id)
+        {
+            Map map = null;
+            var resp = new ResourceResponse<Map>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+                map = await db.Maps.FindAsync(id);
+
+                timespan.Stop();
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.FindTaskByIdAsync", timespan.Elapsed, "id={0}", id);
+
+                resp.Item = map;
+                resp.HttpStatusCode = (map != null)
+                    ? System.Net.HttpStatusCode.OK
+                    : System.Net.HttpStatusCode.NotFound;
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error in MapsRepository.FindTaskByIdAsync(id={0})", id);
                 resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
             }
             return resp;

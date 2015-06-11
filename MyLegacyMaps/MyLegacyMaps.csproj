@@ -182,14 +182,6 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Migrations\201506080310033_init.cs" />
-    <Compile Include="Migrations\201506080310033_init.Designer.cs">
-      <DependentUpon>201506080310033_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506080347086_ApplicationUser.cs" />
-    <Compile Include="Migrations\201506080347086_ApplicationUser.Designer.cs">
-      <DependentUpon>201506080347086_ApplicationUser.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
@@ -207,6 +199,7 @@
     <Compile Include="Models\Account\SendCodeViewModel.cs" />
     <Compile Include="Models\Account\SetPasswordViewModel.cs" />
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
+    <Compile Include="Models\OrientationType.cs" />
     <Compile Include="MyLegacyMapsMembershipContext.cs" />
     <Compile Include="Models\Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\AdoptedMap.cs" />
@@ -417,14 +410,6 @@
       <Project>{6434b33e-f0a2-40aa-a328-3c71e3897ae0}</Project>
       <Name>MLM.Persistence</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506080310033_init.resx">
-      <DependentUpon>201506080310033_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506080347086_ApplicationUser.resx">
-      <DependentUpon>201506080347086_ApplicationUser.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -4,7 +4,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Threading.Tasks;
 using System.Data.Entity.SqlServer;
 using MLM.Models;
-using MLM.Schemas;
+using MLM.Persistence.Schemas;
 
 namespace MLM.Persistence
 {
@@ -30,6 +30,7 @@ namespace MLM.Persistence
             modelBuilder.Configurations.Add(new FlagSchema());
             modelBuilder.Configurations.Add(new FlagTypeSchema());
             modelBuilder.Configurations.Add(new ShareStatusTypeSchema());
+            modelBuilder.Configurations.Add(new OrientationTypeSchema());
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
@@ -44,6 +45,7 @@ namespace MLM.Persistence
         public DbSet<FlagType> FlagTypes { get; set; }
         public DbSet<MapType> MapTypes { get; set; }
         public DbSet<ShareStatusType> SharedStatusTypes { get; set; }
+        public DbSet<OrientationType> OrientationTypes { get; set; }
     }
 
     // EF follows a Code based Configration model and will look for a class that
