@@ -12,10 +12,12 @@ namespace MyLegacyMaps.Models
             //prevent null ref exception
             AdoptedMaps = new HashSet<AdoptedMap>();
         }
-
+        
         public int MapId { get; set; }
         public int? MapTypeId { get; set; }
         public virtual MapType MapType { get; set; }
+        [Required(ErrorMessage="A Name is required")]
+        [StringLength(60)]
         public string Name { get; set; }
         public string Description { get; set; }
         public string FileName { get; set; }

@@ -6,9 +6,9 @@
                          "data-flagtypeid={3} data-flagId={4} style='{5}' title='Name: {6} Date: {7} ' ></div>\"";                        
 }
 
-@section Scripts{
-    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/scripts/mlm/mapcanvas.js"></script>   
+@section Scripts{      
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/mlm")
 }
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
@@ -19,6 +19,8 @@
 }
 
 @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml")
+
+
 
 <script type="text/javascript">
     $(document).ready(function () {

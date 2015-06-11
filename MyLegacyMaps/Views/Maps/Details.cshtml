@@ -2,12 +2,10 @@
 @{
     ViewBag.Title = "Map Details";
 }
-
-@section Scripts{
-    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/scripts/mlm/mapcanvas.js"></script>    
+@section Scripts{      
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/mlm")
 }
-
 @using (Html.BeginForm("Create", "AdoptedMaps", FormMethod.Post))
 { 
     @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml")
@@ -16,3 +14,7 @@
     @Html.Hidden("name", Model.Name);
     @Html.Hidden("mapFileName", Model.FileName)
 }
+
+
+
+

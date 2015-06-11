@@ -14,11 +14,8 @@ namespace MyLegacyMaps
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/scripts/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                       "~/scripts/jquery-ui-1.7.1.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                       "~/scripts/jquery-ui-1.8.9.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                       "~/scripts/jquery-ui-{version}.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -29,9 +26,18 @@ namespace MyLegacyMaps
                       "~/scripts/bootstrap.js",
                       "~/scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/mlm").Include(
+                      "~/scripts/mlm/mlm-*"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/jquery-ui.css"));
+
+            bundles.Add(new StyleBundle("~/Content/mlm").Include(
+                     "~/Content/mlm/flags.css"));
+
+           
         }
     }
 }
