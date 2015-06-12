@@ -13,6 +13,7 @@ namespace MyLegacyMaps.Models
             AdoptedMaps = new HashSet<AdoptedMap>();
         }
         
+        [Required]
         public int MapId { get; set; }
         public int? MapTypeId { get; set; }
        
@@ -24,7 +25,9 @@ namespace MyLegacyMaps.Models
         public string ThumbUrl { get; set; }
         public string FileName { get; set; }
         [Required]
+        [Range(1,2)]
         public int OrientationTypeId { get; set; }
+        [Required]
         public bool IsActive { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

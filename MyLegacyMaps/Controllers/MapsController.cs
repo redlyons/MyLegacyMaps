@@ -235,7 +235,7 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MapId,Name,FileName,Orientation,IsActive")] Map map)
+        public async Task<ActionResult> Create([Bind(Include = "MapId,Name,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map)
         {
             try
             {
@@ -250,6 +250,8 @@ namespace MyLegacyMaps.Controllers
                 }
 
                 map.DateCreated = DateTime.Now;
+                map.DateModified = DateTime.Now;
+                map.ModifiedBy = HttpContext.User.Identity.Name;
                 var resp = await mapsRepository.CreateMapAsync(map.ToDomainModel());
                 
                 return RedirectToAction("Index");                
@@ -285,6 +287,9 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
+
+
+                ViewBag.MapTypes = await GetMapTypes();
                 return View(resp.Item.ToViewModel());
             }
             catch (Exception ex)
@@ -301,7 +306,7 @@ namespace MyLegacyMaps.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MapId,Name,FileName,Orientation,IsActive")] Map map)
+        public async Task<ActionResult> Edit([Bind(Include = "MapId,Name,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map)
         {
 
             try
@@ -316,16 +321,15 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-
+                map.DateModified = DateTime.Now;
+                map.ModifiedBy = HttpContext.User.Identity.Name;
                 var resp = await mapsRepository.SaveMapAsync(map.ToDomainModel());
                 if (!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
                    
-                return RedirectToAction("Manage");
-                
-                
+                return RedirectToAction("Manage");                
             }
             catch(Exception ex)
             {
@@ -334,6 +338,17 @@ namespace MyLegacyMaps.Controllers
 
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
+        }
+
+        public async Task<List<MapType>> GetMapTypes()
+        {
+            var resp = await mapsRepository.GetMapTypesAsync();
+            if (!resp.IsSuccess())
+            {
+                return  new List<MapType>();
+            }
+
+            return resp.Item.ToViewModel().ToList<MapType>();            
         }
 
         // GET: Maps/Delete/5

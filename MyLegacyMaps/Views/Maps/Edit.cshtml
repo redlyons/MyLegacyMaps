@@ -1,11 +1,10 @@
 ﻿@model MyLegacyMaps.Models.Map
-
+@using MyLegacyMaps.Models
 @{
     ViewBag.Title = "Edit Map";
 }
 
-<h2>Edit</h2>
-
+<h2>Edit Map</h2>
 
 @using (Html.BeginForm())
 {
@@ -16,6 +15,8 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MapId)
+        @Html.HiddenFor(model => model.OrientationTypeId)
+        @Html.HiddenFor(model => model.MapTypeId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -26,28 +27,53 @@
         </div>
 
         <div class="form-group">
+            <label class="control-label col-md-2">Orientation</label>
+            <div class="col-md-10">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddlOrientation"
+                            data-toggle="dropdown"><span id="ddlOrientationSelectedVal">@Html.DisplayFor(model => model.OrientationType.Name)</span><span class="caret"></span></button>    
+                    &nbsp;                    
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation" onclick="onOrientationSelected(1, 'Horizontal')">
+                            <a role="menuitem" href="#">Horizontal</a>
+                        </li>
+                        <li role="presentation" onclick="onOrientationSelected(2, 'Vertical')">
+                            <a role="menuitem" href="#">Veritical</a>
+                        </li>
+                    </ul>   
+               </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Category</label>
+            <div class="col-md-10">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddlCategory"
+                            data-toggle="dropdown">Choose<span class="caret"></span></button><span><label class="control-label col-md-2">Add New:</label></span> <input type="text" /> 
+                    &nbsp;     
+                    <span id="ddlCategorySelectedVal">@Html.DisplayFor(model => model.MapType.Name)</span>               
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation" onclick="onCategorySelected(0, '    ')">
+                            <a role="menuitem" href="#">&nbsp;</a>
+                        </li>
+                        @foreach (var item in (List<MapType>)ViewBag.MapTypes) {
+                            <li role="presentation" onclick="onCategorySelected(@item.MapTypeId,'@item.Name')">
+                                <a role="menuitem" href="#">@Html.Raw(item.Name)</a>
+                            </li>
+                        }
+                    </ul>   
+               </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FileName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrientationTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrientationTypeId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrientationTypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrientationType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrientationType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrientationType, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        </div>        
 
         <div class="form-group">
             @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -69,8 +95,21 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+    <script type="text/javascript">
+        function onOrientationSelected(id, value) {
+            $('#ddlOrientationSelectedVal').text(value);
+            $('#OrientationTypeId').val(id);
+        }
+
+        function onCategorySelected(id, value) {
+            $('#ddlCategorySelectedVal').text(value);
+            $('#MapTypeId').val(id);
+        }
+    </script>
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")   
+
+    
 }
