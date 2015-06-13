@@ -50,11 +50,11 @@
             <div class="col-md-10">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="ddlCategory"
-                            data-toggle="dropdown">Choose<span class="caret"></span></button><span><label class="control-label col-md-2">Add New:</label></span> <input type="text" /> 
+                            data-toggle="dropdown">Choose<span class="caret"></span></button>
                     &nbsp;     
                     <span id="ddlCategorySelectedVal">@Html.DisplayFor(model => model.MapType.Name)</span>               
                     <ul class="dropdown-menu" role="menu">
-                        <li role="presentation" onclick="onCategorySelected(0, '    ')">
+                        <li role="presentation" onclick="onCategorySelected(null, '    ')">
                             <a role="menuitem" href="#">&nbsp;</a>
                         </li>
                         @foreach (var item in (List<MapType>)ViewBag.MapTypes) {

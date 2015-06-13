@@ -7,8 +7,12 @@ namespace MyLegacyMaps.Models
 {
     public class MapType
     {
+        [Required]
         public int MapTypeId { get; set; }
-        public string Name { get; set; }        
+        [Required]
+        [StringLength(30)]
+        public string Name { get; set; }  
+        [Required]
         public bool IsActive { get; set; }
 
         public virtual ICollection<Map> Maps { get; set; }

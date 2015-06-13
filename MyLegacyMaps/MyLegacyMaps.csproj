@@ -171,6 +171,7 @@
     <Compile Include="Classes\Cookies\ICookieHelper.cs" />
     <Compile Include="Classes\Flags\FlagTypes.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdoptedMapsController.cs" />
     <Compile Include="Controllers\FlagsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -370,10 +371,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Maps\Create.cshtml" />
+    <Content Include="Views\Admin\MapCreate.cshtml" />
     <Content Include="Views\Maps\Delete.cshtml" />
     <Content Include="Views\Maps\Details.cshtml" />
-    <Content Include="Views\Maps\Edit.cshtml" />
+    <Content Include="Views\Admin\MapEdit.cshtml" />
     <Content Include="Views\Maps\Index.cshtml" />
     <Content Include="Views\AdoptedMaps\Create.cshtml" />
     <Content Include="Views\AdoptedMaps\Delete.cshtml" />
@@ -381,7 +382,11 @@
     <Content Include="Views\AdoptedMaps\Edit.cshtml" />
     <Content Include="Views\AdoptedMaps\Index.cshtml" />
     <Content Include="Views\Shared\Partials\MapCanvas.cshtml" />
-    <Content Include="Views\Maps\Manage.cshtml" />
+    <Content Include="Views\Admin\MapsManage.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\MapTypesManage.cshtml" />
+    <Content Include="Views\Admin\MapTypeEdit.cshtml" />
+    <Content Include="Views\Admin\MapTypeCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

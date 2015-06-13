@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Administraton</h3>
+
+<table class="table">
+    <tr>
+        <td>
+            <p>
+                @Html.ActionLink("Create Map", "MapCreate")
+            </p>
+        </td>
+    </tr>         
+    <tr>
+        <td>
+            <p>
+                @Html.ActionLink("Manage Maps", "MapsManage")
+            </p>
+        </td>        
+    </tr> 
+    <tr>
+        <td>
+            <p>
+                @Html.ActionLink("Create Map Type", "MapTypeCreate")
+            </p>
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            <p>
+                @Html.ActionLink("Manage Map Types", "MapTypesManage")
+            </p>
+        </td>
+    </tr>            
+</table>

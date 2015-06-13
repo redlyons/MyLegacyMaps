@@ -107,7 +107,7 @@ namespace MLM.Persistence
         }
 
 
-        public async Task<ResourceResponse<Map>> CreateMapAsync(Map map)
+        public async Task<ResourceResponse<Map>> AdminCreateMapAsync(Map map)
         {
             var resp = new ResourceResponse<Map>();
             try
@@ -139,7 +139,7 @@ namespace MLM.Persistence
             return resp;       
         }
 
-        public async Task<ResourceResponse<Map>> SaveMapAsync(Map map)
+        public async Task<ResourceResponse<Map>> AdminSaveMapAsync(Map map)
         {
             var resp = new ResourceResponse<Map>();
             try
@@ -219,7 +219,7 @@ namespace MLM.Persistence
                 map = await db.Maps.FindAsync(id);
 
                 timespan.Stop();
-                log.TraceApi("SQL Database", "MyLegacyMapsContext.FindTaskByIdAsync", timespan.Elapsed, "id={0}", id);
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.AdminGetMapAsync", timespan.Elapsed, "id={0}", id);
 
                 resp.Item = map;
                 resp.HttpStatusCode = (map != null)
@@ -228,13 +228,122 @@ namespace MLM.Persistence
             }
             catch (Exception e)
             {
-                log.Error(e, "Error in MapsRepository.FindTaskByIdAsync(id={0})", id);
+                log.Error(e, "Error in MapsRepository.AdminGetMapAsync(id={0})", id);
                 resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
             }
             return resp;
         }
 
-       
+        public async Task<ResourceResponse<List<MapType>>> AdminGetMapTypesAsync()
+        {
+            List<MapType> mapTypes = null;
+            var resp = new ResourceResponse<List<MapType>>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+
+                mapTypes = await db.MapTypes.ToListAsync<MapType>();
+
+                timespan.Stop();
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.AdminGetMapTypesAsync", timespan.Elapsed);
+
+                resp.Item = mapTypes;
+                resp.HttpStatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error in MapsRepository.AdminGetMapTypesAsync()");
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+
+        }
+
+        public async Task<ResourceResponse<MapType>> AdminGetMapTypeAsync(int id)
+        {
+            MapType type = null;
+            var resp = new ResourceResponse<MapType>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+                type = await db.MapTypes.FindAsync(id);
+
+                timespan.Stop();
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.AdminGetMapTypeAsync", timespan.Elapsed, "id={0}", id);
+
+                resp.Item = type;
+                resp.HttpStatusCode = (type != null)
+                    ? System.Net.HttpStatusCode.OK
+                    : System.Net.HttpStatusCode.NotFound;
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error in MapsRepository.AdminGetMapTypeAsync(id={0})", id);
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+        }
+
+        public async Task<ResourceResponse<MapType>> AdminSaveMapTypeAsync(MapType mapType)
+        {
+            var resp = new ResourceResponse<MapType>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+                db.Entry(mapType).State = EntityState.Modified;
+                var result = await db.SaveChangesAsync();
+
+                timespan.Stop();
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.AdminSaveMapTypeAsync", timespan.Elapsed,
+                    "MapId = {0} Name={1}", mapType.MapTypeId, mapType.Name);
+
+                bool isSuccess = (result > 0);
+                resp.Item = mapType;
+                resp.HttpStatusCode = (isSuccess)
+                    ? System.Net.HttpStatusCode.OK
+                    : System.Net.HttpStatusCode.InternalServerError;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in MapsRepository.AdminSaveMapTypeAsync MapId = {0} Name={1}",
+                    mapType.MapTypeId, mapType.Name));
+
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+        }
+
+        public async Task<ResourceResponse<MapType>> AdminCreateMapTypeAsync(MapType mapType)
+        {
+            var resp = new ResourceResponse<MapType>();
+            try
+            {
+
+                Stopwatch timespan = Stopwatch.StartNew();
+                db.MapTypes.Add(mapType);
+                var result = await db.SaveChangesAsync();
+
+                timespan.Stop();
+
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.AdminCreateMapTypeAsync", timespan.Elapsed,
+                    "Name={0}", mapType.Name);
+
+                bool isSuccess = (result > 0);
+                resp.Item = mapType;
+                resp.HttpStatusCode = (isSuccess)
+                    ? System.Net.HttpStatusCode.OK
+                    : System.Net.HttpStatusCode.InternalServerError;
+
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in MapsRepository.AdminCreateMapTypeAsync Name={0}",
+                   mapType.Name));
+
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+        }
 
         public void Dispose()
         {
@@ -254,5 +363,8 @@ namespace MLM.Persistence
                 }
             }
         }
+
+
+      
     }
 }

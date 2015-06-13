@@ -60,7 +60,8 @@ namespace MyLegacyMaps.Extensions
             return new DomainModel.MapType
                 {
                     MapTypeId = value.MapTypeId,
-                    Name = value.Name
+                    Name = value.Name,
+                    IsActive = value.IsActive
                 };
         }
 
@@ -215,7 +216,8 @@ namespace MyLegacyMaps.Extensions
             return new ViewModels.MapType
             {
                 MapTypeId = value.MapTypeId,
-                Name = value.Name
+                Name = value.Name,
+                IsActive = value.IsActive
             };
         }
 

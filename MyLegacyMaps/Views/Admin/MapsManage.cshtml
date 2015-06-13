@@ -2,13 +2,12 @@
 @{
     ViewBag.Title = "Manage Maps";
 }
-<h2>Manage Maps</h2>
-
+<h3>Manage Maps</h3>
+<p>
+    @Html.ActionLink("Back to Admin", "Index")
+</p>
 @using (Html.BeginForm())
 {
-    <p>
-       @Html.DropDownList("ddlMapTypeId", (SelectList)ViewBag.MapTypes, "-- All --")  <input type="submit" value="submit" />
-    </p>
     <table class="table">
         <tr>
             <th>
@@ -61,8 +60,8 @@
                 @Html.DisplayFor(modelItem => item.ModifiedBy)
             </td>          
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.MapId }) |
-                @Html.ActionLink("View", "Details", new { id=item.MapId })              
+                @Html.ActionLink("Edit", "MapEdit", new { id=item.MapId }) |
+                @Html.ActionLink("View", "Details", "Maps", new { id=item.MapId }, null)              
             </td>
         </tr>
     }
@@ -70,7 +69,6 @@
     </table>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@Html.ActionLink("Back to Admin", "Index")
+
 
