@@ -113,6 +113,10 @@ namespace MyLegacyMaps.Controllers
 
                 adoptedMap.UserId = HttpContext.User.Identity.GetUserId();
                 adoptedMap.ShareStatusTypeId = 1; //default to private
+                adoptedMap.DateCreated = DateTime.Now;
+                adoptedMap.DateModified = DateTime.Now;
+                adoptedMap.ModifiedBy = HttpContext.User.Identity.Name;
+
                 var resp = await adoptedMapsRepository.CreateAdoptedMapAsync(adoptedMap.ToDomainModel());
 
                 if (!resp.IsSuccess())
@@ -200,7 +204,8 @@ namespace MyLegacyMaps.Controllers
 
                 var updatedMap = resp.Item;
                 updatedMap.Name = adoptedMap.Name;
-
+                updatedMap.DateModified = DateTime.Now;
+                updatedMap.ModifiedBy = HttpContext.User.Identity.Name;
 
                 var saveResp = await adoptedMapsRepository.SaveAdoptedMapAsync(updatedMap);
                 if (!saveResp.IsSuccess())

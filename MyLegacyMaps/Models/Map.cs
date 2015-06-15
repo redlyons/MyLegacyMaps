@@ -14,9 +14,7 @@ namespace MyLegacyMaps.Models
         }
         
         [Required]
-        public int MapId { get; set; }
-        public int? MapTypeId { get; set; }
-       
+        public int MapId { get; set; }      
         [Required(ErrorMessage="A Name is required")]
         [StringLength(60)]
         public string Name { get; set; }
@@ -35,6 +33,7 @@ namespace MyLegacyMaps.Models
 
         public virtual ICollection<AdoptedMap> AdoptedMaps { get; set; }
         public virtual OrientationType OrientationType { get; set; }
-        public virtual MapType MapType { get; set; }
+        public virtual ICollection<MapType> MapTypes { get; set; }
+        
     }
 }

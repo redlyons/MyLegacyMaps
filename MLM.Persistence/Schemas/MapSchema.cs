@@ -18,7 +18,17 @@ namespace MLM.Persistence.Schemas
             HasMany(p => p.AdoptedMaps)
                 .WithRequired(p => p.Map)
                 .HasForeignKey(p => p.MapId);
-                   
+
+            HasMany(p => p.MapTypes)
+               .WithMany(m => m.Maps)
+               .Map(s =>
+                   {
+                       s.MapLeftKey("MapId");
+                       s.MapRightKey("MapTypeId");
+                   }
+               );
         }
+
+
     }
 }

@@ -6,139 +6,8 @@ using ViewModels = MyLegacyMaps.Models;
 
 namespace MyLegacyMaps.Extensions
 {
-    public static class ModelConverter
+    public static class ViewModelConvertor
     {
-        #region ToDomainModel
-        public static DomainModel.AdoptedMap ToDomainModel(this ViewModels.AdoptedMap value)
-        {
-            if (value == null)
-                return null;
-
-            return new DomainModel.AdoptedMap
-                {
-                    AdoptedMapId = value.AdoptedMapId,
-                    MapId = value.MapId,
-                    Name = value.Name,
-                    UserId = value.UserId,
-                    Map = value.Map.ToDomainModel(),
-                    ShareStatusTypeId = value.ShareStatusTypeId,
-                    ShareStatusType = value.ShareStatusType.ToDomainModel(),
-                    Flags = value.Flags.ToDomainModel()
-                    
-                };
-        }
-        
-        public static DomainModel.Map ToDomainModel(this ViewModels.Map value)
-        {
-            if (value == null)
-                return null;
-
-            return new DomainModel.Map
-            {
-                MapId = value.MapId,
-                Name = value.Name,
-                Description = value.Description,
-                FileName = value.FileName,
-                ImageUrl = value.ImageUrl,
-                ThumbUrl = value.ThumbUrl,
-                MapTypeId = value.MapTypeId,
-                OrientationTypeId = value.OrientationTypeId,
-                IsActive = value.IsActive,
-                DateCreated = value.DateCreated,   
-                DateModified = value.DateModified,
-                ModifiedBy = value.ModifiedBy,                
-                MapType = value.MapType.ToDomainModel(),
-                OrientationType = value.OrientationType.ToDomainModel()
-            };
-        }
-
-        public static DomainModel.MapType ToDomainModel(this ViewModels.MapType value)
-        {
-            if (value == null)
-                return null;
-
-            return new DomainModel.MapType
-                {
-                    MapTypeId = value.MapTypeId,
-                    Name = value.Name,
-                    IsActive = value.IsActive
-                };
-        }
-
-        public static DomainModel.ShareStatusType ToDomainModel( this ViewModels.ShareStatusType value)
-        {
-            if (value == null)
-                return null;
-
-            return new DomainModel.ShareStatusType
-                {
-                    ShareStatusTypeId = value.ShareStatusTypeId,
-                    Name = value.Name
-                };
-        }
-
-        public static DomainModel.FlagType ToDomainModel( this ViewModels.FlagType value)
-        {
-            if (value == null)
-                return null;
-
-            return new DomainModel.FlagType
-            {
-                FlagTypeId = value.FlagTypeId,
-                Name = value.Name
-            };
-        }
-
-        public static DomainModel.Flag ToDomainModel(this ViewModels.Flag value)
-        {
-            if (value == null)
-                return null;
-
-            return new DomainModel.Flag
-            {
-                FlagId = value.FlagId,
-                FlagTypeId = value.FlagTypeId,
-                AdoptedMapId = value.AdoptedMapId,
-                Xpos = value.Xpos,
-                Ypos = value.Ypos,
-                Name = value.Name,
-                Description = value.Description,
-                VideoUrl = value.VideoUrl,
-                Date = value.Date,
-                CreatedDate = value.CreatedDate,
-                ModifiedDate = value.ModifiedDate
-
-            };
-        }
-
-        public static DomainModel.OrientationType ToDomainModel(this ViewModels.OrientationType value)
-        {
-            if (value == null)
-                return null;
-
-            return new DomainModel.OrientationType
-            {
-                OrientationTypeId = value.OrientationTypeId,
-                Name = value.Name
-            };
-
-        }
-
-        public static ICollection<DomainModel.Flag> ToDomainModel( this ICollection<ViewModels.Flag> value)
-        {
-            if (value == null)
-                return null;
-
-            List<DomainModel.Flag> retVal = new List<DomainModel.Flag>();
-            foreach(var flag in value)
-            {
-                retVal.Add(flag.ToDomainModel());
-            }
-            return retVal;
-        }
-        #endregion
-
-        #region ToViewModel
         public static ViewModels.AdoptedMap ToViewModel(this DomainModel.AdoptedMap value)
         {
             if (value == null)
@@ -150,11 +19,13 @@ namespace MyLegacyMaps.Extensions
                 MapId = value.MapId,
                 Name = value.Name,
                 UserId = value.UserId,
-                Map = value.Map.ToViewModel(),
                 ShareStatusTypeId = value.ShareStatusTypeId,
+                DateCreated = value.DateCreated,
+                DateModified = value.DateModified,
+                ModifiedBy = value.ModifiedBy,
+                Map = value.Map.ToViewModel(),
                 ShareStatusType = value.ShareStatusType.ToViewModel(),
                 Flags = value.Flags.ToViewModel()
-
             };
         }
 
@@ -184,13 +55,12 @@ namespace MyLegacyMaps.Extensions
                 ImageUrl = value.ImageUrl,
                 ThumbUrl = value.ThumbUrl,
                 FileName = value.FileName,
-                IsActive = value.IsActive,
-                MapTypeId = value.MapTypeId,
+                IsActive = value.IsActive,                
                 OrientationTypeId = value.OrientationTypeId,
                 DateCreated = value.DateCreated,
                 DateModified = value.DateModified,
-                ModifiedBy = value.ModifiedBy,               
-                MapType =  value.MapType.ToViewModel(),
+                ModifiedBy = value.ModifiedBy,
+                MapTypes = value.MapTypes.ToViewModel(),
                 OrientationType = value.OrientationType.ToViewModel()
             };
         }
@@ -230,8 +100,6 @@ namespace MyLegacyMaps.Extensions
             }
             return retVal;
         }
-
-
 
         public static ViewModels.ShareStatusType ToViewModel(this DomainModel.ShareStatusType value)
         {
@@ -297,7 +165,7 @@ namespace MyLegacyMaps.Extensions
                 retVal.Add(flag.ToViewModel());
             }
             return retVal;
-        }
+        }       
 
         public static ViewModels.OrientationType ToViewModel(this DomainModel.OrientationType value)
         {
@@ -311,6 +179,5 @@ namespace MyLegacyMaps.Extensions
             };
 
         }
-        #endregion
     }
 }

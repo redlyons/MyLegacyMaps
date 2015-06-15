@@ -14,10 +14,13 @@ namespace MLM.Models
 
         public int AdoptedMapId { get; set; }
         public string UserId { get; set; }
-        public int MapId { get; set; }
-        public virtual Map Map { get; set; }
+        public int MapId { get; set; }        
         public string Name { get; set; }
         public int ShareStatusTypeId { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public string ModifiedBy { get; set; }
+        public virtual Map Map { get; set; }
         public virtual ShareStatusType ShareStatusType { get; set; }
         public virtual ICollection<Flag> Flags { get; set; }
     }

@@ -7,20 +7,25 @@ using System.Web;
 using System.Web.Mvc;
 using MLM.Logging;
 using MLM.Persistence.Interfaces;
+using MLM.Persistence;
+
 using MyLegacyMaps.Models;
 using MyLegacyMaps.Extensions;
 using MyLegacyMaps.Classes.Cookies;
+
 namespace MyLegacyMaps.Controllers
 {
     [Authorize(Roles = "mapManager")]
     public class AdminController : Controller
     {
+        private IPhotoService photoStorage = null;
         private IMapsRepository mapsRepository = null;
         private ILogger log = null;
 
-        public AdminController(IMapsRepository repositiory, ILogger logger)
+        public AdminController(IMapsRepository repositiory, IPhotoService photoService, ILogger logger)
         {
             mapsRepository = repositiory;
+            photoStorage = photoService;
             log = logger;            
         }
 
@@ -65,8 +70,18 @@ namespace MyLegacyMaps.Controllers
         [Authorize(Roles = "mapManager")]
         public async Task<ActionResult> MapCreate()
         {
+            var mapViewModel = new Map()
+                {
+                    OrientationTypeId = 1,
+                    OrientationType = new OrientationType
+                    {
+                        OrientationTypeId = 1,
+                        Name = "Horizontal"
+                    }
+                };
+
             ViewBag.MapTypes = await GetMapTypes();
-            return View();
+            return View(mapViewModel);
         }
 
         // POST: Maps/Create
@@ -75,7 +90,8 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> MapCreate([Bind(Include = "MapId,Name,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map)
+        public async Task<ActionResult> MapCreate([Bind(Include = "MapId,Name,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map,
+            HttpPostedFileBase photo, HttpPostedFileBase thumb)
         {
             try
             {
@@ -87,6 +103,18 @@ namespace MyLegacyMaps.Controllers
                 if (!ModelState.IsValid)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if(photo != null)
+                {
+                    map.ImageUrl = await photoStorage.UploadPhotoAsync(photo, PhotoType.MapMainImage);
+                    map.FileName = photo.FileName;
+                }
+
+                if(thumb != null)
+                {
+                    map.ThumbUrl = await photoStorage.UploadPhotoAsync(thumb, PhotoType.MapThumb);
+
                 }
 
                 map.DateCreated = DateTime.Now;
@@ -128,9 +156,11 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
 
+                var mapViewModel = resp.Item.ToViewModel();              
+                var mapTypes = await GetMapTypes();
 
-                ViewBag.MapTypes = await GetMapTypes();
-                return View(resp.Item.ToViewModel());
+                ViewBag.MapTypes = mapTypes;
+                return View(mapViewModel);
             }
             catch (Exception ex)
             {
@@ -147,7 +177,8 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> MapEdit([Bind(Include = "MapId,Name,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map)
+        public async Task<ActionResult> MapEdit([Bind(Include = "MapId,Name,FileName,OrientationTypeId,IsActive")] Map map,        
+            HttpPostedFileBase photo, HttpPostedFileBase thumb, FormCollection values)
         {
 
             try
@@ -160,6 +191,40 @@ namespace MyLegacyMaps.Controllers
                 if (!ModelState.IsValid)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if(photo != null)
+                {
+                    map.ImageUrl = await photoStorage.UploadPhotoAsync(photo, PhotoType.MapMainImage);
+                    map.FileName = photo.FileName;
+                }
+
+                if (thumb != null)
+                {
+                    map.ThumbUrl = await photoStorage.UploadPhotoAsync(thumb, PhotoType.MapThumb);
+                }
+                var selectedMapTypes = values["selectedMapTypes"].Split(new char [] {','});
+                if(selectedMapTypes != null && selectedMapTypes.Count() > 0)
+                {
+                    var allMapTypes = await GetMapTypes();
+                    map.MapTypes = new List<MapType>();
+                    for (int i = 0; i < selectedMapTypes.Count(); i++)
+                    {
+                        int typeId = 0;
+                        if (Int32.TryParse(selectedMapTypes[i], out typeId))
+                        {
+                            foreach (var type in allMapTypes)
+                            {
+
+                                if (type.MapTypeId == typeId)
+                                {
+                                    map.MapTypes.Add(type);
+                                    break;
+                                }
+                            
+                            }
+                        }
+                    }
                 }
 
                 map.DateModified = DateTime.Now;

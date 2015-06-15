@@ -13,12 +13,22 @@ namespace MyLegacyMaps.Models
             Flags = new HashSet<Flag>();
         }
 
-        public int AdoptedMapId { get; set; }       
-        public string UserId { get; set; }       
-        public int MapId { get; set; }
-        public virtual Map Map { get; set; }
+        [Required]
+        public int AdoptedMapId { get; set; } 
+        [Required]
+        public string UserId { get; set; }   
+        [Required]
+        public int MapId { get; set; }      
+        [Required]
+        [StringLength(60)]
         public string Name { get; set; }
+        [Required]
         public int ShareStatusTypeId { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public string ModifiedBy { get; set; }
+
+        public virtual Map Map { get; set; }
         public virtual ShareStatusType ShareStatusType { get; set; }
         public virtual ICollection<Flag> Flags { get; set; }
     }

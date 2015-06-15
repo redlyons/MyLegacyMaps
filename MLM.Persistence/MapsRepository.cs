@@ -28,15 +28,18 @@ namespace MLM.Persistence
             try
             {
                 Stopwatch timespan = Stopwatch.StartNew();
+               
+              
                 if (mapTypeId > 0)
                 {
-                    maps = await db.Maps.AsQueryable().Where(m => m.MapTypeId == mapTypeId &&
-                        m.IsActive == true).ToListAsync();
+                    maps = await db.Maps.AsQueryable().Where(m => m.IsActive == true
+                         && m.MapTypes.Any(i => i.MapTypeId == mapTypeId)).ToListAsync();
                 }
                 else
                 {
                     maps = await db.Maps.AsQueryable().Where(m => m.IsActive == true).ToListAsync();
-                } 
+                }
+                             
 
                 timespan.Stop();
                 log.TraceApi("SQL Database", String.Format("MyLegacyMapsContext.GetMapsAsync mapTypeId = {0}", 
@@ -182,7 +185,8 @@ namespace MLM.Persistence
                 Stopwatch timespan = Stopwatch.StartNew();
                 if (mapTypeId > 0)
                 {
-                    maps = await db.Maps.AsQueryable().Where(m => m.MapTypeId == mapTypeId).ToListAsync();
+                    maps = await db.Maps.AsQueryable().Where(m =>
+                        m.MapTypes.Any(i => i.MapTypeId == mapTypeId)).ToListAsync();
                 }
                 else
                 {

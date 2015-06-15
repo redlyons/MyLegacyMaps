@@ -12,19 +12,13 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
-            </th> 
-            <th>
-                Category
-            </th> 
+            </th>            
             <th>
                 Orientation
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>  
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>    
             <th>
                 @Html.DisplayNameFor(model => model.DateModified)
             </th>     
@@ -42,17 +36,11 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MapType.Name)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.OrientationType.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>   
+            </td>            
             <td>
                 @Html.DisplayFor(modelItem => item.DateModified)
             </td>  
