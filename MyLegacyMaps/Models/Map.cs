@@ -11,6 +11,14 @@ namespace MyLegacyMaps.Models
         {
             //prevent null ref exception
             AdoptedMaps = new HashSet<AdoptedMap>();
+            MapTypes = new HashSet<MapType>();
+
+            //default orientation
+            OrientationType = new OrientationType
+            {
+                OrientationTypeId = 1,
+                Name = "Horizontal"
+            };
         }
         
         [Required]

@@ -11,14 +11,22 @@ namespace MLM.Persistence.Schemas
             //PK
             HasKey(p => p.MapId);
 
+            //FK
+            Property(p => p.OrientationTypeId)
+                .IsRequired();
+
+            HasRequired(p => p.OrientationType);
+
             Property(p => p.Name)
                 .HasMaxLength(60)
                 .IsRequired();
 
+            //One to Many
             HasMany(p => p.AdoptedMaps)
                 .WithRequired(p => p.Map)
                 .HasForeignKey(p => p.MapId);
 
+           //Many to Many
             HasMany(p => p.MapTypes)
                .WithMany(m => m.Maps)
                .Map(s =>

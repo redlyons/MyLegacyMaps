@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdoptedMapcs.cs" />
+    <Compile Include="AdoptedMap.cs" />
     <Compile Include="Flag.cs" />
     <Compile Include="FlagType.cs" />
     <Compile Include="Map.cs" />
