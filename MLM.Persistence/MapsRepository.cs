@@ -147,9 +147,10 @@ namespace MLM.Persistence
             var resp = new ResourceResponse<Map>();
             try
             {
-                Stopwatch timespan = Stopwatch.StartNew();
+                Stopwatch timespan = Stopwatch.StartNew();               
                 db.Entry(map).State = EntityState.Modified;
-                var result = await db.SaveChangesAsync();
+                var result = await db.SaveChangesAsync();    
+
 
                 timespan.Stop();
                 log.TraceApi("SQL Database", "MyLegacyMapsContext.SaveAdoptedMapAsync", timespan.Elapsed,
@@ -165,6 +166,90 @@ namespace MLM.Persistence
             {
                 log.Error(ex, String.Format("Error in MapsRepository.SaveMapAsync MapId = {0} Name={1}",
                     map.MapId, map.Name));
+
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+        }
+
+        public async Task<ResourceResponse<Map>> AdminSaveMapTypesAsync(int mapId, List<int> mapTypeIds)
+        {
+            var resp = new ResourceResponse<Map>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+
+                var map = db.Maps.Include(m => m.MapTypes).Single(s => s.MapId == mapId);
+                var mapTypesResp = await this.AdminGetMapTypesAsync();
+                if (map == null)
+                {
+                    resp.HttpStatusCode = System.Net.HttpStatusCode.NotFound;
+                    return resp;
+                }
+                if (!mapTypesResp.IsSuccess())
+                {
+                    resp.HttpStatusCode = mapTypesResp.HttpStatusCode;
+                    return resp;
+                }
+               
+                var allMapTypes = mapTypesResp.Item;
+                var updatedMapTypes = new List<MapType>();
+                foreach (var id in mapTypeIds)
+                {
+                    MapType type = allMapTypes.Find(mt => mt.MapTypeId == id);
+                    if (type != null)
+                    {
+                        updatedMapTypes.Add(type);
+                    }
+                }
+
+                if (map.MapTypes.Equals(updatedMapTypes))
+                {
+                    resp.HttpStatusCode = System.Net.HttpStatusCode.OK;
+                    return resp;
+                }
+                List<MapType> clonedMapTypes = new List<MapType>();
+                foreach (var curr in map.MapTypes)
+                {
+                    clonedMapTypes.Add(curr);
+                }
+                //Delete all map types than re-add
+                foreach (var curr in clonedMapTypes)
+                {
+                    MapType typeToDel = allMapTypes.Find(mt => mt.MapTypeId == curr.MapTypeId);
+                    map.MapTypes.Remove(typeToDel);
+                }
+
+                var resultDel = await db.SaveChangesAsync();
+                bool isSuccess = (resultDel >= 0);
+                if (!isSuccess)
+                {
+                    resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    return resp;
+                }
+
+                //Add upated map types
+                foreach (var type in updatedMapTypes)
+                {
+                    MapType typeToAdd = allMapTypes.Find(mt => mt.MapTypeId == type.MapTypeId);
+                    map.MapTypes.Add(typeToAdd);
+                }
+                var resultAdd = await db.SaveChangesAsync();
+
+                timespan.Stop();
+                log.TraceApi("SQL =Database", "MyLegacyMapsContext.AdminSaveMapTypesAsync", timespan.Elapsed,
+                    "MapId = {0}", mapId);
+
+                isSuccess = (resultAdd >= 0);
+                resp.Item = map;
+                resp.HttpStatusCode = (isSuccess)
+                    ? System.Net.HttpStatusCode.OK
+                    : System.Net.HttpStatusCode.InternalServerError;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in MapsRepository.AdminSaveMapTypesAsync MapId = {0}",
+                    mapId));
 
                 resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
             }

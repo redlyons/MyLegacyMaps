@@ -203,26 +203,17 @@ namespace MyLegacyMaps.Controllers
                 {
                     map.ThumbUrl = await photoStorage.UploadPhotoAsync(thumb, PhotoType.MapThumb);
                 }
-                var selectedMapTypes = values["selectedMapTypes"].Split(new char [] {','});
-                if(selectedMapTypes != null && selectedMapTypes.Count() > 0)
-                {
-                    var allMapTypes = await GetMapTypes();
-                    map.MapTypes = new List<MapType>();
+
+                List<int> updatedMapTypeIds = new List<int>();
+                if (!String.IsNullOrEmpty(values["selectedMapTypes"]))
+                { 
+                    var selectedMapTypes = values["selectedMapTypes"].Split(new char [] {','});               
                     for (int i = 0; i < selectedMapTypes.Count(); i++)
                     {
                         int typeId = 0;
                         if (Int32.TryParse(selectedMapTypes[i], out typeId))
                         {
-                            foreach (var type in allMapTypes)
-                            {
-
-                                if (type.MapTypeId == typeId)
-                                {
-                                    map.MapTypes.Add(type);
-                                    break;
-                                }
-                            
-                            }
+                            updatedMapTypeIds.Add(typeId);
                         }
                     }
                 }
@@ -230,6 +221,12 @@ namespace MyLegacyMaps.Controllers
                 map.DateModified = DateTime.Now;
                 map.ModifiedBy = HttpContext.User.Identity.Name;
                 var resp = await mapsRepository.AdminSaveMapAsync(map.ToDomainModel());
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                resp = await mapsRepository.AdminSaveMapTypesAsync(map.MapId, updatedMapTypeIds);
                 if (!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
