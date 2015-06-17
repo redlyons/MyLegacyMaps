@@ -53,7 +53,7 @@ namespace MyLegacyMaps.Controllers
                 }
 
 
-                var respAdoptedMap = await adoptedMapRepository.FindByAdoptedMapIdAsync(respFlag.Item.AdoptedMapId);
+                var respAdoptedMap = await adoptedMapRepository.GetAdoptedMapByIdAsync(respFlag.Item.AdoptedMapId);
                 if (!respAdoptedMap.IsSuccess())
                 {
                     return new HttpStatusCodeResult(respAdoptedMap.HttpStatusCode);
@@ -125,7 +125,7 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                var adoptedMapResp = await adoptedMapRepository.FindByAdoptedMapIdAsync(flag.AdoptedMapId);
+                var adoptedMapResp = await adoptedMapRepository.GetAdoptedMapByIdAsync(flag.AdoptedMapId);
                 if (!adoptedMapResp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(adoptedMapResp.HttpStatusCode);
@@ -201,7 +201,7 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(respFlagGet.HttpStatusCode);
                 }
-                var adoptedMapResp = await adoptedMapRepository.FindByAdoptedMapIdAsync(respFlagGet.Item.AdoptedMapId);
+                var adoptedMapResp = await adoptedMapRepository.GetAdoptedMapByIdAsync(respFlagGet.Item.AdoptedMapId);
                 if (!adoptedMapResp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(adoptedMapResp.HttpStatusCode);

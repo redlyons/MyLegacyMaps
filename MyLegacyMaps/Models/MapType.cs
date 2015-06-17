@@ -34,5 +34,10 @@ namespace MyLegacyMaps.Models
 
             return this.MapTypeId == mt.MapTypeId;
         }
+
+        public override int GetHashCode()
+        {
+            return this.MapTypeId.GetHashCode();
+        }
     }
 }

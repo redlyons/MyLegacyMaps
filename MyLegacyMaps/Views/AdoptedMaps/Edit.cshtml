@@ -1,4 +1,5 @@
 ﻿@model MyLegacyMaps.Models.AdoptedMap
+@using MyLegacyMaps.Models;
 
 @{
     ViewBag.Title = "Edit Adopted Map";
@@ -17,7 +18,9 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.AdoptedMapId)
         @Html.HiddenFor(model => model.ShareStatusTypeId)
-        @Html.HiddenFor(model => model.MapId)         
+        @Html.HiddenFor(model => model.MapId) 
+        @Html.HiddenFor(model => model.DateCreated)    
+        @Html.HiddenFor(model => model.UserId)    
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -28,11 +31,23 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ShareStatusType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">Sharing</label>
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.ShareStatusType.Name, new { htmlAttributes = new { @class = "form-control" } })*@
-                @*@Html.ValidationMessageFor(model => model.ShareStatusType.Name, "", new { @class = "text-danger" })*@
-                @Html.DropDownList("ddlShareTypeId", (SelectList)ViewBag.ShareTypes)  
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="ddlOrientation"
+                            data-toggle="dropdown">
+                       <span>Choose:</span><span class="caret"></span>
+                    </button>
+                    &nbsp;<span id="ddlShareStatusSelectedVal">@Html.DisplayFor(model => model.ShareStatusType.Name)</span>
+                    <ul class="dropdown-menu" role="menu">
+                        @foreach (var type in (List<ShareStatusType>)ViewBag.ShareTypes)
+                        {
+                            <li role="presentation" onclick="onShareStatusTypeSelected('@type.ShareStatusTypeId', '@type.Name')">
+                                <a role="menuitem" href="#">@type.Name</a>
+                            </li>
+                        } 
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -46,6 +61,13 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+    <script type="text/javascript">
+        function onShareStatusTypeSelected(id, value) {
+            $('#ddlShareStatusSelectedVal').text(value);
+            $('#ShareStatusTypeId').val(id);
+        }
+    </script>
+
 </div>
 
 @section Scripts {

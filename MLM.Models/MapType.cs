@@ -27,7 +27,13 @@ namespace MLM.Models
                 return false;
             }
 
-            return this.MapTypeId == mt.MapTypeId;
+            bool retVal =  this.MapTypeId == mt.MapTypeId;
+            return retVal;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.MapTypeId.GetHashCode();
         }
     }
 }

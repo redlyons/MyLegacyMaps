@@ -19,17 +19,18 @@ namespace MLM.Persistence.Schemas
             Property(p => p.MapId)
                 .IsRequired();
 
+            HasRequired(p => p.Map);
+
             //FK
             Property(p => p.ShareStatusTypeId)
                 .IsRequired();
+
+            HasRequired(p => p.ShareStatusType);
             
+            //Name
             Property(p => p.Name)
                 .HasMaxLength(60)
-                .IsRequired();
-
-            HasMany(p => p.Flags)
-                .WithRequired()
-                .HasForeignKey(am => am.AdoptedMapId);
+                .IsRequired();           
 
             Property(p => p.DateCreated)
                 .IsRequired();
@@ -41,8 +42,13 @@ namespace MLM.Persistence.Schemas
                 .HasMaxLength(50)
                 .IsRequired();
 
-            HasRequired(p => p.Map);
-            HasRequired(p => p.ShareStatusType);
+            //Flags: One to Many
+            HasMany(p => p.Flags)
+                .WithRequired()
+                .HasForeignKey(am => am.AdoptedMapId);
+
+           
+            
            
           
         }

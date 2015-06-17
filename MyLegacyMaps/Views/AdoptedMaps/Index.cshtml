@@ -13,8 +13,14 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShareStatusTypeId)
-        </th>        
+            Shared Status
+        </th>  
+        <th>
+            Flags
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateModified)
+        </th>              
     </tr>
 
 @foreach (var item in Model) {
@@ -23,8 +29,14 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShareStatusTypeId)
+            @Html.DisplayFor(modelItem => item.ShareStatusType.Name)
         </td>       
+        <td>
+            <span>@item.Flags.Count.ToString()</span>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateModified)
+        </td> 
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.AdoptedMapId }) |
             @Html.ActionLink("View", "Details", new { id=item.AdoptedMapId }) |

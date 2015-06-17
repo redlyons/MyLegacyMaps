@@ -11,6 +11,14 @@ namespace MyLegacyMaps.Models
         {
             //prevent null ref exception
             Flags = new HashSet<Flag>();
+
+            //Default to Private
+            ShareStatusTypeId = 1;
+            ShareStatusType = new ShareStatusType
+            {
+                ShareStatusTypeId = 1,
+                Name = "Private"
+            };
         }
 
         [Required]

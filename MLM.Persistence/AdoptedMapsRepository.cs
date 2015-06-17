@@ -45,7 +45,7 @@ namespace MLM.Persistence
             return resp;
         }
 
-        public async Task<ResourceResponse<AdoptedMap>> FindByAdoptedMapIdAsync(int id)
+        public async Task<ResourceResponse<AdoptedMap>> GetAdoptedMapByIdAsync(int id)
         {
             AdoptedMap map = null;
             var resp = new ResourceResponse<AdoptedMap>();
@@ -55,7 +55,7 @@ namespace MLM.Persistence
                 map = await db.AdoptedMaps.FindAsync(id);
 
                 timespan.Stop();
-                log.TraceApi("SQL Database", "MyLegacyMapsContext.FindByAdoptedMapIdAsync", timespan.Elapsed, "id={0}", id);
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.GetAdoptedMapByIdAsync", timespan.Elapsed, "id={0}", id);
 
                 resp.Item = map;
                 resp.HttpStatusCode = (map != null)
@@ -64,7 +64,7 @@ namespace MLM.Persistence
             }
             catch (Exception e)
             {
-                log.Error(e, "Error in AdoptedMapsRepository.FindByAdoptedMapIdAsync(id={0})", id);
+                log.Error(e, "Error in AdoptedMapsRepository.GetAdoptedMapByIdAsync(id={0})", id);
                 resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
             }
             return resp;
@@ -74,7 +74,7 @@ namespace MLM.Persistence
         {
             var resp = new ResourceResponse<AdoptedMap>();
             try
-            {
+            {                
                 Stopwatch timespan = Stopwatch.StartNew();
                 db.AdoptedMaps.Add(adoptedMap);
                 var result = await db.SaveChangesAsync();
@@ -105,6 +105,13 @@ namespace MLM.Persistence
             try
             {
                 Stopwatch timespan = Stopwatch.StartNew();
+                //var existingMap = await db.AdoptedMaps.FindAsync(adoptedMap.AdoptedMapId);
+                //if(existingMap == null)
+                //{
+                //    resp.HttpStatusCode = System.Net.HttpStatusCode.NotFound;
+                //    return resp;
+                //}
+
                 db.Entry(adoptedMap).State = EntityState.Modified;
                 var result = await db.SaveChangesAsync();
 

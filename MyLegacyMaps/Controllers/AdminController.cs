@@ -70,15 +70,8 @@ namespace MyLegacyMaps.Controllers
         [Authorize(Roles = "mapManager")]
         public async Task<ActionResult> MapCreate()
         {
-            var mapViewModel = new Map()
-                {
-                    OrientationTypeId = 1,
-                    OrientationType = new OrientationType
-                    {
-                        OrientationTypeId = 1,
-                        Name = "Horizontal"
-                    }
-                };
+            var mapViewModel = new Map();
+                
 
             ViewBag.MapTypes = await GetMapTypes();
             return View(mapViewModel);
@@ -177,7 +170,8 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> MapEdit([Bind(Include = "MapId,Name,Description,FileName,OrientationTypeId,IsActive")] Map map,        
+        public async Task<ActionResult> MapEdit([Bind(Include =
+            "MapId,Name,Description,FileName,OrientationTypeId,IsActive,ImageUrl,ThumbUrl")] Map map,        
             HttpPostedFileBase photo, HttpPostedFileBase thumb, FormCollection values)
         {
 
@@ -220,6 +214,7 @@ namespace MyLegacyMaps.Controllers
 
                 map.DateModified = DateTime.Now;
                 map.ModifiedBy = HttpContext.User.Identity.Name;
+                map.OrientationType = null;//avoid mismatch error if OrientationTypeId property has changed
                 var resp = await mapsRepository.AdminSaveMapAsync(map.ToDomainModel());
                 if (!resp.IsSuccess())
                 {

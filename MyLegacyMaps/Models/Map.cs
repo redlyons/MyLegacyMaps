@@ -14,6 +14,7 @@ namespace MyLegacyMaps.Models
             MapTypes = new HashSet<MapType>();
 
             //default orientation
+            OrientationTypeId = 1;
             OrientationType = new OrientationType
             {
                 OrientationTypeId = 1,

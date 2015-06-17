@@ -67,7 +67,7 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                var resp = await adoptedMapsRepository.FindByAdoptedMapIdAsync((int)id.Value);
+                var resp = await adoptedMapsRepository.GetAdoptedMapByIdAsync((int)id.Value);
                 if(!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
@@ -97,25 +97,25 @@ namespace MyLegacyMaps.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "UserId,MapId,Name,ShareStatusTypeId")] AdoptedMap adoptedMap)
+        public async Task<ActionResult> Create([Bind(Include = "MapId, Name")] AdoptedMap adoptedMap)
         {
             try
             { 
                 if (!HttpContext.User.Identity.IsAuthenticated)
                 {
                     return new HttpUnauthorizedResult();
-                }
-                      
-                if (!ModelState.IsValid)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+                }               
 
                 adoptedMap.UserId = HttpContext.User.Identity.GetUserId();
                 adoptedMap.ShareStatusTypeId = 1; //default to private
                 adoptedMap.DateCreated = DateTime.Now;
                 adoptedMap.DateModified = DateTime.Now;
                 adoptedMap.ModifiedBy = HttpContext.User.Identity.Name;
+
+                //if (!ModelState.IsValid)
+                //{
+                //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //}
 
                 var resp = await adoptedMapsRepository.CreateAdoptedMapAsync(adoptedMap.ToDomainModel());
 
@@ -149,7 +149,7 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                var resp = await adoptedMapsRepository.FindByAdoptedMapIdAsync((int)id.Value);
+                var resp = await adoptedMapsRepository.GetAdoptedMapByIdAsync((int)id.Value);
               
                 if (!resp.IsSuccess())
                 {
@@ -161,8 +161,7 @@ namespace MyLegacyMaps.Controllers
                     return new HttpUnauthorizedResult();
                 }
 
-                var shareTypeOptions = await GetShareTypeOptions(resp.Item.ShareStatusTypeId);
-                ViewBag.ShareTypes = shareTypeOptions;
+                ViewBag.ShareTypes = await GetShareTypeOptions();
                 var viewModel = resp.Item.ToViewModel();
                 return View(viewModel);
             }
@@ -180,7 +179,7 @@ namespace MyLegacyMaps.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId, Name, ShareStatusTypeId, ShareStatusType.Name")] AdoptedMap adoptedMap, FormCollection values)
+        public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId, MapId, Name, ShareStatusTypeId, DateCreated, UserId")] AdoptedMap adoptedMap)
         {
             try
             { 
@@ -192,22 +191,23 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                var resp = await adoptedMapsRepository.FindByAdoptedMapIdAsync(adoptedMap.AdoptedMapId);
-                if (!resp.IsSuccess())
-                {
-                    return new HttpStatusCodeResult(resp.HttpStatusCode);
-                }
-                if (resp.Item.UserId != HttpContext.User.Identity.GetUserId())
-                {
-                    return new HttpUnauthorizedResult();
-                }
 
-                var updatedMap = resp.Item;
-                updatedMap.Name = adoptedMap.Name;
-                updatedMap.DateModified = DateTime.Now;
-                updatedMap.ModifiedBy = HttpContext.User.Identity.Name;
+                //Extra security check - make sure the UserId on the map is the same as the auth'd userId.
+                //var resp = await adoptedMapsRepository.GetAdoptedMapByIdAsync(adoptedMap.AdoptedMapId);
+                //if (!resp.IsSuccess())
+                //{
+                //    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                //}
+                //if (resp.Item.UserId != HttpContext.User.Identity.GetUserId())
+                //{
+                //    return new HttpUnauthorizedResult();
+                //}
 
-                var saveResp = await adoptedMapsRepository.SaveAdoptedMapAsync(updatedMap);
+                
+                adoptedMap.DateModified = DateTime.Now;
+                adoptedMap.ModifiedBy = HttpContext.User.Identity.Name;
+                adoptedMap.ShareStatusType = null; //avoid mismatch error if ShareStatusTypeId as changed.
+                var saveResp = await adoptedMapsRepository.SaveAdoptedMapAsync(adoptedMap.ToDomainModel());
                 if (!saveResp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(saveResp.HttpStatusCode);
@@ -237,7 +237,7 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                var resp = await adoptedMapsRepository.FindByAdoptedMapIdAsync((int)id);
+                var resp = await adoptedMapsRepository.GetAdoptedMapByIdAsync((int)id);
                 if (!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
@@ -269,7 +269,7 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                var getResp = await adoptedMapsRepository.FindByAdoptedMapIdAsync((int)id);
+                var getResp = await adoptedMapsRepository.GetAdoptedMapByIdAsync((int)id);
                 if (!getResp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(getResp.HttpStatusCode);
@@ -294,23 +294,16 @@ namespace MyLegacyMaps.Controllers
           
         }
 
-        public async Task<SelectList> GetShareTypeOptions(int selectedShareTypeId)
-        {
+        public async Task<List<ShareStatusType>> GetShareTypeOptions()
+        {     
+
             var resp = await adoptedMapsRepository.GetShareTypesAsync();
             if (!resp.IsSuccess())
             {
-                return new SelectList(new List<MapType>(), "Value", "Text"); //empty list
+                return new List<ShareStatusType>();
             }
-            var shareTypes = resp.Item.ToViewModel();
-
-            IEnumerable<SelectListItem> types = shareTypes.OrderBy(m => m.Name).Select(m =>
-                new SelectListItem() { Text = m.Name, Value = m.ShareStatusTypeId.ToString() });
-
-            var mapTypeOptions = (selectedShareTypeId > 0)
-                    ? new SelectList(types, "Value", "Text", selectedShareTypeId)
-                    : new SelectList(types, "Value", "Text");
-
-            return mapTypeOptions;
+            var viewModel = resp.Item.ToViewModel().ToList<ShareStatusType>().OrderBy(m => m.ShareStatusTypeId);
+            return viewModel.ToList();
         }
 
         
