@@ -31,6 +31,16 @@ namespace MLM.Persistence.Schemas
                 .WithRequired()
                 .HasForeignKey(am => am.AdoptedMapId);
 
+            Property(p => p.DateCreated)
+                .IsRequired();
+
+            Property(p => p.DateModified)
+                .IsRequired();
+
+            Property(p => p.ModifiedBy)
+                .HasMaxLength(50)
+                .IsRequired();
+
             HasRequired(p => p.Map);
             HasRequired(p => p.ShareStatusType);
            

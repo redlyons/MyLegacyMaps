@@ -177,7 +177,7 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> MapEdit([Bind(Include = "MapId,Name,FileName,OrientationTypeId,IsActive")] Map map,        
+        public async Task<ActionResult> MapEdit([Bind(Include = "MapId,Name,Description,FileName,OrientationTypeId,IsActive")] Map map,        
             HttpPostedFileBase photo, HttpPostedFileBase thumb, FormCollection values)
         {
 

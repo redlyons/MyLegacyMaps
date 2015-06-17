@@ -90,7 +90,8 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 
-                flag.CreatedDate = flag.ModifiedDate = DateTime.Now;
+                flag.DateCreated = flag.DateModified = DateTime.Now;
+                flag.ModifiedBy = HttpContext.User.Identity.Name;
                 var resp = await flagRepository.AddFlagAsync(flag.ToDomainModel());
                 if(!resp.IsSuccess())
                 {
@@ -134,7 +135,8 @@ namespace MyLegacyMaps.Controllers
                     return new HttpUnauthorizedResult();
                 }                
                 
-                flag.ModifiedDate = DateTime.Now;
+                flag.DateModified = DateTime.Now;
+                flag.ModifiedBy = HttpContext.User.Identity.Name;
                 var flagResp = await flagRepository.SaveFlagAsync(flag.ToDomainModel());
                 if (!flagResp.IsSuccess())
                 {

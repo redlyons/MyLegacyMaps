@@ -14,7 +14,11 @@ namespace MLM.Persistence.Schemas
 
             Property(p => p.Name)
                 .HasMaxLength(30)
-                .IsRequired();            
+                .IsRequired();
+
+            Property(p => p.IsActive)
+                .IsRequired();
+         
 
         }
     }

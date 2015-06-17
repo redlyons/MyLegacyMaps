@@ -26,9 +26,13 @@ namespace MyLegacyMaps.Models
         [Required(ErrorMessage="A Name is required")]
         [StringLength(60)]
         public string Name { get; set; }
+        [StringLength(500)]
         public string Description { get; set; }
+        [StringLength(500)]
         public string ImageUrl { get; set; }
+        [StringLength(500)]
         public string ThumbUrl { get; set; }
+        [StringLength(100)]
         public string FileName { get; set; }
         [Required]
         [Range(1,2)]

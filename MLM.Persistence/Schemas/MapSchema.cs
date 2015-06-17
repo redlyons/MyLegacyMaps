@@ -21,6 +21,31 @@ namespace MLM.Persistence.Schemas
                 .HasMaxLength(60)
                 .IsRequired();
 
+            Property(p => p.Description)
+                .HasMaxLength(500);
+
+            Property(p => p.FileName)
+                .HasMaxLength(100);
+
+            Property(p => p.ImageUrl)
+                .HasMaxLength(500);
+
+            Property(p => p.ThumbUrl)
+                .HasMaxLength(500);
+
+            Property(p => p.IsActive)
+                .IsRequired();
+
+            Property(p => p.DateCreated)
+                .IsRequired();
+
+            Property(p => p.DateModified)
+                .IsRequired();
+
+            Property(p => p.ModifiedBy)
+                .HasMaxLength(50)
+                .IsRequired();
+
             //One to Many
             HasMany(p => p.AdoptedMaps)
                 .WithRequired(p => p.Map)

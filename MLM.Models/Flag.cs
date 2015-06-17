@@ -15,7 +15,8 @@ namespace MLM.Models
         public string Description { get; set; }
         public string VideoUrl { get; set; }
         public DateTime? Date { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }

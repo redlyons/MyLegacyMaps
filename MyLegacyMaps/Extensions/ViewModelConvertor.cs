@@ -151,8 +151,9 @@ namespace MyLegacyMaps.Extensions
                 Description = value.Description,
                 VideoUrl = value.VideoUrl,
                 Date = value.Date,
-                CreatedDate = value.CreatedDate,
-                ModifiedDate = value.ModifiedDate
+                DateCreated = value.DateCreated,
+                DateModified = value.DateModified,
+                ModifiedBy = value.ModifiedBy
 
             };
         }

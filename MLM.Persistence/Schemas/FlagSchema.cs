@@ -23,6 +23,20 @@ namespace MLM.Persistence.Schemas
                 .HasMaxLength(100)
                 .IsOptional();
 
+            Property(p => p.Description)
+                .HasMaxLength(null)
+                .IsOptional();
+
+            Property(p => p.VideoUrl)
+               .HasMaxLength(500)
+               .IsOptional();
+
+            Property(p => p.DateCreated)
+              .IsRequired();
+
+            Property(p => p.DateModified)
+                .IsRequired();
+
             
         }
 
