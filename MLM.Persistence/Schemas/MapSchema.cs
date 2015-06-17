@@ -22,7 +22,7 @@ namespace MLM.Persistence.Schemas
                 .IsRequired();
 
             Property(p => p.Description)
-                .HasMaxLength(500);
+                .HasMaxLength(3000);
 
             Property(p => p.FileName)
                 .HasMaxLength(100);

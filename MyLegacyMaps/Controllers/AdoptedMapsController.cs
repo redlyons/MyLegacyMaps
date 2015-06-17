@@ -97,7 +97,7 @@ namespace MyLegacyMaps.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MapId, Name")] AdoptedMap adoptedMap)
+        public async Task<ActionResult> Create([Bind(Include = "MapId, Name, Description")] AdoptedMap adoptedMap)
         {
             try
             { 
@@ -179,7 +179,8 @@ namespace MyLegacyMaps.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId, MapId, Name, ShareStatusTypeId, DateCreated, UserId")] AdoptedMap adoptedMap)
+        public async Task<ActionResult> Edit([Bind(Include =
+            "AdoptedMapId, MapId, Name, Description, ShareStatusTypeId, DateCreated, UserId")] AdoptedMap adoptedMap)
         {
             try
             { 

@@ -30,6 +30,7 @@ namespace MyLegacyMaps.Models
         [Required]
         [StringLength(60)]
         public string Name { get; set; }
+        public string Description { get; set; }
         [Required]
         public int ShareStatusTypeId { get; set; }
         public DateTime DateCreated { get; set; }

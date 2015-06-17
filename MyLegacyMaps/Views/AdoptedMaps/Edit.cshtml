@@ -31,6 +31,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-md-2">Sharing</label>
             <div class="col-md-10">
                 <div class="dropdown">
@@ -38,7 +46,7 @@
                             data-toggle="dropdown">
                        <span>Choose:</span><span class="caret"></span>
                     </button>
-                    &nbsp;<span id="ddlShareStatusSelectedVal">@Html.DisplayFor(model => model.ShareStatusType.Name)</span>
+                    &nbsp;<label id="ddlShareStatusSelectedVal">@Html.DisplayFor(model => model.ShareStatusType.Name)</label>
                     <ul class="dropdown-menu" role="menu">
                         @foreach (var type in (List<ShareStatusType>)ViewBag.ShareTypes)
                         {

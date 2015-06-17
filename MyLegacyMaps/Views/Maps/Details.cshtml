@@ -10,11 +10,15 @@
 { 
     @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml")
     @Html.AntiForgeryToken();
-    @Html.Hidden("mapId", Model.MapId);
-    @Html.Hidden("name", Model.Name);
-    @Html.Hidden("mapFileName", Model.FileName)
+    @Html.Hidden("mapId", Model.MapId);    
+    @Html.Hidden("mapFileName", Model.FileName) 
+    @Html.Hidden("mapImageUrl", Model.MainImageUrl)
+    @Html.Hidden("name", Model.Name) 
+    @Html.Hidden("description", Model.Description) 
+    
+    <h2>@Html.DisplayFor(model => Model.Name);</h2>
+    <p> @Html.DisplayFor(model => model.Description)</p>
 }
 
 
-
-
+ 

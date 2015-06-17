@@ -11,6 +11,8 @@ MLM.MapCanvas = (function () {
 
         init: function () {
             $('body').css('background', 'url("/images/maps/' + $('#mapFileName').val() + '") no-repeat');
+            $('body').css('background', 'url("' + $('#mapIeUrlmage').val() + '") no-repeat');
+
 
             MLM.MapCanvas.wireUpButtonEvents();
             MLM.MapCanvas.wireUpTooltips();

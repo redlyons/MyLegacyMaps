@@ -30,7 +30,12 @@ namespace MLM.Persistence.Schemas
             //Name
             Property(p => p.Name)
                 .HasMaxLength(60)
-                .IsRequired();           
+                .IsRequired();
+
+            Property(p => p.Description)
+                .HasMaxLength(3000)
+                .IsOptional();
+
 
             Property(p => p.DateCreated)
                 .IsRequired();

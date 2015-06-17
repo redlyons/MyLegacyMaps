@@ -18,6 +18,7 @@ namespace MyLegacyMaps.Extensions
                     AdoptedMapId = value.AdoptedMapId,
                     MapId = value.MapId,
                     Name = value.Name,
+                    Description = value.Description,
                     UserId = value.UserId,                   
                     ShareStatusTypeId = value.ShareStatusTypeId,
                     DateCreated = value.DateCreated,
