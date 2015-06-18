@@ -47,6 +47,13 @@ namespace MyLegacyMaps.Models
         public virtual ICollection<AdoptedMap> AdoptedMaps { get; set; }
         public virtual OrientationType OrientationType { get; set; }
         public virtual ICollection<MapType> MapTypes { get; set; }
+
+        public string GetMainImageUrl()
+        {
+            return String.IsNullOrWhiteSpace(this.ImageUrl)
+                ? "/images/maps/" + this.FileName
+                : this.ImageUrl;
+        }
         
     }
 }

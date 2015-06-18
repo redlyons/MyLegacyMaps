@@ -10,9 +10,10 @@ MLM.MapCanvas = (function () {
     return {
 
         init: function () {
-            $('body').css('background', 'url("/images/maps/' + $('#mapFileName').val() + '") no-repeat');
-            $('body').css('background', 'url("' + $('#mapIeUrlmage').val() + '") no-repeat');
-
+          
+            $('body').css('background', 'url("' + $('#mapImageUrl').val() + '") no-repeat');
+            //$('body').css('background', 'url("/images/maps/' + $('#mapFileName').val() + '") no-repeat');
+       
 
             MLM.MapCanvas.wireUpButtonEvents();
             MLM.MapCanvas.wireUpTooltips();

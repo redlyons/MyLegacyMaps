@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken();
     @Html.Hidden("mapId", Model.MapId);    
     @Html.Hidden("mapFileName", Model.FileName) 
-    @Html.Hidden("mapImageUrl", Model.MainImageUrl)
+    @Html.Hidden("mapImageUrl", Model.GetMainImageUrl())
     @Html.Hidden("name", Model.Name) 
     @Html.Hidden("description", Model.Description) 
     
