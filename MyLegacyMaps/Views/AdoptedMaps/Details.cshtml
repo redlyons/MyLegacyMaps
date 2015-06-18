@@ -16,6 +16,7 @@
     @Html.AntiForgeryToken();
     @Html.Hidden("adoptedMapId", Model.AdoptedMapId);
     @Html.Hidden("mapImageUrl", Model.Map.GetMainImageUrl())
+    @Html.Hidden("mapOrientation", Model.Map.OrientationTypeId)
     @Html.AntiForgeryToken()
 }
 

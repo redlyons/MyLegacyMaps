@@ -12,8 +12,12 @@ MLM.MapCanvas = (function () {
         init: function () {
           
             $('body').css('background', 'url("' + $('#mapImageUrl').val() + '") no-repeat');
-            //$('body').css('background', 'url("/images/maps/' + $('#mapFileName').val() + '") no-repeat');
-       
+            var ht = "1450px";
+            if ($('#mapOrientation').val() == 2)
+            {
+                ht = "2000px";
+            }
+            $('#content').css('height', ht);
 
             MLM.MapCanvas.wireUpButtonEvents();
             MLM.MapCanvas.wireUpTooltips();
