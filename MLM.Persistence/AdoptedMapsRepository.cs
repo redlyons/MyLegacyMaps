@@ -28,7 +28,8 @@ namespace MLM.Persistence
             {
                 Stopwatch timespan = Stopwatch.StartNew();
 
-                maps = await db.AdoptedMaps.AsQueryable().Where(m => m.UserId == userId).ToListAsync<AdoptedMap>();
+                maps = await db.AdoptedMaps.AsQueryable().Where(m => m.UserId == userId
+                        && m.IsActive == true).ToListAsync<AdoptedMap>();
 
                 timespan.Stop();
                 log.TraceApi("SQL Database", String.Format("MyLegacyMapsContext.GetAdoptedMapsByUserIdAsync userId = {0}",
@@ -53,6 +54,10 @@ namespace MLM.Persistence
             {
                 Stopwatch timespan = Stopwatch.StartNew();
                 map = await db.AdoptedMaps.FindAsync(id);
+                if(!map.IsActive)
+                {
+                    map = null; //map has been deleted
+                }
 
                 timespan.Stop();
                 log.TraceApi("SQL Database", "MyLegacyMapsContext.GetAdoptedMapByIdAsync", timespan.Elapsed, "id={0}", id);
@@ -105,13 +110,6 @@ namespace MLM.Persistence
             try
             {
                 Stopwatch timespan = Stopwatch.StartNew();
-                //var existingMap = await db.AdoptedMaps.FindAsync(adoptedMap.AdoptedMapId);
-                //if(existingMap == null)
-                //{
-                //    resp.HttpStatusCode = System.Net.HttpStatusCode.NotFound;
-                //    return resp;
-                //}
-
                 db.Entry(adoptedMap).State = EntityState.Modified;
                 var result = await db.SaveChangesAsync();
 
@@ -142,7 +140,8 @@ namespace MLM.Persistence
             {
                 Stopwatch timespan = Stopwatch.StartNew();
 
-                db.AdoptedMaps.Remove(adoptedMap);
+                adoptedMap.IsActive = false;
+                db.Entry(adoptedMap).State = EntityState.Modified;
                 var result = await db.SaveChangesAsync();
 
                 timespan.Stop();

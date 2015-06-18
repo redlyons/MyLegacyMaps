@@ -111,6 +111,7 @@ namespace MyLegacyMaps.Controllers
                 adoptedMap.DateCreated = DateTime.Now;
                 adoptedMap.DateModified = DateTime.Now;
                 adoptedMap.ModifiedBy = HttpContext.User.Identity.Name;
+                adoptedMap.IsActive = true;
 
                 //if (!ModelState.IsValid)
                 //{
@@ -180,7 +181,7 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include =
-            "AdoptedMapId, MapId, Name, Description, ShareStatusTypeId, DateCreated, UserId")] AdoptedMap adoptedMap)
+            "AdoptedMapId, MapId, Name, Description, IsActive, ShareStatusTypeId, DateCreated, UserId")] AdoptedMap adoptedMap)
         {
             try
             { 
@@ -192,19 +193,8 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-
-                //Extra security check - make sure the UserId on the map is the same as the auth'd userId.
-                //var resp = await adoptedMapsRepository.GetAdoptedMapByIdAsync(adoptedMap.AdoptedMapId);
-                //if (!resp.IsSuccess())
-                //{
-                //    return new HttpStatusCodeResult(resp.HttpStatusCode);
-                //}
-                //if (resp.Item.UserId != HttpContext.User.Identity.GetUserId())
-                //{
-                //    return new HttpUnauthorizedResult();
-                //}
-
-                
+                               
+                adoptedMap.IsActive = true;
                 adoptedMap.DateModified = DateTime.Now;
                 adoptedMap.ModifiedBy = HttpContext.User.Identity.Name;
                 adoptedMap.ShareStatusType = null; //avoid mismatch error if ShareStatusTypeId as changed.

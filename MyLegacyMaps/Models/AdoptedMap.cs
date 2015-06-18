@@ -19,6 +19,8 @@ namespace MyLegacyMaps.Models
                 ShareStatusTypeId = 1,
                 Name = "Private"
             };
+
+            IsActive = true;
         }
 
         [Required]
@@ -31,6 +33,7 @@ namespace MyLegacyMaps.Models
         [StringLength(60)]
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool IsActive { get; set; }
         [Required]
         public int ShareStatusTypeId { get; set; }
         public DateTime DateCreated { get; set; }

@@ -17,6 +17,7 @@ namespace MLM.Models
         public int MapId { get; set; }        
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool IsActive { get; set; }
         public int ShareStatusTypeId { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
