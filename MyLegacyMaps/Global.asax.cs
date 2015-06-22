@@ -16,9 +16,7 @@ namespace MyLegacyMaps
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer<MyLegacyMaps.DataAccess.MyLegacyMapsMembershipContext>(
-            //new DropCreateDatabaseIfModelChanges<MyLegacyMaps.DataAccess.MyLegacyMapsMembershipContext>());
-
+           
             Database.SetInitializer<MLM.Persistence.MyLegacyMapsContext>(
               new DropCreateDatabaseIfModelChanges<MLM.Persistence.MyLegacyMapsContext>()); 
     

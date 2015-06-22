@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -63,7 +64,18 @@ namespace MyLegacyMaps
             //{
             //    ClientId = "",
             //    ClientSecret = ""
-            //});          
+            //});     
+
+            app.UseFacebookAuthentication(
+             appId: ConfigurationManager.AppSettings["FacebookAppID"],
+             appSecret: ConfigurationManager.AppSettings["FacebookAppSecret"]
+            );
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = ConfigurationManager.AppSettings["GoogClientID"],
+                ClientSecret = ConfigurationManager.AppSettings["GoogClientSecret"]
+            });
         }
     }
 }
