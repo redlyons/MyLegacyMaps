@@ -43,25 +43,9 @@ namespace MLM.Persistence
 
                 // Create a blob client and retrieve reference to images container
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer container = blobClient.GetContainerReference("images/maps");
+                CloudBlobContainer container = blobClient.GetContainerReference("maps");
 
-                // Create the "images/maps" container if it doesn't already exist.
-                if (await container.CreateIfNotExistsAsync())
-                {
-                    // Enable public access on the newly created "images" container
-                    await container.SetPermissionsAsync(
-                        new BlobContainerPermissions
-                        {
-                            PublicAccess =
-                                BlobContainerPublicAccessType.Blob
-                        });
-
-                    log.Information("Successfully created Blob Storage images/maps Container and made it public");
-                }
-
-
-                container = blobClient.GetContainerReference("images/maps/thumbs");
-                // Create the "images/maps/thumbs" container if it doesn't already exist.
+                // Create the "maps" container if it doesn't already exist.
                 if (await container.CreateIfNotExistsAsync())
                 {
                     // Enable public access on the newly created "images" container
@@ -72,12 +56,13 @@ namespace MLM.Persistence
                                 BlobContainerPublicAccessType.Off
                         });
 
-                    log.Information("Successfully created Blob Storage images/maps/thumbs Container and made it private");
+                    log.Information("Successfully created Blob Storage maps Container and made it public");
                 }
+
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Failure to Create or Configure images/maps or images/thumbs container in Blob Storage Service");
+                log.Error(ex, "Failure to Create or Configure maps container in Blob Storage Service");
                 throw;
             }
         }
@@ -101,9 +86,10 @@ namespace MLM.Persistence
                 CloudBlobContainer container = blobClient.GetContainerReference(GetStoragePath(photoType));
 
                 // Create a unique name for the images we are about to upload
-                string imageName = String.Format("map-{0}{1}",
+                string imageName = String.Format("{0}-{1}",
                     Guid.NewGuid().ToString(),
-                    Path.GetExtension(photoToUpload.FileName));
+                    photoToUpload.FileName
+                   );
 
                 // Upload image to Blob Storage
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(imageName);
@@ -112,7 +98,7 @@ namespace MLM.Persistence
 
                 //Convert to be HTTP b ase URI (default storage path is HTTPS)
                 var uriBuilder = new UriBuilder(blockBlob.Uri);
-                uriBuilder.Scheme = "http";
+                //uriBuilder.Scheme = "http";
 
                 fullPath = uriBuilder.ToString();
 
@@ -132,12 +118,9 @@ namespace MLM.Persistence
         {
             switch(photoType)
             {
-                case PhotoType.MapMainImage:
-                    return "images/maps";
-                case PhotoType.MapThumb:
-                    return "images/maps/thumbs";
+               
                 default:
-                    return "images";
+                    return "maps";
             }
         }
     }

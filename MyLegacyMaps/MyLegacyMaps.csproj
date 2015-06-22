@@ -188,6 +188,10 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
+    <Compile Include="Migrations\201506220104222_InitialMigration.cs" />
+    <Compile Include="Migrations\201506220104222_InitialMigration.Designer.cs">
+      <DependentUpon>201506220104222_InitialMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
@@ -459,6 +463,11 @@
       <Project>{6434b33e-f0a2-40aa-a328-3c71e3897ae0}</Project>
       <Name>MLM.Persistence</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506220104222_InitialMigration.resx">
+      <DependentUpon>201506220104222_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

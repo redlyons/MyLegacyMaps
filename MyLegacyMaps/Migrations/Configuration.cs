@@ -470,8 +470,8 @@ namespace MyLegacyMaps.Migrations
 
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = false;
             ContextKey = "MLM.Persistence.MyLegacyMapsContext";
         }
 
