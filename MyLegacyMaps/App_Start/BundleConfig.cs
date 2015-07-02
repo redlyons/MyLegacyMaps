@@ -32,10 +32,8 @@ namespace MyLegacyMaps
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
+                      "~/Content/mlm.css",
                       "~/Content/jquery-ui.css"));
-
-            bundles.Add(new StyleBundle("~/Content/mlm").Include(
-                     "~/Content/mlm/flags.css"));
 
            
         }
