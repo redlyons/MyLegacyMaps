@@ -76,3 +76,41 @@
     top:10px;
     right:8px;
 }
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.grid {
+ 
+  max-width: 1300px;
+}
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.grid-item {
+  width: 310px;
+  height: 480px;
+  float: left;
+  border: 2px solid #333;
+  border-color: hsla(0, 0%, 0%, 0.5);
+  border-radius: 5px;
+}
+
+.grid-item h2 {
+    padding-left: 5px;
+}
+.grid-item p{
+    padding-left: 5px;
+}
+
+.grid-item img{
+    padding-left: 3px;
+    padding-right: 3px;
+}

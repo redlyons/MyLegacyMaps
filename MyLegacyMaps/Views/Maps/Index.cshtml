@@ -9,30 +9,42 @@
     <p>
        @Html.DropDownList("ddlMapTypeId", (SelectList)ViewBag.MapTypes, "-- All --")  <input type="submit" value="submit" />
     </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>   
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>    
-            <th></th>
-        </tr>
+   
 
-    @foreach (var item in Model) {
-        <tr>
+  
+    
+}
+<div class="grid">
+    @foreach (var item in Model)
+    {
+        <div class="grid-item">
+            <a href="@Url.Action("Details", new { id = item.MapId })">
+                <img src="@item.GetMainImageUrl()" height="310" width="310" class="mlm-li-thumb">
+                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+            </a>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: 310
+        });
+
+    });
+</script>
+    @*<tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>  
-            <td>
-                @Html.ActionLink("View", "Details", new { id=item.MapId })                
             </td>
-        </tr>
-    }
-
-    </table>
-}
+            <td>
+                @Html.ActionLink("View", "Details", new { id = item.MapId })
+            </td>
+        </tr>*@

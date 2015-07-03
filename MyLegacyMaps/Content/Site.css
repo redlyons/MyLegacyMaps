@@ -6,6 +6,9 @@
         /*background-image: url(/Images/Maps/NorthAmerica.png);*/
         background-repeat: no-repeat;
         background-position: 30px 80px;
+        background: #252525;
+        border-color: #454545;
+        color: #fff;
 }
 #content{
     width:2200px; 

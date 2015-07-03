@@ -9,3 +9,4 @@
 /// <reference path="respond.js" />
 /// <reference path="jquery-1.10.2.js" />
 /// <reference path="mlm/mlm-mapcanvas.js" />
+/// <reference path="masonry.pkgd.min.js" />

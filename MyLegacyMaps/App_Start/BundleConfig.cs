@@ -9,7 +9,8 @@ namespace MyLegacyMaps
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/scripts/jquery-{version}.js"));
+                        "~/scripts/jquery-{version}.js"
+                        ,"~/scripts/masonry.pkgd.min.js"));
 
             
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

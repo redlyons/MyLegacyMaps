@@ -26,7 +26,12 @@ MLM.MapCanvas = (function () {
             MLM.MapCanvas.wireUpButtonEvents();
             MLM.MapCanvas.wireUpTooltips();
             MLM.MapCanvas.wireUpFlags();
-            MLM.MapCanvas.wireUpZoom();          
+            MLM.MapCanvas.wireUpZoom();
+
+            if ($('#adoptedMapId').val() != null) {
+                $('#lnkSaveMap').hide();
+            }
+           
       
         },
 
