@@ -1,21 +1,41 @@
-﻿.flgWasHere {
-    background-image: url("../../images/icons/red-flag.png");
+﻿
 
+.container {
+  max-width: 100%;
+  margin-left:5px;
+  margin-right:5px;  
+}
+
+#toolbar{  
+    text-align:center;
+    margin: 5px 5px 5px 5px;
+}
+
+.zoom-buttons{
+    margin: 3px 5px 3px 5px;
+}
+
+.flag-icon {
+    padding-right: 10px;
+    height: 35px;
+    width: 45px;
+}
+
+
+.flgWasHere {
+    background-image: url("../../images/icons/red-flag-sm.png");
 }
 .flgHereNow {
-    background-image: url("../../images/icons/checked-flag.png");
+    background-image: url("../../images/icons/checked-flag-sm.png");
 } 
 .flgPlanToGo {
-    background-image: url("../../images/icons/yellow-flag.png");
+    background-image: url("../../images/icons/yellow-flag-sm.png");
 } 
-.flgCustomLogo {
-    background-image: url("../../images/icons/enterprise-logo.png");
-}   
 
 .makeMeDraggable {
-    position: absolute;
-    width: 200px;
-    height: 150px;
+    position: relative;
+    width: 70px;
+    height: 70px;
     left: 100px;
     top: 100px;                   
 } 

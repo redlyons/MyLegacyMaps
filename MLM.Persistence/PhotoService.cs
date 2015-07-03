@@ -96,9 +96,9 @@ namespace MLM.Persistence
                 blockBlob.Properties.ContentType = photoToUpload.ContentType;
                 await blockBlob.UploadFromStreamAsync(photoToUpload.InputStream);
 
-                //Convert to be HTTP b ase URI (default storage path is HTTPS)
+                //Convert to be HTTP  ase URI (default storage path is HTTPS)
                 var uriBuilder = new UriBuilder(blockBlob.Uri);
-                //uriBuilder.Scheme = "http";
+                uriBuilder.Scheme = "https";
 
                 fullPath = uriBuilder.ToString();
 

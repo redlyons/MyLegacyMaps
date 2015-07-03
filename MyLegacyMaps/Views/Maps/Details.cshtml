@@ -6,19 +6,17 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/mlm")
 }
-@using (Html.BeginForm("Create", "AdoptedMaps", FormMethod.Post))
-{ 
-    @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml")
+@using (Html.BeginForm("Create", "AdoptedMaps", FormMethod.Post, new { id = "frmAdpotMap" }))
+{  
+    
+    @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml", Model)
     @Html.AntiForgeryToken();
     @Html.Hidden("mapId", Model.MapId);    
     @Html.Hidden("mapFileName", Model.FileName) 
     @Html.Hidden("mapImageUrl", Model.GetMainImageUrl())
     @Html.Hidden("mapOrientation", Model.OrientationTypeId)
     @Html.Hidden("name", Model.Name) 
-    @Html.Hidden("description", Model.Description) 
-    
-    <h2>@Html.DisplayFor(model => Model.Name);</h2>
-    <p> @Html.DisplayFor(model => model.Description)</p>
+    @Html.Hidden("description", Model.Description)  
 }
 
 

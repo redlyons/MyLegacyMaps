@@ -267,9 +267,15 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\icons\checked-flag-icon.png" />
+    <Content Include="Images\icons\checked-flag-sm.png" />
     <Content Include="Images\icons\checked-flag.png" />
     <Content Include="Images\icons\enterprise-logo.png" />
+    <Content Include="Images\icons\red-flag-icon.png" />
+    <Content Include="Images\icons\red-flag-sm.png" />
     <Content Include="Images\icons\red-flag.png" />
+    <Content Include="Images\icons\yellow-flag-icon.png" />
+    <Content Include="Images\icons\yellow-flag-sm.png" />
     <Content Include="Images\icons\yellow-flag.png" />
     <Content Include="Images\maps\air-france.png" />
     <Content Include="Images\maps\alaska.png" />
@@ -363,6 +369,7 @@
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -372,6 +379,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\mlm\mlm-mapcanvas.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\panzoom.js" />
+    <Content Include="Scripts\pointertouch.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />

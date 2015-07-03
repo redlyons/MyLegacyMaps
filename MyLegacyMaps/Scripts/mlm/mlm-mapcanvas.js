@@ -6,40 +6,74 @@ MLM.MapCanvas = (function () {
     var flgHereNow = "<div class='makeMeDraggable flgHereNow masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='2' title='Name:      Date:   '></div>";
     var flgPlanToGo = "<div class='makeMeDraggable flgPlanToGo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='3'  title='Name:      Date:   '></div>";
     var flgCustomLogo = "<div class='makeMeDraggable flgCustomLogo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='4' title='Name:      Date:   ' style='height:75px; width:550px;'></div>"
-    
+    var step = .05;
+    var slider = $('#zoomSlider');
+
     return {
 
-        init: function () {
-          
-            $('body').css('background', 'url("' + $('#mapImageUrl').val() + '") no-repeat');
+        init: function () {      
+            $('#canvas').css('background', 'url("' + $('#mapImageUrl').val() + '") no-repeat');
             var ht = "1450px";
+            var wd =  "2000px";
             if ($('#mapOrientation').val() == 2)
             {
                 ht = "2000px";
+                wd = "1800px";
             }
-            $('#content').css('height', ht);
+            $('#canvas').css('height', ht);
+            $('#canvas').css('width', wd);
 
             MLM.MapCanvas.wireUpButtonEvents();
             MLM.MapCanvas.wireUpTooltips();
             MLM.MapCanvas.wireUpFlags();
+            MLM.MapCanvas.wireUpZoom();          
+      
+        },
+
+        wireUpZoom: function () {
+          
+            slider.change(function () {
+                window.parent.document.body.style.zoom = slider.val();
+            });
+            $("#zoomReset").click(function () {
+                window.parent.document.body.style.zoom = 0;
+            });
+            $("#zoomIn").click(function () {
+                var curr = parseFloat(slider.val());
+                var zoomInVal = (curr - step);
+                slider.val(zoomInVal);
+                window.parent.document.body.style.zoom = zoomInVal;
+              
+            });
+            $("#zoomOut").click(function () {
+                var curr = parseFloat(slider.val());
+                var zoomOutVal = (curr + step);
+                slider.val(zoomOutVal);
+                window.parent.document.body.style.zoom = zoomOutVal;
+            });
+
+
         },
 
         wireUpButtonEvents: function () {
             $("#btnWasHere").click(function () {
-                $(flgWasHere).appendTo("#content");
+                $("#canvas").append(flgWasHere);
                 MLM.MapCanvas.wireUpFlags();
             });
             $("#btnHereNow").click(function () {
-                $("#content").append(flgHereNow);
+                $("#canvas").append(flgHereNow);
                 MLM.MapCanvas.wireUpFlags();
             });
             $("#btnWantToGoHere").click(function () {
-                $("#content").append(flgPlanToGo);
+                $("#canvas").append(flgPlanToGo);
                 MLM.MapCanvas.wireUpFlags();
             });
             $("#btnCustomLogo").click(function () {
-                $("#content").append(flgCustomLogo);
+                $("#canvas").append(flgCustomLogo);
                 MLM.MapCanvas.wireUpFlags();
+            });
+            $("#lnkSaveMap").click(function () {
+                $("#frmAdpotMap").submit();
             });
 
         },
@@ -71,7 +105,7 @@ MLM.MapCanvas = (function () {
         wireUpFlags: function () {
             $('.makeMeDraggable').draggable({
                 cursor: 'move',
-                snap: '#content',
+                snap: '#canvas',
                 stop: MLM.MapCanvas.handleDragStop
             });
 

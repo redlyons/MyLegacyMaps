@@ -11,6 +11,7 @@ namespace MyLegacyMaps
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/scripts/jquery-{version}.js"));
 
+            
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/scripts/jquery.validate*"));
 
