@@ -107,7 +107,6 @@ namespace MyLegacyMaps.Controllers
                 }               
 
                 adoptedMap.UserId = HttpContext.User.Identity.GetUserId();
-                adoptedMap.ShareStatusTypeId = 1; //default to private
                 adoptedMap.DateCreated = DateTime.Now;
                 adoptedMap.DateModified = DateTime.Now;
                 adoptedMap.ModifiedBy = HttpContext.User.Identity.Name;

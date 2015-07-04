@@ -14,12 +14,6 @@ namespace MyLegacyMaps.Models
 
             //Default to Private
             ShareStatusTypeId = 1;
-            ShareStatusType = new ShareStatusType
-            {
-                ShareStatusTypeId = 1,
-                Name = "Private"
-            };
-
             IsActive = true;
         }
 

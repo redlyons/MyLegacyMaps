@@ -17,9 +17,9 @@ namespace MLM.Persistence.Schemas
                 .HasMaxLength(30)
                 .IsRequired();
 
-            //HasMany(p => p.AdoptedMaps)
-            //    .WithRequired(p => p.ShareStatusType)
-            //    .HasForeignKey(p => p.ShareStatusTypeId);
+            HasMany(p => p.AdoptedMaps)
+                .WithRequired(p => p.ShareStatusType)
+                .HasForeignKey(p => p.ShareStatusTypeId);
         }
     }
 }
