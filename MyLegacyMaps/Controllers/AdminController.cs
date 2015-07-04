@@ -83,7 +83,7 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> MapCreate([Bind(Include = "MapId,Name,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map,
+        public async Task<ActionResult> MapCreate([Bind(Include = "MapId,Name,Description,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map,
             HttpPostedFileBase photo, HttpPostedFileBase thumb)
         {
             try

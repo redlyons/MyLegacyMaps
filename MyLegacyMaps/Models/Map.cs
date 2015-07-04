@@ -14,12 +14,7 @@ namespace MyLegacyMaps.Models
             MapTypes = new HashSet<MapType>();
 
             //default orientation
-            OrientationTypeId = 1;
-            OrientationType = new OrientationType
-            {
-                OrientationTypeId = 1,
-                Name = "Horizontal"
-            };
+            OrientationTypeId = 1;           
         }
         
         [Required]
@@ -28,6 +23,7 @@ namespace MyLegacyMaps.Models
         [StringLength(60)]
         public string Name { get; set; }
         [StringLength(500)]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [StringLength(500)]
         public string ImageUrl { get; set; }
