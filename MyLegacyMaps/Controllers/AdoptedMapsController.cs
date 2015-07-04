@@ -53,6 +53,34 @@ namespace MyLegacyMaps.Controllers
             }
         }
 
+        // GET: Public AdoptedMaps
+        public async Task<ActionResult> Published()
+        {
+            string userId = String.Empty;
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                userId = User.Identity.GetUserId();
+                var resp = await adoptedMapsRepository.GetPublicAdoptedMapsByUserIdAsync(userId);
+
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                var viewModel = resp.Item.ToViewModel();
+                return View(viewModel.OrderBy(m => m.Name));
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in AdoptedMapsController GET Index UserId = {0}", userId));
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
         // GET: AdoptedMaps/Details/5
         public async Task<ActionResult> Details(int? id)
         {

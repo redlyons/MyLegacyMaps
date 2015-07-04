@@ -271,6 +271,7 @@
     <Content Include="Images\icons\checked-flag-sm.png" />
     <Content Include="Images\icons\checked-flag.png" />
     <Content Include="Images\icons\enterprise-logo.png" />
+    <Content Include="Images\icons\MLM-REM-text-logo.png" />
     <Content Include="Images\icons\red-flag-icon.png" />
     <Content Include="Images\icons\red-flag-sm.png" />
     <Content Include="Images\icons\red-flag.png" />
@@ -370,6 +371,7 @@
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Scripts\jquery.mousewheel.js" />
+    <Content Include="Scripts\jquery.ui.touch-punch.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -445,6 +447,7 @@
     <Content Include="Views\Admin\MapTypesManage.cshtml" />
     <Content Include="Views\Admin\MapTypeEdit.cshtml" />
     <Content Include="Views\Admin\MapTypeCreate.cshtml" />
+    <Content Include="Views\AdoptedMaps\Published.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

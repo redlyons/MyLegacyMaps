@@ -1,0 +1,30 @@
+﻿@model IEnumerable<MyLegacyMaps.Models.AdoptedMap>
+@{
+    ViewBag.Title = "Published Maps";
+}
+
+<br />
+<h2>Published Maps</h2>
+<div class="grid">
+    @foreach (var item in Model)
+    {
+        <div class="grid-item">
+            <a href="@Url.Action("Details", new { id = item.AdoptedMapId })">
+                <img src="@item.Map.GetThumbImageUrl()" height="310" width="310" class="mlm-li-thumb">
+                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+            </a>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: 310
+        });
+
+    });
+</script>

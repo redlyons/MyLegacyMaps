@@ -10,6 +10,7 @@ namespace MLM.Persistence.Interfaces
     public interface IAdoptedMapsRepository
     {
         Task<ResourceResponse<List<AdoptedMap>>> GetAdoptedMapsByUserIdAsync(string userId);
+        Task<ResourceResponse<List<AdoptedMap>>> GetPublicAdoptedMapsByUserIdAsync(string userId);
         Task<ResourceResponse<AdoptedMap>> GetAdoptedMapByIdAsync(int id);
         Task<ResourceResponse<AdoptedMap>> CreateAdoptedMapAsync(AdoptedMap map);
         Task<ResourceResponse<AdoptedMap>> SaveAdoptedMapAsync(AdoptedMap adoptedMap);

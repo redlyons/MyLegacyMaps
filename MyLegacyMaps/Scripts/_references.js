@@ -10,3 +10,7 @@
 /// <reference path="jquery-1.10.2.js" />
 /// <reference path="mlm/mlm-mapcanvas.js" />
 /// <reference path="masonry.pkgd.min.js" />
+/// <reference path="jquery.mousewheel.js" />
+/// <reference path="panzoom.js" />
+/// <reference path="pointertouch.js" />
+/// <reference path="jquery.ui.touch-punch.min.js" />

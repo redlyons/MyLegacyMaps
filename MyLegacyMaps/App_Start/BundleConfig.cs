@@ -17,7 +17,9 @@ namespace MyLegacyMaps
                         "~/scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                       "~/scripts/jquery-ui-{version}.js"));
+                       "~/scripts/jquery-ui-{version}.js"
+                       , "~/scripts/jquery.ui.touch-punch.min.js"
+                       ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

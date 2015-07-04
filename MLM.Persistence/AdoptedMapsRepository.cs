@@ -46,6 +46,32 @@ namespace MLM.Persistence
             return resp;
         }
 
+        public async Task<ResourceResponse<List<AdoptedMap>>> GetPublicAdoptedMapsByUserIdAsync(string userId)
+        {
+            List<AdoptedMap> maps = null;
+            var resp = new ResourceResponse<List<AdoptedMap>>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+
+                maps = await db.AdoptedMaps.AsQueryable().Where(m => m.UserId == userId
+                        && m.IsActive == true && m.ShareStatusTypeId == 1).ToListAsync<AdoptedMap>();
+
+                timespan.Stop();
+                log.TraceApi("SQL Database", String.Format("MyLegacyMapsContext.GetPublicAdoptedMapsByUserIdAsync userId = {0}",
+                    userId), timespan.Elapsed);
+
+                resp.Item = maps;
+                resp.HttpStatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error in MapsRepository.GetPublicAdoptedMapsByUserIdAsync()");
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+        }
+
         public async Task<ResourceResponse<AdoptedMap>> GetAdoptedMapByIdAsync(int id)
         {
             AdoptedMap map = null;
