@@ -19,7 +19,7 @@
     {
         <div class="grid-item">
             <a href="@Url.Action("Details", new { id = item.MapId })">
-                <img src="@item.GetMainImageUrl()" height="310" width="310" class="mlm-li-thumb">
+                <img src="@item.GetThumbImageUrl()" height="310" width="310" class="mlm-li-thumb">
                 <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
                 <p>@Html.DisplayFor(modelItem => item.Description)</p>
             </a>
@@ -37,14 +37,4 @@
 
     });
 </script>
-    @*<tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("View", "Details", new { id = item.MapId })
-            </td>
-        </tr>*@
+    

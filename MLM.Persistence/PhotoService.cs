@@ -98,7 +98,7 @@ namespace MLM.Persistence
 
                 //Convert to be HTTP  ase URI (default storage path is HTTPS)
                 var uriBuilder = new UriBuilder(blockBlob.Uri);
-                uriBuilder.Scheme = "https";
+               // uriBuilder.Scheme = "https";
 
                 fullPath = uriBuilder.ToString();
 

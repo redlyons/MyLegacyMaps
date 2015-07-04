@@ -54,6 +54,13 @@ namespace MyLegacyMaps.Models
                 ? "/images/maps/" + this.FileName
                 : this.ImageUrl;
         }
+
+        public string GetThumbImageUrl()
+        {
+            return String.IsNullOrWhiteSpace(this.ThumbUrl)
+                ? GetMainImageUrl()
+                : this.ThumbUrl;
+        }
         
     }
 }

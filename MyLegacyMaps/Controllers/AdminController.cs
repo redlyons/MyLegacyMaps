@@ -99,7 +99,7 @@ namespace MyLegacyMaps.Controllers
                 }
 
                 if(photo != null)
-                {
+                {                    
                     map.ImageUrl = await photoStorage.UploadPhotoAsync(photo, PhotoType.MapMainImage);
                     map.FileName = photo.FileName;
                 }
