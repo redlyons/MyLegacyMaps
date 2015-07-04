@@ -2,10 +2,9 @@
 var MLM = {}
 MLM.MapCanvas = (function () {
     
-    var flgWasHere = "<div class='makeMeDraggable flgWasHere masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='1' title='Name:      Date:   '></div>";
-    var flgHereNow = "<div class='makeMeDraggable flgHereNow masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='2' title='Name:      Date:   '></div>";
-    var flgPlanToGo = "<div class='makeMeDraggable flgPlanToGo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='3'  title='Name:      Date:   '></div>";
-    var flgCustomLogo = "<div class='makeMeDraggable flgCustomLogo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='4' title='Name:      Date:   ' style='height:75px; width:550px;'></div>"
+    var flgWasHere = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable flgWasHere masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='1' title='Name:      Date:   '></div></a>";
+    var flgHereNow = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable flgHereNow masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='2' title='Name:      Date:   '></div></a>";
+    var flgPlanToGo = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable flgPlanToGo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='3'  title='Name:      Date:   '></div></a>";
     var step = .05;
     var slider = $('#zoomSlider');
 
@@ -72,11 +71,7 @@ MLM.MapCanvas = (function () {
             $("#btnWantToGoHere").click(function () {
                 $("#canvas").append(flgPlanToGo);
                 MLM.MapCanvas.wireUpFlags();
-            });
-            $("#btnCustomLogo").click(function () {
-                $("#canvas").append(flgCustomLogo);
-                MLM.MapCanvas.wireUpFlags();
-            });
+            });            
             $("#lnkSaveMap").click(function () {
                 $("#frmAdpotMap").submit();
             });
@@ -114,8 +109,8 @@ MLM.MapCanvas = (function () {
                 stop: MLM.MapCanvas.handleDragStop
             });
 
-            $(".makeMeDraggable").click(function () {
-                var flag = this;
+            $(".mlm-flag-lnk").click(function () {
+                var flag = this.firstChild;
                 var template = "";
                 var adoptedMapId = ($('#adoptedMapId') != null)?  $('#adoptedMapId').val() : 0;
                 var flagId = ($(flag).attr("data-flagid") != null)? $(flag).attr("data-flagid") : 0;
@@ -123,7 +118,6 @@ MLM.MapCanvas = (function () {
                 if ($(flag).hasClass('flgWasHere')) template = 'WasHere.html';
                 else if ($(flag).hasClass('flgHereNow')) template = 'HereNow.html';
                 else if ($(flag).hasClass('flgPlanToGo')) template = 'PlanToGo.html';
-                else if ($(flag).hasClass('flgCustomLogo')) template = 'CustomLogo.html';
                 else return;
                 
                 if (adoptedMapId > 0 && flagId > 0) {

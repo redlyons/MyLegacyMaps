@@ -54,17 +54,17 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: Public AdoptedMaps
-        public async Task<ActionResult> Published()
+        public async Task<ActionResult> Published(string id)
         {
-            string userId = String.Empty;
+           // string userId = String.Empty;
             try
             {
-                if (!HttpContext.User.Identity.IsAuthenticated)
-                {
-                    return new HttpUnauthorizedResult();
-                }
-                userId = User.Identity.GetUserId();
-                var resp = await adoptedMapsRepository.GetPublicAdoptedMapsByUserIdAsync(userId);
+                //if (!HttpContext.User.Identity.IsAuthenticated)
+                //{
+                //    return new HttpUnauthorizedResult();
+                //}
+                //userId = User.Identity.GetUserId();
+                var resp = await adoptedMapsRepository.GetPublicAdoptedMapsByUserIdAsync(id);
 
                 if (!resp.IsSuccess())
                 {
@@ -76,7 +76,7 @@ namespace MyLegacyMaps.Controllers
             }
             catch (Exception ex)
             {
-                log.Error(ex, String.Format("Error in AdoptedMapsController GET Index UserId = {0}", userId));
+                log.Error(ex, String.Format("Error in AdoptedMapsController GET Index UserId = {0}", id));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
         }
