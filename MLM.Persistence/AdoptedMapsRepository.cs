@@ -55,7 +55,7 @@ namespace MLM.Persistence
                 Stopwatch timespan = Stopwatch.StartNew();
 
                 maps = await db.AdoptedMaps.AsQueryable().Where(m => m.UserId == userId
-                        && m.IsActive == true && m.ShareStatusTypeId == 1).ToListAsync<AdoptedMap>();
+                        && m.IsActive == true && m.ShareStatusTypeId == 2).ToListAsync<AdoptedMap>();
 
                 timespan.Stop();
                 log.TraceApi("SQL Database", String.Format("MyLegacyMapsContext.GetPublicAdoptedMapsByUserIdAsync userId = {0}",
