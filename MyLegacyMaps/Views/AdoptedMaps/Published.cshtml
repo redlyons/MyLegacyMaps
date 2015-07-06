@@ -9,7 +9,7 @@
     @foreach (var item in Model)
     {
         <div class="grid-item">
-            <a href="@Url.Action("Details", new { id = item.AdoptedMapId })">
+            <a href="@Url.Action("LegacyMap", new { id = item.AdoptedMapId })">
                 <img src="@item.Map.GetThumbImageUrl()" height="310" width="310" class="mlm-li-thumb">
                 <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
                 <p>@Html.DisplayFor(modelItem => item.Description)</p>
@@ -25,6 +25,5 @@
             itemSelector: '.grid-item',
             columnWidth: 310
         });
-
     });
 </script>

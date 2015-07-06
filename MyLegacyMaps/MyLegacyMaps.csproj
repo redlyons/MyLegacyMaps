@@ -170,6 +170,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Classes\Enums.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Classes\Cookies\CookieHelper.cs" />
     <Compile Include="Classes\Cookies\ICookieHelper.cs" />
@@ -381,15 +382,17 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\mlm\mlm-mapcanvas.js" />
+    <Content Include="Scripts\mlm\mlm-modal.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\panzoom.js" />
     <Content Include="Scripts\pointertouch.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Templates\Modals\EditCustomLogo.html" />
-    <Content Include="Templates\Modals\CustomLogo.html" />
+    <Content Include="Templates\Modals\HereNowReadOnly.html" />
     <Content Include="Templates\Modals\EditHereNow.html" />
+    <Content Include="Templates\Modals\PlanToGoReadOnly.html" />
+    <Content Include="Templates\Modals\WasHereReadOnly.html" />
     <Content Include="Templates\Modals\HereNow.html" />
     <Content Include="Templates\Modals\EditPlanToGo.html" />
     <Content Include="Templates\Modals\PlanToGo.html" />
@@ -448,6 +451,8 @@
     <Content Include="Views\Admin\MapTypeEdit.cshtml" />
     <Content Include="Views\Admin\MapTypeCreate.cshtml" />
     <Content Include="Views\AdoptedMaps\Published.cshtml" />
+    <Content Include="Views\AdoptedMaps\LegacyMap.cshtml" />
+    <Content Include="Views\Shared\Partials\LegacyMapCanvas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

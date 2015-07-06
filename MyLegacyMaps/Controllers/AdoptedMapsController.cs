@@ -10,6 +10,7 @@ using MLM.Logging;
 using MLM.Persistence.Interfaces;
 using MyLegacyMaps.Models;
 using MyLegacyMaps.Extensions;
+using MyLegacyMaps.Classes;
 
 
 namespace MyLegacyMaps.Controllers
@@ -106,6 +107,34 @@ namespace MyLegacyMaps.Controllers
             {
                 log.Error(ex, "Error in AdoptedMapsController GET Details id = {0} ", 
                     (id.HasValue)? id.Value.ToString() : "null");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        // GET: AdoptedMaps/Details/5
+        public async Task<ActionResult> LegacyMap(int? id)
+        {
+            try
+            {
+                if (!id.HasValue || (int)id <= 0)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var resp = await adoptedMapsRepository.GetAdoptedMapByIdAsync((int)id.Value);
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+                if(resp.Item.ShareStatusTypeId != (int)Enums.ShareStatusType.Public)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                }
+                return View(resp.Item.ToViewModel());
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdoptedMapsController GET Details id = {0} ",
+                    (id.HasValue) ? id.Value.ToString() : "null");
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
         }

@@ -14,3 +14,4 @@
 /// <reference path="panzoom.js" />
 /// <reference path="pointertouch.js" />
 /// <reference path="jquery.ui.touch-punch.min.js" />
+/// <reference path="mlm/mlm-modal.js" />
