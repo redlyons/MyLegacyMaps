@@ -180,11 +180,15 @@ MLM.MapCanvas = (function () {
         handleDragStop: function (event, ui) {
             var offsetXPos = parseInt(ui.offset.left);
             var offsetYPos = parseInt(ui.offset.top);
-            var xPos = Math.round(offsetXPos - $('#canvas').offset().left);
-            var yPos = Math.round(offsetYPos - $('#canvas').offset().top);
+            //var xPos = Math.round(offsetXPos - $('#canvas').offset().left);
+            //var yPos = Math.round(offsetYPos - $('#canvas').offset().top);
+            var leftPixels = $(this).css('left');
+            var topPixels = $(this).css('top');
+            var xPos = leftPixels.substring(0, leftPixels.length - 2);
+            var yPos = topPixels.substring(0, topPixels.length - 2);
             //position relative to the canvas element
-            $(this).attr('data-xpos', xPos);
-            $(this).attr('data-ypos', yPos);
+            $(this).attr('data-xpos', Math.round(xPos));
+            $(this).attr('data-ypos', Math.round(yPos));
 
         },
     };

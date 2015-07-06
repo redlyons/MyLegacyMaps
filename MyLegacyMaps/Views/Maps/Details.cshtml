@@ -9,8 +9,7 @@
 @using (Html.BeginForm("Create", "AdoptedMaps", FormMethod.Post, new { id = "frmAdpotMap" }))
 {
     @Html.AntiForgeryToken();
-    @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml", Model)
-    @Html.AntiForgeryToken();
+    @Html.Partial("~/Views/Shared/Partials/MapCanvas.cshtml", Model)    
     @Html.Hidden("mapId", Model.MapId);    
     @Html.Hidden("mapFileName", Model.FileName) 
     @Html.Hidden("mapImageUrl", Model.GetMainImageUrl())
