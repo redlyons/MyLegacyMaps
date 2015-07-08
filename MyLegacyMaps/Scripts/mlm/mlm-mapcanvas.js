@@ -31,7 +31,7 @@ MLM.MapCanvas = (function () {
 
             if ($('#adoptedMapId').val() != null) {
                 $('#lnkSaveMap').hide();
-            }
+            } 
            
       
         },
@@ -39,26 +39,9 @@ MLM.MapCanvas = (function () {
         wireUpZoom: function () {
           
             slider.change(function () {
-                window.parent.document.body.style.zoom = slider.val();
+                // window.parent.document.body.style.zoom = slider.val();
+                $("#canvas").css('zoom',slider.val());
             });
-            $("#zoomReset").click(function () {
-                window.parent.document.body.style.zoom = 0;
-            });
-            $("#zoomIn").click(function () {
-                var curr = parseFloat(slider.val());
-                var zoomInVal = (curr - step);
-                slider.val(zoomInVal);
-                window.parent.document.body.style.zoom = zoomInVal;
-              
-            });
-            $("#zoomOut").click(function () {
-                var curr = parseFloat(slider.val());
-                var zoomOutVal = (curr + step);
-                slider.val(zoomOutVal);
-                window.parent.document.body.style.zoom = zoomOutVal;
-            });
-
-
         },
 
         wireUpButtonEvents: function () {
