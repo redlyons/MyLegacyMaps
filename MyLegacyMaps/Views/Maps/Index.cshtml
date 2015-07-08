@@ -1,10 +1,12 @@
-﻿@model IEnumerable<MyLegacyMaps.Models.Map>
+﻿@model  PagedList.IPagedList<MyLegacyMaps.Models.Map >
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
 }
 <h2>Maps</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index","Maps",FormMethod.Get))
 {
     <p>
        @Html.DropDownList("ddlMapTypeId", (SelectList)ViewBag.MapTypes, "-- All --")  <input type="submit" value="submit" />
@@ -22,6 +24,9 @@
         </div>
     }
 </div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
 
 <script>
     $(document).ready(function () {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using MLM.Logging;
 using MLM.Persistence.Interfaces;
 using MyLegacyMaps.Models;
@@ -31,7 +32,7 @@ namespace MyLegacyMaps.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
             try
             {
@@ -49,8 +50,10 @@ namespace MyLegacyMaps.Controllers
                 }
                
                 //View
-                var mapsViewModel = resp.Item.ToViewModel();               
-                return View(mapsViewModel.OrderBy(m => m.Name));
+                int pageSize = 3;
+                int pageNumber = (page ?? 1);
+                var mapsViewModel = resp.Item.ToViewModel().OrderBy(m => m.Name);               
+                return View(mapsViewModel.ToPagedList(pageNumber, pageSize));
 
             }
             catch(Exception ex)
