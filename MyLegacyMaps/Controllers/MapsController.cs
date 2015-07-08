@@ -32,24 +32,45 @@ namespace MyLegacyMaps.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
-        public async Task<ActionResult> Index(int? page)
+        public async Task<ActionResult> Index(int? currentFilterId, int? page)
         {
+            int mapTypeId = 0;
             try
             {
-                //My Type ddl options - get selected value from cookie
-                int mapTypeId = cookies.GetCookie<int>(Constants.COOKIE_MAPTYPEID, 
-                    this.ControllerContext.HttpContext);
+                //Read in Map Type drop down value and save in cookie
+                if (currentFilterId.HasValue)
+                {
+                    mapTypeId = (int)currentFilterId.Value;
+                    cookies.SetCookie(Constants.COOKIE_MAPTYPEID,
+                        mapTypeId.ToString(), this.ControllerContext.HttpContext);
+                }
+                else
+                {
+                    //get selected value from cookie
+                    mapTypeId = cookies.GetCookie<int>(Constants.COOKIE_MAPTYPEID,
+                       this.ControllerContext.HttpContext);
+                }
 
-                ViewBag.mapTypes = await GetMapTypeOptions(mapTypeId);
+                var mapTypes = new List<MapType>();
+                var respMapTypes = await mapsRepository.GetMapTypesAsync();
+                if (respMapTypes.IsSuccess())
+                {
+                    mapTypes = respMapTypes.Item.ToViewModel();
+                }
 
                 //Get Maps by map type id
                 var resp = await mapsRepository.GetMapsAsync(mapTypeId);
                 if(!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
-                }
+                }             
                
                 //View
+                ViewBag.mapTypes = mapTypes;
+                ViewBag.CurrentFilter = (mapTypeId > 0)
+                   ? mapTypes.Find(mt => mt.MapTypeId == mapTypeId).Name
+                   : String.Empty;
+
                 int pageSize = 3;
                 int pageNumber = (page ?? 1);
                 var mapsViewModel = resp.Item.ToViewModel().OrderBy(m => m.Name);               
@@ -123,6 +144,7 @@ namespace MyLegacyMaps.Controllers
 
             return mapTypeOptions;
         }
+
 
         // GET: Maps/Details/5
         [AllowAnonymous]

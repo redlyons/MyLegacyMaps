@@ -93,7 +93,7 @@ namespace MyLegacyMaps.Extensions
             };
         }
 
-        public static ICollection<ViewModels.MapType> ToViewModel(this ICollection<DomainModel.MapType> value)
+        public static List<ViewModels.MapType> ToViewModel(this ICollection<DomainModel.MapType> value)
         {
             List<ViewModels.MapType> retVal = new List<ViewModels.MapType>();
             foreach (var type in value)

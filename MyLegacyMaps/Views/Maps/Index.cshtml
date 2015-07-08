@@ -1,17 +1,40 @@
 ﻿@model  PagedList.IPagedList<MyLegacyMaps.Models.Map >
 @using PagedList.Mvc;
+@using MyLegacyMaps.Models;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
 }
-<h2>Maps</h2>
+<h3>Maps</h3>
 
-@using (Html.BeginForm("Index","Maps",FormMethod.Get))
-{
-    <p>
-       @Html.DropDownList("ddlMapTypeId", (SelectList)ViewBag.MapTypes, "-- All --")  <input type="submit" value="submit" />
-    </p>   
+@using (Html.BeginForm("Index", "Maps", FormMethod.Get, new { id = "maps" }))
+    {
+       @Html.Hidden("CurrentFilterId", ViewBag.CurrentFilterId as string)
+    
+       <div class="">        
+        <div class="">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="ddlOrientation"
+                        data-toggle="dropdown">
+                    <span>Map Type:&nbsp;</span>&nbsp;<span class="caret"></span>
+                </button>
+                &nbsp;@Html.Label(ViewBag.CurrentFilter as string)
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation" onclick="$('#CurrentFilterId').val('0'); $('#maps' ).submit();">
+                        <a role="menuitem" href="#">-- All --</a>
+                    </li>
+                    @foreach (var type in (List<MapType>)ViewBag.MapTypes)
+                    {
+                        <li role="presentation" onclick="$('#CurrentFilterId').val('@type.MapTypeId'); $('#maps' ).submit();">
+                            <a role="menuitem" href="#">@type.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
 }
+
 <div class="grid">
     @foreach (var item in Model)
     {
