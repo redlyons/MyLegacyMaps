@@ -22,7 +22,7 @@ namespace MyLegacyMaps.Services
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
             myMessage.From = new System.Net.Mail.MailAddress(
-                                "Joe@contoso.com", "Joe S.");
+                                "noreply@mylegacymaps.com", "MyLegacyMaps Account Registration");
             myMessage.Subject = message.Subject;
             myMessage.Text = message.Body;
             myMessage.Html = message.Body;
