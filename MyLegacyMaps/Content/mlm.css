@@ -22,17 +22,13 @@
 
 }
 
-.canvasButtons{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+
 
 .canvasButtons li {
     display: inline;
 }
 
-.canvasSliderControls {
+.canvasToolList {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -40,8 +36,8 @@
     margin-top: 5px;
 }
 
-.canvasSliderControls li {
-     display: inline;
+.canvasToolList li {
+     display: inline;     
 }
 
 .btnSaveMap {
@@ -51,8 +47,11 @@
 
 #zoomSlider {
     width: 100%;
-    
 
+}
+
+.sliderWrapper{
+    margin-top: 5px;
 }
 .zoom-buttons{
     margin: 3px 5px 3px 5px;
@@ -60,8 +59,8 @@
 
 .flag-icon {
     padding-right: 10px;
-    height: 35px;
-    width: 45px;
+    height: 20px;
+    width: 30px;
 }
 
 
