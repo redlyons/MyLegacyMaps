@@ -203,9 +203,13 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Migrations\201506220104222_InitialMigration.cs" />
-    <Compile Include="Migrations\201506220104222_InitialMigration.Designer.cs">
-      <DependentUpon>201506220104222_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201507120427096_PhotosUrlAdded.cs" />
+    <Compile Include="Migrations\201507120427096_PhotosUrlAdded.Designer.cs">
+      <DependentUpon>201507120427096_PhotosUrlAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507120440433_PhotosUrlAdded2.cs" />
+    <Compile Include="Migrations\201507120440433_PhotosUrlAdded2.Designer.cs">
+      <DependentUpon>201507120440433_PhotosUrlAdded2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
@@ -499,8 +503,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506220104222_InitialMigration.resx">
-      <DependentUpon>201506220104222_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507120427096_PhotosUrlAdded.resx">
+      <DependentUpon>201507120427096_PhotosUrlAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507120440433_PhotosUrlAdded2.resx">
+      <DependentUpon>201507120440433_PhotosUrlAdded2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

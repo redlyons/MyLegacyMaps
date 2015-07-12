@@ -11,6 +11,49 @@
     margin: 5px 5px 5px 5px;
 }
 
+.canvasWrapper {
+    text-align: center;
+}
+
+#canvas{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+}
+
+.canvasButtons{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.canvasButtons li {
+    display: inline;
+}
+
+.canvasSliderControls {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5px;  
+    margin-top: 5px;
+}
+
+.canvasSliderControls li {
+     display: inline;
+}
+
+.btnSaveMap {
+    background-color: #8AC007;
+}
+
+
+#zoomSlider {
+    width: 100%;
+    
+
+}
 .zoom-buttons{
     margin: 3px 5px 3px 5px;
 }
@@ -115,4 +158,8 @@
     padding-left: 3px;
     padding-right: 3px;
     
+}
+
+.lnkGridItem{
+    text-decoration: none !important;
 }

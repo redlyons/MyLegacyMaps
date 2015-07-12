@@ -152,6 +152,7 @@ namespace MyLegacyMaps.Extensions
                 Name = value.Name,
                 Description = value.Description,
                 VideoUrl = value.VideoUrl,
+                PhotosUrl =  value.PhotosUrl,
                 Date = value.Date,
                 DateCreated = value.DateCreated,
                 DateModified = value.DateModified,

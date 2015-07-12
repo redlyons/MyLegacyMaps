@@ -18,6 +18,8 @@ namespace MyLegacyMaps.Models
         public string Description { get; set; }
         [StringLength(500)]
         public string VideoUrl { get; set; }
+        [StringLength(500)]
+        public string PhotosUrl { get; set; }
         public DateTime? Date { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

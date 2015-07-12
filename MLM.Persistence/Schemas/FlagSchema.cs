@@ -31,6 +31,10 @@ namespace MLM.Persistence.Schemas
                .HasMaxLength(500)
                .IsOptional();
 
+            Property(p => p.PhotosUrl)
+             .HasMaxLength(500)
+             .IsOptional();
+
             Property(p => p.DateCreated)
               .IsRequired();
 
