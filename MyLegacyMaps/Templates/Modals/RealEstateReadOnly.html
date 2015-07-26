@@ -1,0 +1,19 @@
+﻿<div id='dlgWasHere' style="height:320px; width:300px; padding:0px 10px;">
+    <p style="text-align:center;"><strong>Real Estate</strong></p>
+    <strong>Property Title:</strong><br /><input id="txtFlagName" type="text" class="modal-text" /><br>
+    <strong>Address:</strong><br/><input id="txtAddress1" type="text" /><br>
+    <strong>City:</strong><br /><input id="txtCity" type="text" /><br>
+    <strong>State:</strong><br /><input id="txtState" type="text" /><br>
+    <strong>Postal Code:</strong><br /><input id="txtPostalCode" type="text" /><br>
+    <strong>Video Tour:</strong><br/> <input id="txtFlagVideoUrl" type="text" /> <br />
+    <strong>Photo Gallery:</strong><br/><input id="txtFlagGalleryUrl" type="text" /> <br />
+    <strong>Description:</strong><br /> <textarea id="txtFlagDescription" rows="4" cols="100" /> <br /> <br />
+    <p style="text-align:center">
+        <a id="btnBuyNow" href="#" class="tryitbtn">Save</a>        
+    </p>
+</div>
+<script type="text/javascript">
+    $('#btnBuyNow').click(function () {        
+        MLM.Modal.buyNow();
+    });   
+</script>

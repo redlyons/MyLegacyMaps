@@ -8,7 +8,6 @@ namespace MLM.Models
         public int FlagTypeId { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
-
         public virtual ICollection<Flag> Flags { get; set; }
     }
 }

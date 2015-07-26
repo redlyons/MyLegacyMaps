@@ -75,13 +75,15 @@
 } 
 
 .makeMeDraggable {
-    position: relative;
-    width: 70px;
-    height: 70px;
+    position: relative;    
     left: 100px;
     top: 100px;                   
-} 
+}
 
+.draggableFlag {
+    width: 70px;
+    height: 70px;
+}
 
 #overlay {
     position: fixed;
@@ -107,6 +109,25 @@
     background:#fff;
     padding:20px;
     color: #000000;
+}
+
+.modal-text{
+    width: 100%;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.modal-state{
+    width: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.modal-postalcode{
+    width: 100px;
+    float: right;
+    margin-top: 5px;
+    
 }
 
 #close {

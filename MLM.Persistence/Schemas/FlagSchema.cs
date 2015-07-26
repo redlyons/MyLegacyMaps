@@ -41,6 +41,26 @@ namespace MLM.Persistence.Schemas
             Property(p => p.DateModified)
                 .IsRequired();
 
+            Property(p => p.Address1)
+                .HasMaxLength(50)
+                .IsOptional();
+
+            Property(p => p.Address2)
+               .HasMaxLength(50)
+               .IsOptional();
+
+            Property(p => p.City)
+             .HasMaxLength(50)
+             .IsOptional();
+
+            Property(p => p.State)
+            .HasMaxLength(3)
+            .IsOptional();
+
+            Property(p => p.PostalCode)
+             .HasMaxLength(10)
+             .IsOptional();
+
             
         }
 

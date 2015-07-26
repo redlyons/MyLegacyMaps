@@ -35,6 +35,7 @@ namespace MyLegacyMaps.Controllers
         public async Task<ActionResult> Index(int? currentFilterId, int? page)
         {
             int mapTypeId = 0;
+            bool isRealtor = (HttpContext.User != null && HttpContext.User.IsInRole("realtor"));
             try
             {
                 //Read in Map Type drop down value and save in cookie
@@ -53,9 +54,16 @@ namespace MyLegacyMaps.Controllers
 
                 var mapTypes = new List<MapType>();
                 var respMapTypes = await mapsRepository.GetMapTypesAsync();
+                var realEstateMapType = new MapType{ MapTypeId = 1, Name = "Real Estate", IsActive = true };
                 if (respMapTypes.IsSuccess())
                 {
                     mapTypes = respMapTypes.Item.ToViewModel();
+
+                    if (!isRealtor)
+                    {
+                        mapTypes.Remove(realEstateMapType);
+                    }
+                    
                 }
 
                 //Get Maps by map type id
@@ -63,8 +71,8 @@ namespace MyLegacyMaps.Controllers
                 if(!resp.IsSuccess())
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
-                }             
-               
+                }
+                            
                 //View
                 ViewBag.mapTypes = mapTypes;
                 ViewBag.CurrentFilter = (mapTypeId > 0)
@@ -73,7 +81,7 @@ namespace MyLegacyMaps.Controllers
 
                 int pageSize = 3;
                 int pageNumber = (page ?? 1);
-                var mapsViewModel = resp.Item.ToViewModel().OrderBy(m => m.Name);               
+                var mapsViewModel = resp.Item.ToViewModel(isRealtor).OrderBy(m => m.Name);
                 return View(mapsViewModel.ToPagedList(pageNumber, pageSize));
 
             }

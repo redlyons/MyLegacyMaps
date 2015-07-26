@@ -20,7 +20,7 @@ namespace MLM.Models
                 return false;
             }
 
-            // If parameter cannot be cast to Point return false.
+            // If parameter cannot be cast to MapType return false.
             var mt = obj as MapType;
             if ((System.Object)mt == null)
             {

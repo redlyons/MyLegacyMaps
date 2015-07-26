@@ -25,6 +25,19 @@ namespace MyLegacyMaps.Models
         public DateTime DateModified { get; set; }
         public string ModifiedBy { get; set; }
 
+        [StringLength(50)]
+        public string Address1 { get; set; }
+        [StringLength(50)]
+        public string Address2 { get; set; }
+        [StringLength(50)]
+        public string City { get; set; }
+        [StringLength(3)]
+        public string State { get; set; }
+        [StringLength(10)]
+        public string PostalCode { get; set; }
+
+        public virtual PartnerLogo PartnerLogo { get; set; }
+
         public string GetCssClass()
         {
             if(!Enum.IsDefined(typeof(FlagTypes), this.FlagTypeId))

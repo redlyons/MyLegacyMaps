@@ -156,6 +156,34 @@ namespace MyLegacyMaps.Extensions
 
         }
 
+
+        public static DomainModel.PartnerLogo ToDomainModel(this ViewModels.PartnerLogo value)
+        {
+            if (value == null)
+                return null;
+
+            return new DomainModel.PartnerLogo
+            {
+                PartnerLogoId = value.PartnerLogoId,
+                Name = value.Name,
+                IsActive = value.IsActive,
+                ImageUrl = value.ImageUrl
+            };
+        }
+
+        public static ICollection<DomainModel.PartnerLogo> ToDomainModel(this ICollection<ViewModels.PartnerLogo> value)
+        {
+            if (value == null)
+                return null;
+
+            var retVal = new List<DomainModel.PartnerLogo>();
+            foreach (var type in value)
+            {
+                retVal.Add(type.ToDomainModel());
+            }
+            return retVal;
+        }
+
        
     }
 }

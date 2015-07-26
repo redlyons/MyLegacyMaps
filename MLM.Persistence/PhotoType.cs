@@ -9,6 +9,7 @@ namespace MLM.Persistence
     public enum PhotoType
     {
         MapMainImage,
-        MapThumb
+        MapThumb,
+        PartnerLogo
     }
 }

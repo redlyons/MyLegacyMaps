@@ -67,14 +67,19 @@ namespace MyLegacyMaps.Extensions
             };
         }
 
-        public static List<ViewModels.Map> ToViewModel(this ICollection<DomainModel.Map> value)
+        public static List<ViewModels.Map> ToViewModel(this ICollection<DomainModel.Map> value, bool includeRealEstate = false)
         {
             if (value == null)
                 return null;
 
+            var realEstateMapType = new DomainModel.MapType { MapTypeId = 1, Name = "Real Estate", IsActive = true };
             List<ViewModels.Map> retVal = new List<ViewModels.Map>();
             foreach (var map in value)
             {
+                if(includeRealEstate == false && map.MapTypes.Contains(realEstateMapType))
+                {
+                    continue;
+                }
                 retVal.Add(map.ToViewModel());
             }
             return retVal;
@@ -182,6 +187,31 @@ namespace MyLegacyMaps.Extensions
                 Name = value.Name
             };
 
+        }
+
+        public static ViewModels.PartnerLogo ToViewModel(this DomainModel.PartnerLogo value)
+        {
+            if (value == null)
+                return null;
+
+            return new ViewModels.PartnerLogo
+            {
+                PartnerLogoId = value.PartnerLogoId,
+                Name = value.Name,
+                IsActive = value.IsActive,
+                ImageUrl = value.ImageUrl
+            };
+
+        }
+
+        public static List<ViewModels.PartnerLogo> ToViewModel(this ICollection<DomainModel.PartnerLogo> value)
+        {
+            var retVal = new List<ViewModels.PartnerLogo>();
+            foreach (var type in value)
+            {
+                retVal.Add(type.ToViewModel());
+            }
+            return retVal;
         }
     }
 }

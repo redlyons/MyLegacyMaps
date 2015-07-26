@@ -179,6 +179,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DependenciesConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -203,13 +210,21 @@
     </Compile>
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Migrations\201507120427096_PhotosUrlAdded.cs" />
-    <Compile Include="Migrations\201507120427096_PhotosUrlAdded.Designer.cs">
-      <DependentUpon>201507120427096_PhotosUrlAdded.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201507120440433_PhotosUrlAdded2.cs" />
     <Compile Include="Migrations\201507120440433_PhotosUrlAdded2.Designer.cs">
       <DependentUpon>201507120440433_PhotosUrlAdded2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507250343006_RealEstate.cs" />
+    <Compile Include="Migrations\201507250343006_RealEstate.Designer.cs">
+      <DependentUpon>201507250343006_RealEstate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507251451320_RealEstate1.cs" />
+    <Compile Include="Migrations\201507251451320_RealEstate1.Designer.cs">
+      <DependentUpon>201507251451320_RealEstate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507251556418_RealEstate2.cs" />
+    <Compile Include="Migrations\201507251556418_RealEstate2.Designer.cs">
+      <DependentUpon>201507251556418_RealEstate2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
@@ -229,6 +244,7 @@
     <Compile Include="Models\Account\SetPasswordViewModel.cs" />
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
     <Compile Include="Models\OrientationType.cs" />
+    <Compile Include="Models\PartnerLogo.cs" />
     <Compile Include="MyLegacyMapsMembershipContext.cs" />
     <Compile Include="Models\Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\AdoptedMap.cs" />
@@ -244,6 +260,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.aspx" />
+    <Content Include="404.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jquery-ui.css" />
@@ -411,6 +429,8 @@
     <Content Include="Templates\Modals\HereNowReadOnly.html" />
     <Content Include="Templates\Modals\EditHereNow.html" />
     <Content Include="Templates\Modals\PlanToGoReadOnly.html" />
+    <Content Include="Templates\Modals\RealEstateReadOnly.html" />
+    <Content Include="Templates\Modals\RealEstate.html" />
     <Content Include="Templates\Modals\WasHereReadOnly.html" />
     <Content Include="Templates\Modals\HereNow.html" />
     <Content Include="Templates\Modals\EditPlanToGo.html" />
@@ -458,9 +478,8 @@
     <Content Include="Views\Maps\Details.cshtml" />
     <Content Include="Views\Admin\MapEdit.cshtml" />
     <Content Include="Views\Maps\Index.cshtml" />
-    <Content Include="Views\AdoptedMaps\Create.cshtml" />
     <Content Include="Views\AdoptedMaps\Delete.cshtml" />
-    <Content Include="Views\AdoptedMaps\Details.cshtml" />
+    <Content Include="Views\AdoptedMaps\AdoptedMap.cshtml" />
     <Content Include="Views\AdoptedMaps\Edit.cshtml" />
     <Content Include="Views\AdoptedMaps\Index.cshtml" />
     <Content Include="Views\Shared\Partials\MapCanvas.cshtml" />
@@ -469,10 +488,16 @@
     <Content Include="Views\Admin\MapTypesManage.cshtml" />
     <Content Include="Views\Admin\MapTypeEdit.cshtml" />
     <Content Include="Views\Admin\MapTypeCreate.cshtml" />
-    <Content Include="Views\AdoptedMaps\Published.cshtml" />
-    <Content Include="Views\AdoptedMaps\LegacyMap.cshtml" />
-    <Content Include="Views\Shared\Partials\LegacyMapCanvas.cshtml" />
+    <Content Include="Views\AdoptedMaps\SharedMaps.cshtml" />
+    <Content Include="Views\AdoptedMaps\SharedMap.cshtml" />
+    <Content Include="Views\Shared\Partials\SharedMapCanvas.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Admin\PartnerLogoCreate.cshtml" />
+    <Content Include="Views\Admin\PartnerLogoEdit.cshtml" />
+    <Content Include="Views\Admin\PartnerLogosManage.cshtml" />
+    <Content Include="Views\Shared\Partials\RealEstateMapCanvas.cshtml" />
+    <Content Include="Views\AdoptedMaps\RealEstateMap.cshtml" />
+    <Content Include="Views\Shared\Partials\AdoptedMapCanvas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -503,11 +528,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507120427096_PhotosUrlAdded.resx">
-      <DependentUpon>201507120427096_PhotosUrlAdded.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507120440433_PhotosUrlAdded2.resx">
       <DependentUpon>201507120440433_PhotosUrlAdded2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507250343006_RealEstate.resx">
+      <DependentUpon>201507250343006_RealEstate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507251451320_RealEstate1.resx">
+      <DependentUpon>201507251451320_RealEstate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507251556418_RealEstate2.resx">
+      <DependentUpon>201507251556418_RealEstate2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -20,11 +20,16 @@ namespace MyLegacyMaps.Controllers
     {
         private IPhotoService photoStorage = null;
         private IMapsRepository mapsRepository = null;
+        private IPartnerLogosRepository logosRepository = null;
         private ILogger log = null;
 
-        public AdminController(IMapsRepository repositiory, IPhotoService photoService, ILogger logger)
+        public AdminController(IMapsRepository mapsResource,
+                               IPartnerLogosRepository logosResource, 
+                               IPhotoService photoService, 
+                               ILogger logger)
         {
-            mapsRepository = repositiory;
+            mapsRepository = mapsResource;
+            logosRepository = logosResource;
             photoStorage = photoService;
             log = logger;            
         }
@@ -388,5 +393,159 @@ namespace MyLegacyMaps.Controllers
             var viewModel = resp.Item.ToViewModel().ToList<MapType>().OrderBy(m => m.Name);
             return viewModel.ToList();
         }
+
+
+
+        /// <summary>
+        /// Get List of Partner Logos to Manage
+        /// </summary>
+        [Authorize(Roles = "mapManager")]
+        [HttpGet]
+        public async Task<ActionResult> PartnerLogosManage()
+        {
+            try
+            {
+                // Get Maps by map type id
+                var resp = await logosRepository.AdminGetPartnerLogosAsync();
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                //View
+                var viewModel = resp.Item.ToViewModel();
+                return View(viewModel.OrderBy(m => m.Name));
+
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdminController GET PartnerLogosManage");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        // GET: MapTypes/Edit/5
+        [Authorize(Roles = "mapManager")]
+        public async Task<ActionResult> PartnerLogoEdit(int? id)
+        {
+            try
+            {
+
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                if (!id.HasValue || (int)id <= 0)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "missing id parameter");
+                }
+
+                var resp = await logosRepository.AdminGetPartnerLogoAsync((int)id.Value);
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                return View(resp.Item.ToViewModel());
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdminController GET PartnerLogoEdit id = {0} ",
+                  (id.HasValue) ? id.Value.ToString() : "null");
+
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "mapManager")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> PartnerLogoEdit([Bind(Include = "PartnerLogoId, Name, IsActive, ImageUrl")] PartnerLogo logo,
+            HttpPostedFileBase thumb)
+        {
+
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if (thumb != null)
+                {
+                    logo.ImageUrl = await photoStorage.UploadPhotoAsync(thumb, PhotoType.PartnerLogo);                   
+                }              
+
+                var resp = await logosRepository.AdminSavePartnerLogoAsync(logo.ToDomainModel());
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                return RedirectToAction("PartnerLogosManage");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdminController POST PartnerLogoEdit PartnerLogoId = {0} ",
+                 logo.PartnerLogoId);
+
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+
+        // GET: Maps/Create
+        [Authorize(Roles = "mapManager")]
+        public ActionResult PartnerLogoCreate()
+        {
+            return View(new PartnerLogo { IsActive = true });
+        }
+
+        // POST: Maps/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "mapManager")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> PartnerLogoCreate([Bind(Include = "PartnerLogoId,Name,IsActive,ImageUrl")] PartnerLogo logo,
+            HttpPostedFileBase thumb)
+        {
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if (thumb != null)
+                {
+                    logo.ImageUrl = await photoStorage.UploadPhotoAsync(thumb, PhotoType.PartnerLogo);
+                }
+
+                var resp = await logosRepository.AdminCreatePartnerLogoAsync(logo.ToDomainModel());
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdminController POST PartnerLogoCreate");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+
+
+        }
+
+        
     }
 }

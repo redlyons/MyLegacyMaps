@@ -2,9 +2,11 @@
 var MLM = {}
 MLM.MapCanvas = (function () {
     
-    var flgWasHere = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable flgWasHere masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='1' title='Name:      Date:   '></div></a>";
-    var flgHereNow = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable flgHereNow masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='2' title='Name:      Date:   '></div></a>";
-    var flgPlanToGo = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable flgPlanToGo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='3'  title='Name:      Date:   '></div></a>";
+    var flgWasHere = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable draggableFlag flgWasHere masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='1' title='Name:      Date:   '></div></a>";
+    var flgHereNow = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable draggableFlag flgHereNow masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='2' title='Name:      Date:   '></div></a>";
+    var flgPlanToGo = "<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable draggableFlag flgPlanToGo masterTooltip' data-xpos='50' data-ypos='50' data-flagtypeid='3'  title='Name:      Date:   '></div></a>";
+   
+
     var step = .05;
     var slider = $('#zoomSlider');
     var timer;
@@ -57,7 +59,19 @@ MLM.MapCanvas = (function () {
             $("#btnWantToGoHere").click(function () {
                 $("#canvas").append(flgPlanToGo);
                 MLM.MapCanvas.wireUpFlags();
-            });            
+            });
+            $("#btnPartnerLogo").click(function () {
+                var logo = "<a href='#' class='mlm-flag-lnk'>" +
+                "<div class='makeMeDraggable flgPartnerLogo masterTooltip'" +
+                " style='background-image: url(\""+ this.firstChild.src + "\"); width: " +
+                this.firstChild.width + "px; height: " + this.firstChild.height + "px;' " +
+                " data-xpos='50' data-ypos='50' " +
+                "title='Name:      Date:   '></div></a>";
+
+                $("#canvas").append(logo);
+                MLM.MapCanvas.wireUpFlags();
+               
+            });
             $("#lnkSaveMap").click(function () {
                 $("#frmAdpotMap").submit();
             });
@@ -147,6 +161,7 @@ MLM.MapCanvas = (function () {
             if ($(flag).hasClass('flgWasHere')) template = (readonly) ? 'WasHereReadOnly.html' : 'WasHere.html';
             else if ($(flag).hasClass('flgHereNow')) template = (readonly) ? 'HereNowReadOnly.html' : 'HereNow.html';
             else if ($(flag).hasClass('flgPlanToGo')) template = (readonly) ? 'PlanToGoReadOnly.html' : 'PlanToGo.html';
+            else if ($(flag).hasClass('flgPartnerLogo')) template = (readonly) ? 'RealEstateReadOnly.html' : 'RealEstate.html';
             else return;
           
 
@@ -175,6 +190,8 @@ MLM.MapCanvas = (function () {
             $(this).attr('data-ypos', Math.round(yPos));
 
         },
+
+        
     };
 })();
 MLM.MapCanvas.init();

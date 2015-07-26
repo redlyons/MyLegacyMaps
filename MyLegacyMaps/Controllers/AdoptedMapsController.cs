@@ -18,11 +18,13 @@ namespace MyLegacyMaps.Controllers
     public class AdoptedMapsController : Controller
     {
         private IAdoptedMapsRepository adoptedMapsRepository = null;
+        private IPartnerLogosRepository logosRepository = null;
         private ILogger log = null;
 
-        public AdoptedMapsController(IAdoptedMapsRepository repository, ILogger logger)
+        public AdoptedMapsController(IAdoptedMapsRepository adoptedMapsResource, IPartnerLogosRepository logosResource, ILogger logger)
         {
-            adoptedMapsRepository = repository;
+            adoptedMapsRepository = adoptedMapsResource;
+            logosRepository = logosResource;
             log = logger;
         }
 
@@ -55,16 +57,22 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: Public AdoptedMaps
-        public async Task<ActionResult> Published(string id)
+        [AllowAnonymous]
+        public async Task<ActionResult> SharedMaps(string id)
         {
            // string userId = String.Empty;
             try
             {
-                //if (!HttpContext.User.Identity.IsAuthenticated)
-                //{
-                //    return new HttpUnauthorizedResult();
-                //}
-                //userId = User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(id) && HttpContext.User != null)
+                {
+                    id = HttpContext.User.Identity.GetUserId();
+                }
+              
+                if(String.IsNullOrEmpty(id))//return empty list
+                {
+                    return View(new List<AdoptedMap>());
+                }
+
                 var resp = await adoptedMapsRepository.GetPublicAdoptedMapsByUserIdAsync(id);
 
                 if (!resp.IsSuccess())
@@ -83,7 +91,7 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: AdoptedMaps/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> AdoptedMap(int? id)
         {
             try
             {
@@ -112,7 +120,7 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: AdoptedMaps/Details/5
-        public async Task<ActionResult> LegacyMap(int? id)
+        public async Task<ActionResult> SharedMap(int? id)
         {
             try
             {
@@ -133,7 +141,44 @@ namespace MyLegacyMaps.Controllers
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Error in AdoptedMapsController GET Details id = {0} ",
+                log.Error(ex, "Error in AdoptedMapsController GET SharedMap id = {0} ",
+                    (id.HasValue) ? id.Value.ToString() : "null");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        // GET: AdoptedMaps/Details/5
+        public async Task<ActionResult> RealEstateMap(int? id)
+        {
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                if (!id.HasValue || (int)id <= 0)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var resp = await adoptedMapsRepository.GetAdoptedMapByIdAsync((int)id.Value);
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                var respLogos = await logosRepository.GetPartnerLogosAsync();
+                if (!respLogos.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                ViewBag.PartnerLogos = respLogos.Item.ToViewModel();
+                return View(resp.Item.ToViewModel());
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdoptedMapsController GET RealEstateMap id = {0} ",
                     (id.HasValue) ? id.Value.ToString() : "null");
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }

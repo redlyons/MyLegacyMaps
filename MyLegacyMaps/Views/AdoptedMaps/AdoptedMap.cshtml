@@ -2,29 +2,30 @@
 
 @{
     ViewBag.Title = "Adopted Map";
-    var flagElem = "\"<a href='#' class='mlm-flag-lnk'><div  class='makeMeDraggable locked {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
-                         "data-flagtypeid={3} data-flagId={4} style='{5}' title='Name: {6} Date: {7} ' ></div></a>\"";
+    var flagElem = "\"<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
+                         "data-flagtypeid={3} data-flagId={4} style='{5}' title='Name: {6} Date: {7} ' ></div></a>\"";                        
 }
 
-@section Scripts{
+@section Scripts{      
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/mlm")
 }
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
 {
+    @Html.AntiForgeryToken();
     @Html.Hidden("adoptedMapId", Model.AdoptedMapId);
     @Html.Hidden("mapImageUrl", Model.Map.GetMainImageUrl())
     @Html.Hidden("mapOrientation", Model.Map.OrientationTypeId)
-
+    
 }
 
-@Html.Partial("~/Views/Shared/Partials/LegacyMapCanvas.cshtml", Model.Map)
+@Html.Partial("~/Views/Shared/Partials/AdoptedMapCanvas.cshtml", Model.Map)
 
 <script type="text/javascript">
     $(document).ready(function () {
         @foreach(var flag in @Model.Flags)
-        {
+        {                        
             var elem =
                 String.Format(flagElem,
                               flag.GetCssClass(),
@@ -35,9 +36,13 @@
                               flag.GetStyle(),
                               @Html.AttributeEncode(flag.Name),
                               (flag.Date.HasValue)? flag.Date.Value.ToShortDateString() : "");
-
-            @Html.Raw(String.Format("$('#canvas').append({0}); MLM.MapCanvas. wireUpFlagOnClickEvents();", elem));
+           
+            @Html.Raw(String.Format("$('#canvas').append({0}); MLM.MapCanvas.wireUpFlags();", elem));
         }
     });
 </script>
+
+
+
+
 

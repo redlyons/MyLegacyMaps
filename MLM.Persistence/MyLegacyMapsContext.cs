@@ -31,6 +31,7 @@ namespace MLM.Persistence
             modelBuilder.Configurations.Add(new FlagTypeSchema());
             modelBuilder.Configurations.Add(new ShareStatusTypeSchema());
             modelBuilder.Configurations.Add(new OrientationTypeSchema());
+            modelBuilder.Configurations.Add(new PartnerLogoSchema());
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
@@ -46,6 +47,7 @@ namespace MLM.Persistence
         public DbSet<MapType> MapTypes { get; set; }
         public DbSet<ShareStatusType> SharedStatusTypes { get; set; }
         public DbSet<OrientationType> OrientationTypes { get; set; }
+        public DbSet<PartnerLogo> PartnerLogos { get; set; }
     }
 
     // EF follows a Code based Configration model and will look for a class that

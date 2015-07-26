@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Adopted Maps";
+    var realEstateMapType = new MyLegacyMaps.Models.MapType{ MapTypeId =1, Name = "Real Estate", IsActive=true };
 }
 
 <h2>Adopted Maps</h2>
@@ -45,7 +46,17 @@
         </td> 
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.AdoptedMapId }) |
-            @Html.ActionLink("View", "Details", new { id=item.AdoptedMapId }) |
+
+            @if (item.Map.MapTypes.Contains(realEstateMapType))
+            {
+                @Html.ActionLink("View", "RealEstateMap", new { id = item.AdoptedMapId })
+            }
+            else
+            {
+                @Html.ActionLink("View", "AdoptedMap", new { id=item.AdoptedMapId }) 
+            }            
+            
+            |
             @Html.ActionLink("Delete", "Delete", new { id=item.AdoptedMapId })
         </td>
     </tr>

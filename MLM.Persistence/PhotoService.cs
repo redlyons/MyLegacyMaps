@@ -17,6 +17,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -37,26 +38,34 @@ namespace MLM.Persistence
 
         async public void CreateAndConfigureAsync()
         {
+            var folders = new List<string>();
+            folders.Add("maps");
+            folders.Add("logos");
+
             try
             {
                 CloudStorageAccount storageAccount = StorageUtils.StorageAccount;
 
                 // Create a blob client and retrieve reference to images container
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer container = blobClient.GetContainerReference("maps");
 
-                // Create the "maps" container if it doesn't already exist.
-                if (await container.CreateIfNotExistsAsync())
+                foreach (var folder in folders)
                 {
-                    // Enable public access on the newly created "images" container
-                    await container.SetPermissionsAsync(
-                        new BlobContainerPermissions
-                        {
-                            PublicAccess =
-                                BlobContainerPublicAccessType.Off
-                        });
+                    CloudBlobContainer container = blobClient.GetContainerReference(folder);
 
-                    log.Information("Successfully created Blob Storage maps Container and made it public");
+                    // Create the "maps" container if it doesn't already exist.
+                    if (await container.CreateIfNotExistsAsync())
+                    {
+                        // Enable public access on the newly created "images" container
+                        await container.SetPermissionsAsync(
+                            new BlobContainerPermissions
+                            {
+                                PublicAccess =
+                                    BlobContainerPublicAccessType.Blob
+                            });
+
+                        log.Information("Successfully created Blob Storage maps Container and made it public");
+                    }
                 }
 
             }
@@ -88,7 +97,7 @@ namespace MLM.Persistence
                 // Create a unique name for the images we are about to upload
                 string imageName = String.Format("{0}-{1}",
                     Guid.NewGuid().ToString(),
-                    photoToUpload.FileName
+                    photoToUpload.FileName.Replace(" ", "_")
                    );
 
                 // Upload image to Blob Storage
@@ -118,7 +127,9 @@ namespace MLM.Persistence
         {
             switch(photoType)
             {
-               
+                //case PhotoType.PartnerLogo:
+                //    return "logos";
+
                 default:
                     return "maps";
             }

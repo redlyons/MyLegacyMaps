@@ -7,13 +7,13 @@ namespace MyLegacyMaps.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class PhotosUrlAdded : IMigrationMetadata
+    public sealed partial class RealEstate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PhotosUrlAdded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RealEstate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507120427096_PhotosUrlAdded"; }
+            get { return "201507250343006_RealEstate"; }
         }
         
         string IMigrationMetadata.Source

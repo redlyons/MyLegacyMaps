@@ -24,9 +24,10 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Maps", "Index", "Maps")</li>
-                    <li>@Html.ActionLink("My Maps", "Index", "AdoptedMaps")</li>
+                    <li>@Html.ActionLink("My Adopted Maps", "Index", "AdoptedMaps")</li>
+                    <li>@Html.ActionLink("My Shared Maps", "SharedMaps", "AdoptedMaps")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

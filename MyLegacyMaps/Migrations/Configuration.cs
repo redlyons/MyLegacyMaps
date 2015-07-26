@@ -524,6 +524,11 @@ namespace MyLegacyMaps.Migrations
                     ir = rm.Create(new IdentityRole("mapManager"));
                 }
 
+                if (!rm.RoleExists("realtor"))
+                {
+                    ir = rm.Create(new IdentityRole("realtor"));
+                }
+
                 var um = new UserManager<MyLegacyMaps.Models.Account.ApplicationUser>(
                     new UserStore<MyLegacyMaps.Models.Account.ApplicationUser>(context));
 
@@ -539,7 +544,10 @@ namespace MyLegacyMaps.Migrations
                 };
                 ir = um.Create(user1, admin1[1]);
                 if (ir.Succeeded)
+                {
                     ir = um.AddToRole(user1.Id, "mapManager");
+                    ir = um.AddToRole(user1.Id, "realtor");
+                }
                 
                 var admin2 = System.Configuration.ConfigurationManager.AppSettings["admin2"].Split(
                   new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
@@ -551,7 +559,10 @@ namespace MyLegacyMaps.Migrations
                 };
                 ir = um.Create(user2, admin2[1]);
                 if (ir.Succeeded)
+                {
                     ir = um.AddToRole(user2.Id, "mapManager");
+                    ir = um.AddToRole(user1.Id, "realtor");
+                }
                 
 
                 return true;

@@ -50,10 +50,7 @@ namespace MLM.Persistence.Schemas
             //Flags: One to Many
             HasMany(p => p.Flags)
                 .WithRequired()
-                .HasForeignKey(am => am.AdoptedMapId);
-
-           
-            
+                .HasForeignKey(am => am.AdoptedMapId); 
            
           
         }
