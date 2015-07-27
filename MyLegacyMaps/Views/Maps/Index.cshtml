@@ -37,14 +37,29 @@
 
 <div class="grid">
     @foreach (var item in Model)
-    {
-        <div class="grid-item">
-            <a class="lnkGridItem" href="@Url.Action("Details", new { id = item.MapId })">
-                <img src="@item.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
-                <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
-                <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
-            </a>
-        </div>
+    {       
+        if(item.OrientationTypeId == 1)
+        { 
+            <div class="grid-item"> 
+
+                <a class="lnkGridItem" href="@Url.Action("Details", new { id = item.MapId })">
+                    <img src="@item.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="grid-item vertical-item">
+
+                <a class="lnkGridItem" href="@Url.Action("Details", new { id = item.MapId })">
+                    <img src="@item.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                </a>
+            </div>
+        }
     }
 </div>
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
