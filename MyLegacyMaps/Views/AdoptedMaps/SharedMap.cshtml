@@ -32,7 +32,7 @@
                               flag.Ypos,
                               flag.FlagTypeId,
                               flag.FlagId,
-                              flag.GetStyle(),
+                              @Html.AttributeEncode(flag.GetStyle()),
                               @Html.AttributeEncode(flag.Name),
                               (flag.Date.HasValue)? flag.Date.Value.ToShortDateString() : "");
 
