@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Adopted Map";
-    var flagElem = "\"<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
+    var flagElem = "\"<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable draggableFlag {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
                          "data-flagtypeid={3} data-flagId={4} style='{5}' title='Name: {6} Date: {7} ' ></div></a>\"";                        
 }
 
@@ -33,7 +33,7 @@
                               flag.Ypos,
                               flag.FlagTypeId,
                               flag.FlagId,
-                              flag.GetStyle(),
+                              @Html.AttributeEncode(flag.GetStyle()),
                               @Html.AttributeEncode(flag.Name),
                               (flag.Date.HasValue)? flag.Date.Value.ToShortDateString() : "");
            

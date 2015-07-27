@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201507270115158_RealEstate21.Designer.cs">
       <DependentUpon>201507270115158_RealEstate21.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507270413474_RealEstate3.cs" />
+    <Compile Include="Migrations\201507270413474_RealEstate3.Designer.cs">
+      <DependentUpon>201507270413474_RealEstate3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
@@ -547,6 +551,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507270115158_RealEstate21.resx">
       <DependentUpon>201507270115158_RealEstate21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507270413474_RealEstate3.resx">
+      <DependentUpon>201507270413474_RealEstate3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

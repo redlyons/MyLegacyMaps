@@ -16,16 +16,16 @@ MLM.MapCanvas = (function () {
 
         init: function () {      
             $('#canvas').css('background', 'url("' + $('#mapImageUrl').val() + '") no-repeat');
-            var ht = "1350px";
-            var wd =  "2000px";
+            var ht = "634px";   //634
+            var wd =  "934px"; //934
             if ($('#mapOrientation').val() == 2)
             {
-                ht = "2000px";
-                wd = "1800px";
+                ht = "750px";
+                wd = "500px";
             }
             $('#canvas').css('height', ht);
             $('#canvas').css('width', wd);
-            $('#canvas').css('zoom', '0.5');
+            $('#canvas').css('zoom', '1.0');
 
             MLM.MapCanvas.wireUpButtonEvents();
             MLM.MapCanvas.wireUpTooltips();

@@ -24,10 +24,10 @@ namespace MLM.Persistence.Schemas
                .HasMaxLength(500)
                .IsRequired();
 
-            //One to Many
-            HasMany(p => p.Flags)
-                .WithRequired(p => p.PartnerLogo)
-                .HasForeignKey(p => p.PartnerLogoId);
+            ////One to Many
+            //HasMany(p => p.Flags)
+            //    .WithOptional(p => p.PartnerLogo)
+            //    .HasForeignKey(p => p.PartnerLogoId);
         }
 
     }

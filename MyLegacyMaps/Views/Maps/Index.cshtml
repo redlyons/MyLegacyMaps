@@ -40,9 +40,9 @@
     {
         <div class="grid-item">
             <a class="lnkGridItem" href="@Url.Action("Details", new { id = item.MapId })">
-                <img src="@item.GetThumbImageUrl()" height="310" width="310" class="mlm-li-thumb">
-                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
-                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                <img src="@item.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
             </a>
         </div>
     }

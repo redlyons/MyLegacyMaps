@@ -79,7 +79,7 @@ namespace MyLegacyMaps.Controllers
                    ? mapTypes.Find(mt => mt.MapTypeId == mapTypeId).Name
                    : String.Empty;
 
-                int pageSize = 3;
+                int pageSize = 4;
                 int pageNumber = (page ?? 1);
                 var mapsViewModel = resp.Item.ToViewModel(isRealtor).OrderBy(m => m.Name);
                 return View(mapsViewModel.ToPagedList(pageNumber, pageSize));

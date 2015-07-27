@@ -1,21 +1,21 @@
 ﻿<div id='dlgRealEstate' style="height:510px; width:300px; padding:0px 10px;">
     <p style="text-align:center;"><strong>Real Estate</strong></p>
-    <strong>Property Title:</strong><br /><input id="txtFlagName" type="text" class="modal-text" /><br>
-    <strong>Address:</strong><br/><input id="txtAddress1" type="text" class="modal-text" /><br>
-    <strong>City:</strong><br /><input id="txtCity" type="text" class="modal-text" /><br>
+    <strong>Property Title:</strong><br /><input id="txtFlagName" type="text" class="modal-text readonly" readonly /><br>
+    <strong>Address:</strong><br/><input id="txtAddress1" type="text" class="modal-text readonly" readonly /><br>
+    <strong>City:</strong><br /><input id="txtCity" type="text" class="modal-text readonly" readonly /><br>
     <div>
-        <strong>State:</strong><br /><input id="txtState" type="text" class="modal-state" />
-        <strong style="margin-left: 5px;">Postal Code:</strong><input id="txtPostalCode" type="text" class="modal-postalcode" />
+        <strong>State:</strong>&nbsp;<input id="txtState" type="text" class="modal-state readonly" readonly />
+        <strong style="margin-left: 5px;">Postal Code:</strong><input id="txtPostalCode" type="text" class="modal-postalcode readonly" readonly />
     </div>
-    <strong>Video Tour:</strong><br/> <input id="txtFlagVideoUrl" type="text" class="modal-text" /> <br />
-    <strong>Photo Gallery:</strong><br/><input id="txtFlagPhotoUrl" type="text" class="modal-text" /> <br />
-    <strong>Description:</strong><br /> <textarea id="txtFlagDescription" rows="6" cols="100" /> <br /> <br />
+    <strong>Video Tour:</strong><br/> <input id="txtFlagVideoUrl" type="text" class="modal-text readonly" readonly /> <br />
+    <strong>Photo Gallery:</strong><br/><input id="txtFlagPhotoUrl" type="text" class="modal-text readonly" readonly /> <br />
+    <strong>Description:</strong><br /> <textarea id="txtFlagDescription" rows="6" cols="100" class="readonly" readonly /> <br /> <br />
     <p style="text-align:center">
-        <a id="btnBuyNow" href="#" class="btn btn-info btn-sm btnSaveMap">Save</a>           
+        <a id="btnClose" href="#" class="btn btn-info btn-sm">Close</a>           
     </p>
 </div>
 <script type="text/javascript">
-    $('#btnBuyNow').click(function () {        
-        MLM.Modal.buyListing();
+    $('#btnClose').click(function () {
+        MLM.Modal.close();
     });   
 </script>
