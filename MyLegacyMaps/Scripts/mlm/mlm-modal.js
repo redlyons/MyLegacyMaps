@@ -14,7 +14,14 @@
         name: '',
         description: '',
         videoUrl: '',
-        date: ''
+        photosUrl: '',
+        date: '',
+        address1: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        partnerLogoId: '',
+
 
     },
     flagElement,
@@ -47,6 +54,7 @@
         flag.flagTypeId = $(settings.element).attr('data-flagtypeid');
         flag.xPos = $(settings.element).attr('data-xpos');
         flag.yPos = $(settings.element).attr('data-ypos');
+        flag.partnerLogoId = $(settings.element).attr('data-partnerlogoid');
         flagElement = $(settings.element);
 
         if (flag.flagId != null) {
@@ -83,9 +91,41 @@
                 name: $('#txtFlagName').val(),
                 description: $('#txtFlagDescription').val(),
                 videoUrl: $('#txtFlagVideoUrl').val(),
+                photosUrl: $('#txtFlagPhotoUrl').val(),
                 date: $('#txtFlagDate').val(),
                 xPos: flag.xPos,
                 yPos: flag.yPos
+            },
+            success: function (data) {
+                $(flagElement).attr("data-flagId", data.FlagId);
+                $(flagElement).attr("title", method.getToolTip(data));
+                method.close();
+            },
+            error: function (data) {
+                console.log('error on create');
+            }
+        });
+    };
+
+    method.buyListing = function () {
+        $.ajax({
+            url: window.location.origin + "/flags/createListing/",
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                flagTypeId: flag.flagTypeId,
+                adoptedMapId: flag.adoptedMapId,
+                name: $('#txtFlagName').val(),
+                description: $('#txtFlagDescription').val(),
+                videoUrl: $('#txtFlagVideoUrl').val(),
+                photosUrl: $('#txtFlagPhotoUrl').val(),
+                xPos: flag.xPos,
+                yPos: flag.yPos,
+                address1: $('#txtAddress1').val(),
+                city: $('#txtCity').val(),
+                state: $('#txtState').val(),
+                postalCode: $('#txtPostalCode').val(),
+                partnerLogoId: flag.partnerLogoId,
             },
             success: function (data) {
                 $(flagElement).attr("data-flagId", data.FlagId);
@@ -110,9 +150,43 @@
                 name: $('#txtFlagName').val(),
                 description: $('#txtFlagDescription').val(),
                 videoUrl: $('#txtFlagVideoUrl').val(),
+                photosUrl: $('#txtFlagPhotoUrl').val(),
                 date: $('#txtFlagDate').val(),
                 xPos: flag.xPos,
                 yPos: flag.yPos
+            },
+            success: function (data) {
+                $(flagElement).attr("title", method.getToolTip(data));
+                method.close();
+            },
+            error: function (data) {
+                console.log("error on save");
+            }
+        });
+
+    };
+
+    method.saveRealEstateFlag = function (data) {
+        $.ajax({
+            url: window.location.origin + "/flags/editRealEstate/",
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                flagId: flag.flagId,
+                flagTypeId: flag.flagTypeId,
+                adoptedMapId: flag.adoptedMapId,
+                name: $('#txtFlagName').val(),
+                description: $('#txtFlagDescription').val(),
+                videoUrl: $('#txtFlagVideoUrl').val(),
+                photosUrl: $('#txtFlagPhotoUrl').val(),
+                xPos: flag.xPos,
+                yPos: flag.yPos,
+                partnerLogoId: flag.partnerLogoId,
+                address1: $('#txtAddress1').val(),
+                city: $('#txtCity').val(),
+                state: $('#txtState').val(),
+                postalCode: $('#txtPostalCode').val()
+
             },
             success: function (data) {
                 $(flagElement).attr("title", method.getToolTip(data));
@@ -133,16 +207,40 @@
                 flag.name = data.Name;
                 flag.description = data.Description;
                 flag.videoUrl = data.VideoUrl;
+                flag.photosUrl = data.PhotosUrl;
                 flag.date = data.Date;
+                flag.address1 = data.Address1;
+                flag.city = data.City;
+                flag.state = data.State;
+                flag.postalCode = data.PostalCode;
+                flag.partnerLogoId = data.PartnerLogoId;
 
                 if (flag.name != null)
                     $('#txtFlagName').val(flag.name).html();
+
                 if (flag.videoUrl != null)
                     $('#txtFlagVideoUrl').val(flag.videoUrl).html();
+
+                if (flag.photosUrl != null)
+                    $('#txtFlagPhotoUrl').val(flag.photosUrl).html();
+
                 if (flag.description != null)
                     $('#txtFlagDescription').val(flag.description).html();
+
                 if (flag.date != null)
                     $('#txtFlagDate').datepicker("setDate", new Date(parseInt(flag.date.substr(6))));
+
+                if (flag.address1 != null)
+                    $('#txtAddress1').val(flag.address1).html();
+
+                if (flag.city != null)
+                    $('#txtCity').val(flag.city).html();
+
+                if (flag.state != null)
+                    $('#txtState').val(flag.state).html();
+
+                if (flag.postalCode != null)
+                    $('#txtPostalCode').val(flag.postalCode).html();
             },
             error: function (data) {
                 console.log("get flag error");

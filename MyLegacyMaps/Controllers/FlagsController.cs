@@ -77,7 +77,7 @@ namespace MyLegacyMaps.Controllers
         // POST: Flags/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos,Date,Description,VideoUrl,")] Flag flag)
+        public async Task<ActionResult> Create([Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos,Date,Description,VideoUrl,PhotosUrl")] Flag flag)
         {           
             try
             {
@@ -106,12 +106,48 @@ namespace MyLegacyMaps.Controllers
                     HttpContext.User.Identity.GetUserId()));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
+        }
+
+        // POST: Flags/Create
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateListing(
+            [Bind(Include = "FlagTypeId,AdoptedMapId,Name,Xpos,Ypos,Description,VideoUrl, PhotosUrl," +
+            "Address1,City,State,PostalCode,PartnerLogoId")] Flag flag)
+        {
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                if (!ModelState.IsValid)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                flag.DateCreated = flag.DateModified = DateTime.Now;
+                flag.ModifiedBy = HttpContext.User.Identity.Name;
+                var resp = await flagRepository.AddFlagAsync(flag.ToDomainModel());
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                return Json(resp.Item.ToViewModel(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in FlagsController POST Create Userid = {0} ",
+                    HttpContext.User.Identity.GetUserId()));
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }       
 
         // POST: Flags/Edit/5      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId,FlagId,FlagTypeId,Name,Xpos,Ypos,Date,Description,VideoUrl")] Flag flag)
+        public async Task<ActionResult> Edit([Bind(Include = "AdoptedMapId,FlagId,FlagTypeId,Name,Xpos,Ypos,Date,Description,VideoUrl,PhotosUrl")] Flag flag)
         {
            
             try
@@ -152,6 +188,52 @@ namespace MyLegacyMaps.Controllers
             }
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditRealEstate(
+            [Bind(Include = "AdoptedMapId,FlagId,FlagTypeId,Name,Xpos,Ypos,Description,VideoUrl,PhotosUrl,PartnerLogoId,Address1,City,State,PostalCode")] 
+            Flag flag)
+        {
+
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+                if (!ModelState.IsValid)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var adoptedMapResp = await adoptedMapRepository.GetAdoptedMapByIdAsync(flag.AdoptedMapId);
+                if (!adoptedMapResp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(adoptedMapResp.HttpStatusCode);
+                }
+                if (adoptedMapResp.Item.UserId != User.Identity.GetUserId())
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                flag.DateModified = DateTime.Now;
+                flag.ModifiedBy = HttpContext.User.Identity.Name;
+                var flagResp = await flagRepository.SaveFlagAsync(flag.ToDomainModel());
+                if (!flagResp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(flagResp.HttpStatusCode);
+                }
+                return Json(flagResp.Item.ToViewModel(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in FlagsController POST Edit Userid = {0} ",
+                   HttpContext.User.Identity.GetUserId()));
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+
         // GET: Flags/Delete/5
         //public async Task<ActionResult> Delete(int? id)
         //{
@@ -180,7 +262,7 @@ namespace MyLegacyMaps.Controllers
 
         // POST: Flags/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             

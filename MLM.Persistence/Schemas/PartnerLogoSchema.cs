@@ -14,9 +14,20 @@ namespace MLM.Persistence.Schemas
             Property(p => p.IsActive)
                  .IsRequired();
 
+            Property(p => p.Width)
+                 .IsRequired();
+
+            Property(p => p.Height)
+                 .IsRequired();
+
             Property(p => p.ImageUrl)
                .HasMaxLength(500)
                .IsRequired();
+
+            //One to Many
+            HasMany(p => p.Flags)
+                .WithRequired(p => p.PartnerLogo)
+                .HasForeignKey(p => p.PartnerLogoId);
         }
 
     }

@@ -10,6 +10,6 @@ namespace MyLegacyMaps.Classes.Flags
         WasHere = 1,
         HereNow = 2,
         WantToGo = 3,
-        CustomLogo =4
+        CustomLogo = 4
     }
 }

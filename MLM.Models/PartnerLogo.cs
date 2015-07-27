@@ -13,5 +13,9 @@ namespace MLM.Models
         public bool IsActive { get; set; }
         public string Name { get; set; }
         public string ImageUrl { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+
+        public virtual ICollection<Flag> Flags { get; set; }
     }
 }

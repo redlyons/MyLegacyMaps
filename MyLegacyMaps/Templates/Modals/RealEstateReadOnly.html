@@ -1,19 +1,21 @@
-﻿<div id='dlgWasHere' style="height:320px; width:300px; padding:0px 10px;">
+﻿<div id='dlgRealEstate' style="height:510px; width:300px; padding:0px 10px;">
     <p style="text-align:center;"><strong>Real Estate</strong></p>
     <strong>Property Title:</strong><br /><input id="txtFlagName" type="text" class="modal-text" /><br>
-    <strong>Address:</strong><br/><input id="txtAddress1" type="text" /><br>
-    <strong>City:</strong><br /><input id="txtCity" type="text" /><br>
-    <strong>State:</strong><br /><input id="txtState" type="text" /><br>
-    <strong>Postal Code:</strong><br /><input id="txtPostalCode" type="text" /><br>
-    <strong>Video Tour:</strong><br/> <input id="txtFlagVideoUrl" type="text" /> <br />
-    <strong>Photo Gallery:</strong><br/><input id="txtFlagGalleryUrl" type="text" /> <br />
-    <strong>Description:</strong><br /> <textarea id="txtFlagDescription" rows="4" cols="100" /> <br /> <br />
+    <strong>Address:</strong><br/><input id="txtAddress1" type="text" class="modal-text" /><br>
+    <strong>City:</strong><br /><input id="txtCity" type="text" class="modal-text" /><br>
+    <div>
+        <strong>State:</strong><br /><input id="txtState" type="text" class="modal-state" />
+        <strong style="margin-left: 5px;">Postal Code:</strong><input id="txtPostalCode" type="text" class="modal-postalcode" />
+    </div>
+    <strong>Video Tour:</strong><br/> <input id="txtFlagVideoUrl" type="text" class="modal-text" /> <br />
+    <strong>Photo Gallery:</strong><br/><input id="txtFlagPhotoUrl" type="text" class="modal-text" /> <br />
+    <strong>Description:</strong><br /> <textarea id="txtFlagDescription" rows="6" cols="100" /> <br /> <br />
     <p style="text-align:center">
-        <a id="btnBuyNow" href="#" class="tryitbtn">Save</a>        
+        <a id="btnBuyNow" href="#" class="btn btn-info btn-sm btnSaveMap">Save</a>           
     </p>
 </div>
 <script type="text/javascript">
     $('#btnBuyNow').click(function () {        
-        MLM.Modal.buyNow();
+        MLM.Modal.buyListing();
     });   
 </script>

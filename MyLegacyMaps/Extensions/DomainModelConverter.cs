@@ -124,7 +124,14 @@ namespace MyLegacyMaps.Extensions
                 Date = value.Date,
                 DateCreated = value.DateCreated,
                 DateModified = value.DateModified,
-                ModifiedBy = value.ModifiedBy
+                ModifiedBy = value.ModifiedBy,
+                PartnerLogoId = value.PartnerLogoId,
+                PartnerLogo = value.PartnerLogo.ToDomainModel(),
+                Address1 = value.Address1,
+                Address2 = value.Address2,
+                City = value.City,
+                State = value.State,
+                PostalCode = value.PostalCode
 
 
             };
@@ -167,7 +174,9 @@ namespace MyLegacyMaps.Extensions
                 PartnerLogoId = value.PartnerLogoId,
                 Name = value.Name,
                 IsActive = value.IsActive,
-                ImageUrl = value.ImageUrl
+                ImageUrl = value.ImageUrl,
+                Width = value.Width,
+                Height= value.Height
             };
         }
 

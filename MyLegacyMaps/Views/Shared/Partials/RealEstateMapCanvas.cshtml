@@ -10,7 +10,7 @@
                         <span>Choose Logo:&nbsp;</span>&nbsp;<span class="caret"></span>
                     </button>
                     &nbsp;<a id="btnPartnerLogo" href="#" class=""><img id="imgLogo" class="" src="" /></a>
-                    <input id="hdnLogoId" type="hidden"/>
+                    <input id="hdnPartnerLogoId" type="hidden" />
                     <ul class="dropdown-menu" role="menu">
                         @foreach (var logo in (List<MyLegacyMaps.Models.PartnerLogo>)ViewBag.PartnerLogos)
                         {
@@ -42,7 +42,7 @@
 
     <script type="text/javascript">
     function onLogoTypeSelected(id, value, imageUrl) {
-        $('#hdnLogoId').val(id);
+        $('#hdnPartnerLogoId').val(id);
         $('#imgLogo').attr("src", imageUrl);
        
 

@@ -461,7 +461,7 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> PartnerLogoEdit([Bind(Include = "PartnerLogoId, Name, IsActive, ImageUrl")] PartnerLogo logo,
+        public async Task<ActionResult> PartnerLogoEdit([Bind(Include = "PartnerLogoId, Name, IsActive, ImageUrl,Height,Width")] PartnerLogo logo,
             HttpPostedFileBase thumb)
         {
 
@@ -513,7 +513,7 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> PartnerLogoCreate([Bind(Include = "PartnerLogoId,Name,IsActive,ImageUrl")] PartnerLogo logo,
+        public async Task<ActionResult> PartnerLogoCreate([Bind(Include = "PartnerLogoId,Name,IsActive,ImageUrl,Height,Width")] PartnerLogo logo,
             HttpPostedFileBase thumb)
         {
             try

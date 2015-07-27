@@ -65,8 +65,8 @@ MLM.MapCanvas = (function () {
                 "<div class='makeMeDraggable flgPartnerLogo masterTooltip'" +
                 " style='background-image: url(\""+ this.firstChild.src + "\"); width: " +
                 this.firstChild.width + "px; height: " + this.firstChild.height + "px;' " +
-                " data-xpos='50' data-ypos='50' " +
-                "title='Name:      Date:   '></div></a>";
+                " data-xpos='50' data-ypos='50' data-flagtypeid='4' data-partnerLogoId='" +
+                $('#hdnPartnerLogoId').val() +  "' title='Name:      Date:   '></div></a>"; 
 
                 $("#canvas").append(logo);
                 MLM.MapCanvas.wireUpFlags();

@@ -12,6 +12,10 @@ namespace MyLegacyMaps.Models
         [Required]
         public bool IsActive { get; set; }
         [Required]
+        public int Width { get; set; }
+        [Required]
+        public int Height { get; set; }
+        [Required]
         [StringLength(50)]
         public string Name { get; set; }       
         [StringLength(500)]

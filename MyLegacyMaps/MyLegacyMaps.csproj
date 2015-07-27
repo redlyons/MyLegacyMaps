@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201507251556418_RealEstate2.Designer.cs">
       <DependentUpon>201507251556418_RealEstate2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507270115158_RealEstate21.cs" />
+    <Compile Include="Migrations\201507270115158_RealEstate21.Designer.cs">
+      <DependentUpon>201507270115158_RealEstate21.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
@@ -426,6 +430,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Templates\Modals\EditRealEstate.html" />
     <Content Include="Templates\Modals\HereNowReadOnly.html" />
     <Content Include="Templates\Modals\EditHereNow.html" />
     <Content Include="Templates\Modals\PlanToGoReadOnly.html" />
@@ -539,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507251556418_RealEstate2.resx">
       <DependentUpon>201507251556418_RealEstate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507270115158_RealEstate21.resx">
+      <DependentUpon>201507270115158_RealEstate21.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

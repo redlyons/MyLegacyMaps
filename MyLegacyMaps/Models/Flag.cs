@@ -36,6 +36,7 @@ namespace MyLegacyMaps.Models
         [StringLength(10)]
         public string PostalCode { get; set; }
 
+        public int? PartnerLogoId { get; set; }
         public virtual PartnerLogo PartnerLogo { get; set; }
 
         public string GetCssClass()
@@ -54,7 +55,7 @@ namespace MyLegacyMaps.Models
                 case FlagTypes.WantToGo:
                     return "flgPlanToGo";
                 case FlagTypes.CustomLogo:
-                    return "flgCustomLogo";
+                    return "flgPartnerLogo";
                 default:
                     return String.Empty;
             }
@@ -72,9 +73,23 @@ namespace MyLegacyMaps.Models
                 case FlagTypes.WasHere:                   
                 case FlagTypes.HereNow:                   
                 case FlagTypes.WantToGo:
-                    return String.Format(" top:{0}px; left:{1}px;", this.Ypos, this.Xpos);
+                    return String.Format("top:{0}px; left:{1}px;", this.Ypos, this.Xpos);
                 case FlagTypes.CustomLogo:
-                    return String.Format(" top:{0}px; left:{1}px; height:75px; width:550px;", this.Ypos, this.Xpos);
+                    var backgroundUrl = String.Empty;
+                    var ht = String.Empty;
+                    var wd = String.Empty;
+                    
+                    if(this.PartnerLogo != null)
+                    {
+                        backgroundUrl = String.Format("background-image: url('{0}');", this.PartnerLogo.ImageUrl);
+                        ht = this.PartnerLogo.Height.ToString();
+                        wd = this.PartnerLogo.Width.ToString();                
+                    }
+                    var style = String.Format("top:{0}px; left:{1}px; height:{2}px; width:{3}px; {4}",
+                        this.Ypos, this.Xpos, ht, wd, backgroundUrl);
+
+                    return style;
+
                 default:
                     return String.Empty;
             }

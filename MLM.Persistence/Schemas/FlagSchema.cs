@@ -19,6 +19,10 @@ namespace MLM.Persistence.Schemas
             Property(p => p.AdoptedMapId)
                 .IsRequired();
 
+            //FK
+            Property(p => p.PartnerLogoId)
+                .IsOptional();
+
             Property(p => p.Name)
                 .HasMaxLength(100)
                 .IsOptional();
