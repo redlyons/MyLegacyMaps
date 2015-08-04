@@ -12,5 +12,11 @@ namespace MyLegacyMaps.Classes
             Private = 1,
             Public = 2
         }
+
+        public enum OrientationType
+        {
+            Horizontal = 1,
+            Vertical = 2
+        }
     }
 }

@@ -39,5 +39,10 @@ namespace MyLegacyMaps.Models
         {
             return this.MapTypeId.GetHashCode();
         }
+
+        static public MapType RealEstate
+        {
+            get { return new MapType { MapTypeId = 1, Name = "Real Estate", IsActive = true }; }
+        }
     }
 }

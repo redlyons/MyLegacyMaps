@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using MyLegacyMaps.Classes;
 
 namespace MyLegacyMaps.Models
 {
@@ -56,6 +57,68 @@ namespace MyLegacyMaps.Models
             return String.IsNullOrWhiteSpace(this.ThumbUrl)
                 ? GetMainImageUrl()
                 : this.ThumbUrl;
+        }
+
+        /// <summary>
+        /// Adventure Maps
+        ///     Horizontal: 1000h x 1500w
+        ///     Vertical:   1500h x 1000w
+        /// Real Estate Maps
+        ///     Horizontal: 1000h x 1250w
+        ///     Vertical:   1250h x 1000w 
+        /// </summary>
+        /// <returns></returns>
+        public string GetCanvasHeight()
+        {
+            if (OrientationTypeId == (int)Enums.OrientationType.Vertical)
+            {
+                return (IsRealEstateMap()) ? "12500px" : "1500px";
+            }
+            return "1000px";
+        }
+
+        public string GetCanvasWidth()
+        {
+            if (OrientationTypeId == (int)Enums.OrientationType.Vertical)
+            {
+                return "1000px";
+            }
+
+            return (IsRealEstateMap()) ? "1250px" : "1500px";
+           
+        }
+
+
+        /// <summary>
+        /// Adventure Maps
+        ///     Horizontal: 210h x 315w 
+        ///     Vertical:   315h x 210w
+        /// Real Estate Maps
+        ///     Horizontal: 210h x 315w   
+        ///     Vertical:   315h x 210w 
+        /// </summary>
+        /// <returns></returns>
+        public string GetThumbHeight()
+        {
+            if (OrientationTypeId == (int)Enums.OrientationType.Vertical)
+            {
+                return "315px";
+            }
+            return "210px";
+        }
+
+        public string GetThumbWidth()
+        {
+            if (OrientationTypeId == (int)Enums.OrientationType.Vertical)
+            {
+                return "210px";
+            }
+            return "315px";
+        }
+
+        public bool IsRealEstateMap()
+        {
+            return MapTypes.Contains(MapType.RealEstate);
         }
         
     }

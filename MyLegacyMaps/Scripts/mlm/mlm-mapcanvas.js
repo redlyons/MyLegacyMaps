@@ -16,16 +16,12 @@ MLM.MapCanvas = (function () {
 
         init: function () {      
             $('#canvas').css('background', 'url("' + $('#mapImageUrl').val() + '") no-repeat');
-            var ht = "634px";   //634
-            var wd =  "934px"; //934
-            if ($('#mapOrientation').val() == 2)
-            {
-                ht = "750px";
-                wd = "500px";
-            }
+            var ht = $('#mapCanvasHeight').val();   
+            var wd = $('#mapCanvasWidth').val();
+
             $('#canvas').css('height', ht);
             $('#canvas').css('width', wd);
-            $('#canvas').css('zoom', '1.0');
+            $('#canvas').css('zoom', '0.5');
 
             MLM.MapCanvas.wireUpButtonEvents();
             MLM.MapCanvas.wireUpTooltips();
@@ -34,15 +30,11 @@ MLM.MapCanvas = (function () {
 
             if ($('#adoptedMapId').val() != null) {
                 $('#lnkSaveMap').hide();
-            } 
-           
-      
+            }      
         },
 
-        wireUpZoom: function () {
-          
-            slider.change(function () {
-                // window.parent.document.body.style.zoom = slider.val();
+        wireUpZoom: function () {          
+            slider.change(function () {                
                 $("#canvas").css('zoom',slider.val());
             });
         },

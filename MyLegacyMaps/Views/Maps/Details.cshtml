@@ -13,7 +13,8 @@
     @Html.Hidden("mapId", Model.MapId);    
     @Html.Hidden("mapFileName", Model.FileName) 
     @Html.Hidden("mapImageUrl", Model.GetMainImageUrl())
-    @Html.Hidden("mapOrientation", Model.OrientationTypeId)
+    @Html.Hidden("mapCanvasHeight", Model.GetCanvasHeight())
+    @Html.Hidden("mapCanvasWidth", Model.GetCanvasWidth())
     @Html.Hidden("name", Model.Name) 
     @Html.Hidden("description", Model.Description)  
 }

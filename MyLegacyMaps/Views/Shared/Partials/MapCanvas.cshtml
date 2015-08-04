@@ -4,18 +4,25 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="canvasWrapper span12">
+            <div>
             <ul class="canvasToolList">
-                <li class="">
-                    <a id="lnkSaveMap" href="#" class="btn btn-info btn-sm btnSaveMap"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+               <li>
+                    <a id="btnWasHere" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/red-flag-icon.png" />I was here</a>
                 </li>
                 <li>
-                    <div class="sliderWrapper">
-                        <span class="glyphicon glyphicon-minus"></span>
-                        <input id="zoomSlider" type="range" value="1.0" min=".5" max="1.5" step=".0005">
+                    <a id="btnHereNow" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/checked-flag-icon.png" />I'm here now</a>
+                </li>
+                <li>
+                    <a id="btnWantToGoHere" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/yellow-flag-icon.png" />Planning to go</a>
+                </li>                            
+                <li>
+                    <div class="sliderWrapper">                       
+                        <input id="zoomSlider" type="range" value=".5" min=".01" max="1.5" step=".0005">
                         <span class="glyphicon glyphicon-plus"></span>
                     </div>
                 </li>
-            </ul>           
+            </ul>  
+            </div> <br />        
             <div id="canvas"></div>    
             <h3>@Html.DisplayFor(model => Model.Name)</h3>        
         </div>

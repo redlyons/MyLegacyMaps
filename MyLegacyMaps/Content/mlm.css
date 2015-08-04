@@ -22,18 +22,22 @@
 
 }
 
+.toolbar-btn {
+    float: left;
+    margin: 5px 5px 5px 5px;
+}
 
-
-.canvasButtons li {
+.canvasToolList li {
     display: inline;
+    margin-bottom: 5px;
+
 }
 
 .canvasToolList {
     list-style: none;
-    margin: 0;
+    
     padding: 0;
-    margin-bottom: 5px;  
-    margin-top: 5px;
+    
 }
 
 .canvasToolList li {
