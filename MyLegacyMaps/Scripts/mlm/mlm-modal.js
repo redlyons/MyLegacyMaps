@@ -218,8 +218,13 @@
                 if (flag.name != null)
                     $('#txtFlagName').val(flag.name).html();
 
-                if (flag.videoUrl != null)
-                    $('#txtFlagVideoUrl').val(flag.videoUrl).html();
+                if (flag.videoUrl != null) {
+                    if($('#txtFlagVideoUrl'))
+                        $('#txtFlagVideoUrl').val(flag.videoUrl).html();
+
+                    if ($('#lnkFlagVideoUrl'))
+                        $('#lnkFlagVideoUrl').attr("href", flag.videoUrl)
+                }
 
                 if (flag.photosUrl != null)
                     $('#txtFlagPhotoUrl').val(flag.photosUrl).html();
