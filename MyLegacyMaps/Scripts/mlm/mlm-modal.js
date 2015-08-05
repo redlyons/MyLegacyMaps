@@ -57,8 +57,24 @@
         flag.partnerLogoId = $(settings.element).attr('data-partnerlogoid');
         flagElement = $(settings.element);
 
+        switch (settings.element.attributes["data-flagtypeid"].value) {
+            case "1":
+                $('#spCaption').text('Travel Way Point - Was Here');
+                break;
+            case "2":
+                $('#spCaption').text('Travel Way Point - Here Now');
+                break;
+            case "3":
+                $('#spCaption').text('Travel Way Point - Plan To Go');
+                break;
+            case "4":
+                $('#spCaption').text('Real Estate');
+                break;
+
+        }
+
         if (flag.flagId != null) {
-            method.getFlag(flag.flagId);
+            method.getFlag(flag.flagId);           
         }
 
         $modal.css({
@@ -138,6 +154,40 @@
         });
     };
 
+    method.editFlag = function (data) {
+        $('#txtFlagName').removeClass('readonly');
+        $('#txtFlagDescription').removeClass('readonly');
+        $('#txtFlagVideoUrl').removeClass('readonly');
+        $('#txtFlagPhotoUrl').removeClass('readonly');
+
+        $('#txtFlagVideoUrl').toggle();
+        $('#txtFlagPhotoUrl').toggle();
+        $('#lnkFlagVideoUrl').toggle();
+        $('#lnkFlagPhotoUrl').toggle();
+
+        $('#btnEditFlag').toggle();
+        $('#btnSaveFlag').toggle();
+    };
+
+    method.editRealEstateFlag = function (data) {
+        $('#txtFlagName').removeClass('readonly');
+        $('#txtFlagDescription').removeClass('readonly');
+        $('#txtFlagVideoUrl').removeClass('readonly');
+        $('#txtFlagPhotoUrl').removeClass('readonly');
+        $('#txtAddress1').removeClass('readonly');
+        $('#txtCity').removeClass('readonly');
+        $('#txtState').removeClass('readonly');
+        $('#txtPostalCode').removeClass('readonly');
+
+        $('#txtFlagVideoUrl').toggle();
+        $('#txtFlagPhotoUrl').toggle();
+        $('#lnkFlagVideoUrl').toggle();
+        $('#lnkFlagPhotoUrl').toggle();
+
+        $('#btnEditFlag').toggle();
+        $('#btnSaveFlag').toggle();
+    };
+
     method.saveFlag = function (data) {
         $.ajax({
             url: window.location.origin + "/flags/edit/",
@@ -157,7 +207,18 @@
             },
             success: function (data) {
                 $(flagElement).attr("title", method.getToolTip(data));
-                method.close();
+                $('#txtFlagName').addClass('readonly');
+                $('#txtFlagDescription').addClass('readonly');
+                $('#txtFlagVideoUrl').addClass('readonly');
+                $('#txtFlagPhotoUrl').addClass('readonly');
+
+                $('#txtFlagVideoUrl').toggle();
+                $('#txtFlagPhotoUrl').toggle();
+                $('#lnkFlagVideoUrl').toggle();
+                $('#lnkFlagPhotoUrl').toggle();
+
+                $('#btnEditFlag').toggle();
+                $('#btnSaveFlag').toggle();
             },
             error: function (data) {
                 console.log("error on save");
@@ -190,7 +251,22 @@
             },
             success: function (data) {
                 $(flagElement).attr("title", method.getToolTip(data));
-                method.close();
+                $('#txtFlagName').addClass('readonly');
+                $('#txtFlagDescription').addClass('readonly');
+                $('#txtFlagVideoUrl').addClass('readonly');
+                $('#txtFlagPhotoUrl').addClass('readonly');
+                $('#txtAddress1').addClass('readonly');
+                $('#txtCity').addClass('readonly');
+                $('#txtState').addClass('readonly');
+                $('#txtPostalCode').addClass('readonly');
+
+                $('#txtFlagVideoUrl').toggle();
+                $('#txtFlagPhotoUrl').toggle();
+                $('#lnkFlagVideoUrl').toggle();
+                $('#lnkFlagPhotoUrl').toggle();
+
+                $('#btnEditFlag').toggle();
+                $('#btnSaveFlag').toggle();
             },
             error: function (data) {
                 console.log("error on save");
@@ -222,12 +298,29 @@
                     if($('#txtFlagVideoUrl'))
                         $('#txtFlagVideoUrl').val(flag.videoUrl).html();
 
-                    if ($('#lnkFlagVideoUrl'))
+                    if ($('#lnkFlagVideoUrl')) {
                         $('#lnkFlagVideoUrl').attr("href", flag.videoUrl)
+                    }
+                    
+                }
+                else if ($('#lnkFlagVideoUrl')) {
+                    $('#lnkFlagVideoUrl').hide()
+
                 }
 
-                if (flag.photosUrl != null)
-                    $('#txtFlagPhotoUrl').val(flag.photosUrl).html();
+                if (flag.photosUrl != null) {
+                    if ($('#txtFlagPhotoUrl'))
+                        $('#txtFlagPhotoUrl').val(flag.photosUrl).html();
+
+                    if ($('#lnkFlagPhotoUrl')) {
+                        $('#lnkFlagPhotoUrl').attr("href", flag.photosUrl)
+                    }
+                }
+                else if ($('#lnkFlagPhotoUrl')) {
+                        $('#lnkFlagPhotoUrl').hide()
+                    
+                }
+                
 
                 if (flag.description != null)
                     $('#txtFlagDescription').val(flag.description).html();

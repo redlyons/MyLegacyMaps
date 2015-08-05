@@ -72,7 +72,7 @@ namespace MyLegacyMaps.Models
         {
             if (OrientationTypeId == (int)Enums.OrientationType.Vertical)
             {
-                return (IsRealEstateMap()) ? "12500px" : "1500px";
+                return (IsRealEstateMap()) ? "1250px" : "1500px";
             }
             return "1000px";
         }

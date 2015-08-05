@@ -150,9 +150,9 @@ MLM.MapCanvas = (function () {
             var flagId = ($(flag).attr("data-flagid") != null) ? $(flag).attr("data-flagid") : 0;
                      
 
-            if ($(flag).hasClass('flgWasHere')) template = (readonly) ? 'WasHereReadOnly.html' : 'WasHere.html';
-            else if ($(flag).hasClass('flgHereNow')) template = (readonly) ? 'HereNowReadOnly.html' : 'HereNow.html';
-            else if ($(flag).hasClass('flgPlanToGo')) template = (readonly) ? 'PlanToGoReadOnly.html' : 'PlanToGo.html';
+            if ($(flag).hasClass('flgWasHere')) template = (readonly) ? 'FlagReadOnly.html' : 'Flag.html';
+            else if ($(flag).hasClass('flgHereNow')) template = (readonly) ? 'FlagReadOnly.html' : 'Flag.html';
+            else if ($(flag).hasClass('flgPlanToGo')) template = (readonly) ? 'FlagReadOnly.html' : 'Flag.html';
             else if ($(flag).hasClass('flgPartnerLogo')) template = (readonly) ? 'RealEstateReadOnly.html' : 'RealEstate.html';
             else return;
           

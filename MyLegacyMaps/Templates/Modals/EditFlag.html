@@ -1,0 +1,27 @@
+﻿<div id='dlgWasHere' style="height:400px; width:300px; padding:0px 10px;">
+    <p style="text-align:center;"><strong><span id="spCaption"></span></strong></p>
+    <strong>Date:</strong><br> <input id="txtFlagDate" type="text" class="modal-text readonly" /> <br>
+    <strong>Place:</strong><br> <input id="txtFlagName" type="text" class="modal-text readonly" /><br>
+    <strong>Videos:</strong>&nbsp;<a id="lnkFlagVideoUrl" href="#" target="_blank">View</a> <br /><input id="txtFlagVideoUrl" type="text" style="display:none" class="modal-text readonly" /> <br />
+    <strong>Pictures:</strong>&nbsp;<a id="lnkFlagPhotoUrl" href="#" target="_blank">View</a><br /> <input id="txtFlagPhotoUrl" type="text" style="display:none" class="modal-text readonly" /> <br />
+    <strong>Travel Journal Entry:</strong><br> <textarea id="txtFlagDescription" rows="4" cols="100"  class="modal-text readonly" /> <br /> <br />
+    <p style="text-align:center">
+        <a id="btnEditFlag" href="#" class="btn btn-info btn-sm">Edit</a>
+        <a id="btnSaveFlag" href="#" style="display:none" class="btn btn-info btn-sm">Save</a>
+        <a id="btnDeleteFlag" href="#" class="btn btn-info btn-sm">Delete</a>       
+    </p>
+</div>
+<script type="text/javascript">
+    $('#btnEditFlag').click(function () {
+        MLM.Modal.editFlag();
+    });
+    $('#btnSaveFlag').click(function () {
+        MLM.Modal.saveFlag();
+    });
+    $('#btnDeleteFlag').click(function () {
+        MLM.Modal.deleteFlag();
+    });
+    $(function () {
+        $("#txtFlagDate").datepicker();
+    });
+</script>

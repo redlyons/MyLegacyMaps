@@ -1,21 +1,25 @@
 ﻿<div id='dlgRealEstate' style="height:510px; width:300px; padding:0px 10px;">
     <p style="text-align:center;"><strong>Real Estate</strong></p>
-    <strong>Property Title:</strong><br /><input id="txtFlagName" type="text" class="modal-text" /><br>
-    <strong>Address:</strong><br /><input id="txtAddress1" type="text" class="modal-text" /><br>
-    <strong>City:</strong><br /><input id="txtCity" type="text" class="modal-text" /><br>
+    <strong>Property Title:</strong><br /><input id="txtFlagName" type="text" class="modal-text readonly" /><br>
+    <strong>Address:</strong><br /><input id="txtAddress1" type="text" class="modal-text readonly" /><br>
+    <strong>City:</strong><br /><input id="txtCity" type="text" class="modal-text readonly" /><br>
     <div>
-        <strong>State:</strong>&nbsp;<input id="txtState" type="text" class="modal-state" />
-        <strong style="margin-left: 5px;">Postal Code:</strong><input id="txtPostalCode" type="text" class="modal-postalcode" />
+        <strong>State:</strong>&nbsp;<input id="txtState" type="text" class="modal-state readonly" />
+        <strong style="margin-left: 5px;">Postal Code:</strong><input id="txtPostalCode" type="text" class="modal-postalcode readonly" />
     </div>
-    <strong>Video Tour:</strong><br /> <input id="txtFlagVideoUrl" type="text" class="modal-text" /> <br />
-    <strong>Photo Gallery:</strong><br /><input id="txtFlagPhotoUrl" type="text" class="modal-text" /> <br />
-    <strong>Description:</strong><br /> <textarea id="txtFlagDescription" rows="6" cols="100" /> <br /> <br />
+    <strong>Video Tour:</strong>&nbsp;<a id="lnkFlagVideoUrl" href="#" target="_blank">View</a><br /> <input id="txtFlagVideoUrl" style="display:none" type="text" class="modal-text readonly" /> <br />
+    <strong>Photo Gallery:</strong>&nbsp;<a id="lnkFlagPhotoUrl" href="#" target="_blank">View</a><br /><input id="txtFlagPhotoUrl" style="display:none" type="text" class="modal-text readonly" /> <br />
+    <strong>Description:</strong><br /> <textarea id="txtFlagDescription" rows="6" cols="100" class="modal-text readonly" /> <br /> <br />
     <p style="text-align:center">
-        <a id="btnSaveFlag" href="#" class="btn btn-info btn-sm">Save</a>
+        <a id="btnEditFlag" href="#" class="btn btn-info btn-sm">Edit</a>
+        <a id="btnSaveFlag" href="#" style="display:none" class="btn btn-info btn-sm">Save</a>
         <a id="btnDeleteFlag" href="#" class="btn btn-info btn-sm">Delete</a>
     </p>
 </div>
 <script type="text/javascript">
+    $('#btnEditFlag').click(function () {
+        MLM.Modal.editRealEstateFlag();
+    });
     $('#btnSaveFlag').click(function () {
         MLM.Modal.saveRealEstateFlag();
     });

@@ -316,14 +316,17 @@
     <Content Include="Images\icons\checked-flag-icon.png" />
     <Content Include="Images\icons\checked-flag-sm.png" />
     <Content Include="Images\icons\checked-flag.png" />
+    <Content Include="Images\icons\checked-flag100x80.png" />
     <Content Include="Images\icons\enterprise-logo.png" />
     <Content Include="Images\icons\MLM-REM-text-logo.png" />
     <Content Include="Images\icons\red-flag-icon.png" />
     <Content Include="Images\icons\red-flag-sm.png" />
     <Content Include="Images\icons\red-flag.png" />
+    <Content Include="Images\icons\red-flag100x80.png" />
     <Content Include="Images\icons\yellow-flag-icon.png" />
     <Content Include="Images\icons\yellow-flag-sm.png" />
     <Content Include="Images\icons\yellow-flag.png" />
+    <Content Include="Images\icons\yellow-flag100x80.png" />
     <Content Include="Images\maps\air-france.png" />
     <Content Include="Images\maps\alaska.png" />
     <Content Include="Images\maps\baseball.png" />
@@ -435,17 +438,11 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Templates\Modals\EditRealEstate.html" />
-    <Content Include="Templates\Modals\HereNowReadOnly.html" />
-    <Content Include="Templates\Modals\EditHereNow.html" />
-    <Content Include="Templates\Modals\PlanToGoReadOnly.html" />
+    <Content Include="Templates\Modals\EditFlag.html" />
+    <Content Include="Templates\Modals\Flag.html" />
     <Content Include="Templates\Modals\RealEstateReadOnly.html" />
     <Content Include="Templates\Modals\RealEstate.html" />
-    <Content Include="Templates\Modals\WasHereReadOnly.html" />
-    <Content Include="Templates\Modals\HereNow.html" />
-    <Content Include="Templates\Modals\EditPlanToGo.html" />
-    <Content Include="Templates\Modals\PlanToGo.html" />
-    <Content Include="Templates\Modals\EditWasHere.html" />
-    <Content Include="Templates\Modals\WasHere.html" />
+    <Content Include="Templates\Modals\FlagReadOnly.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

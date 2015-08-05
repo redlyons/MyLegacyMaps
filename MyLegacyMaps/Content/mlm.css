@@ -69,13 +69,13 @@
 
 
 .flgWasHere {
-    background-image: url("../../images/icons/red-flag-sm.png");
+    background-image: url("../../images/icons/red-flag100x80.png");
 }
 .flgHereNow {
-    background-image: url("../../images/icons/checked-flag-sm.png");
+    background-image: url("../../images/icons/checked-flag100x80.png");
 } 
 .flgPlanToGo {
-    background-image: url("../../images/icons/yellow-flag-sm.png");
+    background-image: url("../../images/icons/yellow-flag100x80.png");
 } 
 
 .makeMeDraggable {
@@ -85,8 +85,16 @@
 }
 
 .draggableFlag {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 80px;
+    background-color: white;
+    
+}
+
+.draggableFlag, .locked{
+    width: 100px;
+    height: 80px;
+    background-color: white;
 }
 
 #overlay {
@@ -125,6 +133,7 @@
     width: 100%;
     margin-top: 3px;
     margin-bottom: 3px;
+    border: none;
 }
     
 

@@ -59,7 +59,7 @@ namespace MyLegacyMaps.Controllers
                 }
 
                 //View
-                var mapsViewModel = resp.Item.ToViewModel();
+                var mapsViewModel = resp.Item.ToViewModel(true);
                 return View(mapsViewModel.OrderBy(m => m.Name));
 
             }
@@ -89,7 +89,7 @@ namespace MyLegacyMaps.Controllers
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> MapCreate([Bind(Include = "MapId,Name,Description,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map,
-            HttpPostedFileBase photo, HttpPostedFileBase thumb)
+            HttpPostedFileBase photo, HttpPostedFileBase thumb, FormCollection values)
         {
             try
             {
@@ -115,10 +115,37 @@ namespace MyLegacyMaps.Controllers
 
                 }
 
+                List<int> mapTypeIds = new List<int>();
+                if (!String.IsNullOrEmpty(values["selectedMapTypes"]))
+                {
+                    var selectedMapTypes = values["selectedMapTypes"].Split(new char[] { ',' });
+                    for (int i = 0; i < selectedMapTypes.Count(); i++)
+                    {
+                        int typeId = 0;
+                        if (Int32.TryParse(selectedMapTypes[i], out typeId))
+                        {
+                            mapTypeIds.Add(typeId);
+                        }
+                    }
+                }
+
                 map.DateCreated = DateTime.Now;
                 map.DateModified = DateTime.Now;
                 map.ModifiedBy = HttpContext.User.Identity.Name;
                 var resp = await mapsRepository.AdminCreateMapAsync(map.ToDomainModel());
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                if(mapTypeIds.Count > 0)
+                {
+                    resp = await mapsRepository.AdminSaveMapTypesAsync(resp.Item.MapId, mapTypeIds);
+                    if (!resp.IsSuccess())
+                    {
+                        return new HttpStatusCodeResult(resp.HttpStatusCode);
+                    }
+                }
 
                 return RedirectToAction("MapsManage");
             }
