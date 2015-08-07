@@ -52,6 +52,7 @@ namespace MyLegacyMaps.Extensions
             return new ViewModels.Map
             {
                 MapId = value.MapId,
+                AspectRatioId = value.AspectRatioId,
                 Name = value.Name,
                 Description = value.Description,
                 ImageUrl = value.ImageUrl,
@@ -62,8 +63,9 @@ namespace MyLegacyMaps.Extensions
                 DateCreated = value.DateCreated,
                 DateModified = value.DateModified,
                 ModifiedBy = value.ModifiedBy,
-                MapTypes = value.MapTypes.ToViewModel(),
-                OrientationType = value.OrientationType.ToViewModel()
+                MapTypes = value.MapTypes.ToViewModel(true),
+                OrientationType = value.OrientationType.ToViewModel(),
+                AspectRatio = value.AspectRatio.ToViewModel()
             };
         }
 
@@ -98,11 +100,14 @@ namespace MyLegacyMaps.Extensions
             };
         }
 
-        public static List<ViewModels.MapType> ToViewModel(this ICollection<DomainModel.MapType> value)
+        public static List<ViewModels.MapType> ToViewModel(this ICollection<DomainModel.MapType> value, bool includeRealEstate)
         {
             List<ViewModels.MapType> retVal = new List<ViewModels.MapType>();
             foreach (var type in value)
             {
+                if (type.MapTypeId == 1 && !includeRealEstate) //Hide Real Estate Map Type from View
+                    continue;
+
                 retVal.Add(type.ToViewModel());
             }
             return retVal;
@@ -222,5 +227,30 @@ namespace MyLegacyMaps.Extensions
             }
             return retVal;
         }
+
+        public static ViewModels.AspectRatio ToViewModel(this DomainModel.AspectRatio value)
+        {
+            if (value == null)
+                return null;
+
+            return new ViewModels.AspectRatio
+            {
+                AspectRatioId = value.AspectRatioId,
+                Name = value.Name
+            };
+
+        }
+
+        public static List<ViewModels.AspectRatio> ToViewModel(this ICollection<DomainModel.AspectRatio> value)
+        {
+            List<ViewModels.AspectRatio> retVal = new List<ViewModels.AspectRatio>();
+            foreach (var type in value)
+            {
+                retVal.Add(type.ToViewModel());
+            }
+            return retVal;
+        }
+
+
     }
 }

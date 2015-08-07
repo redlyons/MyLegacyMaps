@@ -14,8 +14,14 @@ namespace MLM.Persistence.Schemas
             //FK
             Property(p => p.OrientationTypeId)
                 .IsRequired();
-
+           
             HasRequired(p => p.OrientationType);
+
+            //FK
+            Property(p => p.AspectRatioId)
+                .IsOptional();
+
+            HasOptional(p => p.AspectRatio);
 
             Property(p => p.Name)
                 .HasMaxLength(60)
@@ -51,7 +57,7 @@ namespace MLM.Persistence.Schemas
                 .WithRequired(p => p.Map)
                 .HasForeignKey(p => p.MapId);
 
-           //Many to Many
+            //Many to Many
             HasMany(p => p.MapTypes)
                .WithMany(m => m.Maps)
                .Map(s =>
@@ -60,6 +66,8 @@ namespace MLM.Persistence.Schemas
                        s.MapRightKey("MapTypeId");
                    }
                );
+
+            
         }
 
 

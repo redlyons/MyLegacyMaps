@@ -14,6 +14,7 @@ namespace MLM.Models
         }
 
         public int MapId { get; set; }
+        public int? AspectRatioId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
@@ -30,5 +31,6 @@ namespace MLM.Models
         public virtual ICollection<AdoptedMap> AdoptedMaps { get; set; }
         public virtual OrientationType OrientationType { get; set; }
         public virtual ICollection<MapType> MapTypes { get; set; }
+        public virtual AspectRatio AspectRatio { get; set; }
     }
 }

@@ -40,7 +40,7 @@
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="ddlOrientation"
                             data-toggle="dropdown">
-                        <span id="ddlOrientationSelectedVal">@Html.DisplayFor(model => model.OrientationType.Name)</span><span class="caret"></span>
+                        <span id="ddlOrientationSelectedVal">@Html.DisplayFor(model => model.OrientationType.Name)</span>&nbsp;<span class="caret"></span>
                     </button>
                     &nbsp;
                     <ul class="dropdown-menu" role="menu">
@@ -55,21 +55,31 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="control-label col-md-2">Aspect Ratio</label>
+            <div class="col-md-10">
+                @foreach (var item in (List<AspectRatio>)ViewBag.AspectRatios)
+                {  
+                    if(item.Name == "2 x 3")
+                    { 
+                       <span><input type="radio" name="aspectRatio" value="@item.AspectRatioId" checked /> @Html.Label(@item.Name)</span>
+                    }
+                    else
+                    {
+                       <span style="margin-left:10px;"><input type="radio" name="aspectRatio" value="@item.AspectRatioId" /> @Html.Label(@item.Name)</span>
+
+                    }
+                }
+
+            </div>
+        </div>  
+
        <div class="form-group">
             <label class="control-label col-md-2">Category</label>
             <div class="col-md-10">
                 @foreach (var item in (List<MapType>)ViewBag.MapTypes)
                 {
-                    if (Model.MapTypes.Contains(item))
-                    {
-                        <input type="checkbox" name="selectedMapTypes" value="@item.MapTypeId"
-                               checked="checked" />
-                    }
-                    else
-                    {
-                        <input type="checkbox" name="selectedMapTypes" value="@item.MapTypeId" />
-                    }                
-                    @Html.Label(@item.Name)    
+                    <input type="checkbox" name="selectedMapTypes" value="@item.MapTypeId" /> @Html.Label(@item.Name)    
                 }              
             </div>
         </div>   
@@ -117,7 +127,7 @@
         function onCategorySelected(id, value) {
             $('#ddlCategorySelectedVal').text(value);
             $('#MapTypeId').val(id);
-        }
+        }       
     </script>
 
 </div>

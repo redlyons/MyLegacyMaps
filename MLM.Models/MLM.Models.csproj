@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdoptedMap.cs" />
+    <Compile Include="AspectRatio.cs" />
     <Compile Include="Flag.cs" />
     <Compile Include="FlagType.cs" />
     <Compile Include="Map.cs" />

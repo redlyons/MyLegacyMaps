@@ -84,6 +84,31 @@ namespace MLM.Persistence
 
         }
 
+        public async Task<ResourceResponse<List<AspectRatio>>> GetAspectRatiosAsync()
+        {
+            List<AspectRatio> aspectRatios = null;
+            var resp = new ResourceResponse<List<AspectRatio>>();
+            try
+            {
+                Stopwatch timespan = Stopwatch.StartNew();
+
+                aspectRatios = await db.AspectRatios.ToListAsync<AspectRatio>();
+
+                timespan.Stop();
+                log.TraceApi("SQL Database", "MyLegacyMapsContext.GetAspectRatiosAsync", timespan.Elapsed);
+
+                resp.Item = aspectRatios;
+                resp.HttpStatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error in MapsRepository.GetAspectRatiosAsync()");
+                resp.HttpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return resp;
+
+        }
+
         public async Task<ResourceResponse<Map>> GetMapAsync(int id)
         {
             Map map = null;           
@@ -433,6 +458,8 @@ namespace MLM.Persistence
             }
             return resp;
         }
+
+
 
         public void Dispose()
         {

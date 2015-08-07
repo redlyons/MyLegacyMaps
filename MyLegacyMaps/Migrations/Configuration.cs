@@ -18,6 +18,7 @@ namespace MyLegacyMaps.Migrations
             {
                 new Map
                 {
+                   
                     Name = "Alaska",
                     Description = "The ultimate wilderness adventure.",
                     FileName = "alaska.png",                   
@@ -29,6 +30,7 @@ namespace MyLegacyMaps.Migrations
                 },
                 new Map
                 {
+                    
                     Name = "Baseball Stadiums",
                     Description = "Visit all the great baseball statidums in America and collect your memories as you go.",
                     FileName = "baseball.png",
@@ -40,6 +42,7 @@ namespace MyLegacyMaps.Migrations
                 },
                 new Map
                 {
+                    
                     Name = "Skiing of North America",
                     Description = "An adventure map of North America's most popular ski destinations.",
                     FileName = "skiing-north-america.png",
@@ -51,6 +54,7 @@ namespace MyLegacyMaps.Migrations
                 },   
                 new Map
                 {
+                   
                     Name = "Motor Sports Raceways",
                     Description = "",
                     FileName = "mlm_map_raceways-adv4.png",
@@ -61,7 +65,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 },    
                 new Map
-                {
+                 {
+                   
                     Name = "Dinosaurs of the World",
                     Description = "",
                     FileName = "dinosaurs.png",
@@ -73,6 +78,7 @@ namespace MyLegacyMaps.Migrations
                 },    
                 new Map
                 {
+                  
                     Name = "Air France",
                     Description = "",
                     FileName = "air-france.png",
@@ -84,6 +90,7 @@ namespace MyLegacyMaps.Migrations
                 },    
                 new Map
                 {
+                   
                     Name = "California",
                     Description = "",
                     FileName = "california.png",                   
@@ -94,7 +101,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 },   
                 new Map
-                {
+                 {
+                    
                     Name = "Cheiftans",
                     Description = "",
                     FileName = "cheiftans.png",
@@ -106,6 +114,7 @@ namespace MyLegacyMaps.Migrations
                 },    
                 new Map
                 {
+                   
                     Name = "Children of the World",
                     Description = "",
                     FileName = "children-world.png",
@@ -116,7 +125,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 },    
                 new Map
-                {
+                 {
+                   
                     Name = "Colorado",
                     Description = "",
                     FileName = "colorado.png",                   
@@ -128,6 +138,7 @@ namespace MyLegacyMaps.Migrations
                 },    
                 new Map
                 {
+                   
                     Name = "Endangered Species",
                     Description = "",
                     FileName = "endangered-species.png",
@@ -139,6 +150,7 @@ namespace MyLegacyMaps.Migrations
                 },    
                 new Map
                 {
+                   
                     Name = "Fishing",
                     Description = "",
                     FileName = "fishing.png",
@@ -147,7 +159,8 @@ namespace MyLegacyMaps.Migrations
                     DateCreated = DateTime.Now
                 },   
                 new Map
-                {
+                 {
+                    
                     Name = "Fishing Bitteroot",
                     Description = "",
                     FileName = "fishing-bitteroot.png",
@@ -159,6 +172,7 @@ namespace MyLegacyMaps.Migrations
                 },    
                 new Map
                 {
+                   
                     Name = "Fishing Yakima",
                     Description = "",
                     FileName = "fishing-yakima.png",
@@ -169,7 +183,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 },    
                 new Map
-                {
+                 {
+                    
                     Name = "Fishing Yellowstone",
                     Description = "",
                     FileName = "fishing-yellowstone.png",
@@ -181,6 +196,7 @@ namespace MyLegacyMaps.Migrations
                 },
                 new Map
                 {
+                    
                     Name = "Gibraltar",
                     Description = "",
                     FileName = "gibralter.png",
@@ -192,6 +208,7 @@ namespace MyLegacyMaps.Migrations
                 },    
                 new Map
                 {
+                    
                     Name = "Hawaii Scuba",
                     Description = "",
                     FileName = "hawaii-scuba.png",
@@ -213,7 +230,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 }, 
                 new Map
-                {
+                 {
+                  
                     Name = "Kitsap County Adventure",
                     Description = "",
                     FileName = "mlm_kcoa_map.png",
@@ -224,7 +242,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 },    
                 new Map
-                {
+                 {
+                   
                     Name = "Kitsap County Memorials",
                     Description = "",
                     FileName = "mlm_rsvp_kc_memorial_map.png",
@@ -246,7 +265,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 },   
                 new Map
-                {
+                 {
+                    
                     Name = "Washington",
                     Description = "",
                     FileName = "washington-adv.png",
@@ -258,6 +278,7 @@ namespace MyLegacyMaps.Migrations
                 },   
                 new Map
                 {
+                   
                     Name = "Yosemite",
                     Description = "",
                     FileName = "yosemite.png",
@@ -280,6 +301,7 @@ namespace MyLegacyMaps.Migrations
                 },                 
                 new Map
                 {
+                   
                     Name = "Quimper Penisula",
                     Description = "",
                     FileName = "mlm_map_rem_wa_clallam_quimper-peninsula_1333x2000.png",
@@ -291,6 +313,7 @@ namespace MyLegacyMaps.Migrations
                 },   
                 new Map
                 {
+                   
                     Name = "Sequim",
                     Description = "",
                     FileName = "mlm_map_rem_wa_clallam_sequim_2000x1333.png",
@@ -301,7 +324,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 }, 
                 new Map
-                {
+                 {
+                    
                     Name = "Downtown Seattle",
                     Description = "",
                     FileName = "mlm_map_rem_wa_downtown-seattle_2000x1333.png",
@@ -313,6 +337,7 @@ namespace MyLegacyMaps.Migrations
                 }, 
                  new Map
                 {
+                   
                     Name = "Bellevue",
                     Description = "",
                     FileName = "mlm_rem_wa_king_belle-mi_map_1333x2000.png",
@@ -334,7 +359,8 @@ namespace MyLegacyMaps.Migrations
                     ModifiedBy = "reynolds_rob"
                 },   
                  new Map
-                {
+                 {
+                    
                     Name = "Mercer Island",
                     Description = "",
                     FileName = "mlm_rem_wa_king_mercer-is_map_1333x2000.png",
@@ -346,6 +372,7 @@ namespace MyLegacyMaps.Migrations
                 },   
                  new Map
                 {
+                  
                     Name = "North Seattle",
                     Description = "",
                     FileName = "mlm_rem_wa_king_n-seattle_map_2000x1333.png",
@@ -357,6 +384,7 @@ namespace MyLegacyMaps.Migrations
                 },   
                  new Map
                 {
+                   
                     Name = "South Seattle",
                     Description = "",
                     FileName = "mlm_rem_wa_king_s-seattle_map_2000x1333.png",
@@ -468,6 +496,22 @@ namespace MyLegacyMaps.Migrations
         };
         #endregion
 
+        #region AspectRatios
+        List<AspectRatio> _aspectRatios = new List<AspectRatio>
+        {
+            new AspectRatio
+            {
+                AspectRatioId = 1,
+                Name = "2 x 3"
+            },
+            new AspectRatio
+            {
+                AspectRatioId = 2,
+                Name = "4 x 5"
+            }
+        };
+        #endregion
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
@@ -483,12 +527,12 @@ namespace MyLegacyMaps.Migrations
         protected override void Seed(MLM.Persistence.MyLegacyMapsContext context)
         {
             //  This method will be called after migrating to the latest version.
-            _maps.ForEach(map =>
-                {
-                    map.DateCreated = map.DateModified = DateTime.Now;
-                    map.ModifiedBy = "Seed Method";
-                    context.Maps.AddOrUpdate(m => m.Name, map);
-                });
+            //_maps.ForEach(map =>
+            //    {
+            //        map.DateCreated = map.DateModified = DateTime.Now;
+            //        map.ModifiedBy = "Seed Method";
+            //        context.Maps.AddOrUpdate(m => m.Name, map);
+            //    });
 
             _flagTypes.ForEach(type => 
                 {
@@ -501,6 +545,8 @@ namespace MyLegacyMaps.Migrations
             _shareStatusTypes.ForEach(type => context.SharedStatusTypes.AddOrUpdate(t => t.Name, type));
            
             _orientationTypes.ForEach(type => context.OrientationTypes.AddOrUpdate(t => t.Name, type));
+
+            _aspectRatios.ForEach(type => context.AspectRatios.AddOrUpdate(t => t.Name, type));
            
             context.SaveChanges();
 

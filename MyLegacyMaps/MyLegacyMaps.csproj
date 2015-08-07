@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201507270413474_RealEstate3.Designer.cs">
       <DependentUpon>201507270413474_RealEstate3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508070449000_AspectRation.cs" />
+    <Compile Include="Migrations\201508070449000_AspectRation.Designer.cs">
+      <DependentUpon>201508070449000_AspectRation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
@@ -251,6 +255,7 @@
     <Compile Include="Models\Account\SendCodeViewModel.cs" />
     <Compile Include="Models\Account\SetPasswordViewModel.cs" />
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
+    <Compile Include="Models\AspectRatio.cs" />
     <Compile Include="Models\OrientationType.cs" />
     <Compile Include="Models\PartnerLogo.cs" />
     <Compile Include="MyLegacyMapsMembershipContext.cs" />
@@ -553,6 +558,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507270413474_RealEstate3.resx">
       <DependentUpon>201507270413474_RealEstate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508070449000_AspectRation.resx">
+      <DependentUpon>201508070449000_AspectRation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

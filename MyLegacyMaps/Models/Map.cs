@@ -19,7 +19,10 @@ namespace MyLegacyMaps.Models
         }
         
         [Required]
-        public int MapId { get; set; }      
+        public int MapId { get; set; }
+       
+        public int? AspectRatioId { get; set; }
+
         [Required(ErrorMessage="A Name is required")]
         [StringLength(60)]
         public string Name { get; set; }
@@ -44,6 +47,7 @@ namespace MyLegacyMaps.Models
         public virtual ICollection<AdoptedMap> AdoptedMaps { get; set; }
         public virtual OrientationType OrientationType { get; set; }
         public virtual ICollection<MapType> MapTypes { get; set; }
+        public virtual AspectRatio AspectRatio { get; set; }
 
         public string GetMainImageUrl()
         {
@@ -60,40 +64,75 @@ namespace MyLegacyMaps.Models
         }
 
         /// <summary>
-        /// Adventure Maps
+        /// 2x3
         ///     Horizontal: 1000h x 1500w
         ///     Vertical:   1500h x 1000w
-        /// Real Estate Maps
+        /// 4x5
         ///     Horizontal: 1000h x 1250w
         ///     Vertical:   1250h x 1000w 
         /// </summary>
         /// <returns></returns>
         public string GetCanvasHeight()
         {
-            if (OrientationTypeId == (int)Enums.OrientationType.Vertical)
+            var isVertical = (OrientationTypeId == (int)Enums.OrientationType.Vertical);
+            if(AspectRatioId.HasValue)
             {
-                return (IsRealEstateMap()) ? "1250px" : "1500px";
+                var is2x3 = (AspectRatio.Name == "2 x 3");
+                if(isVertical)
+                {
+                    return (is2x3) 
+                        ? "1500px"  //2 x 3
+                        : "1250px"; // 4 x 5
+                }
+                //Horizontal
+                return (is2x3) 
+                    ? "1000px" // 2 x 3
+                    : "1000px"; // 4 x 5
             }
-            return "1000px";
+                       
+            return (isVertical) 
+                ? "1500px"  // 2 x 3 vert
+                : "1000px"; // 2 x 3 horiz
         }
 
+        /// <summary>
+        /// 2x3
+        ///     Horizontal: 1000h x 1500w
+        ///     Vertical:   1500h x 1000w
+        /// 4x5
+        ///     Horizontal: 1000h x 1250w
+        ///     Vertical:   1250h x 1000w 
+        /// </summary>
         public string GetCanvasWidth()
         {
-            if (OrientationTypeId == (int)Enums.OrientationType.Vertical)
+            var isVertical = (OrientationTypeId == (int)Enums.OrientationType.Vertical);
+            if (AspectRatioId.HasValue)
             {
-                return "1000px";
+                var is2x3 = (AspectRatio.Name == "2 x 3");
+                if (isVertical)
+                {
+                    return (is2x3) 
+                        ? "1000px"  // 2 x 3 vert
+                        : "1000px"; // 4 x 5 vert
+                }
+                //Horizontal
+                return (is2x3) 
+                    ? "1500px" // 2 x 3 horiz
+                    : "1250px"; // 4 x 5 horiz
             }
 
-            return (IsRealEstateMap()) ? "1250px" : "1500px";
+            return (isVertical) 
+                ? "1000px"  // 2 x 3 vert
+                : "1500px"; // 2 x 3 horiz
            
         }
 
 
         /// <summary>
-        /// Adventure Maps
+        /// 2x3
         ///     Horizontal: 210h x 315w 
         ///     Vertical:   315h x 210w
-        /// Real Estate Maps
+        /// 4x5
         ///     Horizontal: 210h x 315w   
         ///     Vertical:   315h x 210w 
         /// </summary>

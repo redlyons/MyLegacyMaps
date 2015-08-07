@@ -75,10 +75,16 @@ namespace MyLegacyMaps.Controllers
         [Authorize(Roles = "mapManager")]
         public async Task<ActionResult> MapCreate()
         {
-            var mapViewModel = new Map();
+            var mapViewModel = new Map()
+            {
+                IsActive = true,
+                OrientationTypeId = 1,
+                OrientationType = new OrientationType { OrientationTypeId = 1, Name = "Horizontal" }
+            };
                 
 
             ViewBag.MapTypes = await GetMapTypes();
+            ViewBag.AspectRatios = await GetAspectRatios();
             return View(mapViewModel);
         }
 
@@ -88,7 +94,7 @@ namespace MyLegacyMaps.Controllers
         [HttpPost]
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> MapCreate([Bind(Include = "MapId,Name,Description,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map,
+        public async Task<ActionResult> MapCreate([Bind(Include = "MapId,AspectRationId,Name,Description,FileName,MapTypeId,OrientationTypeId,IsActive")] Map map,
             HttpPostedFileBase photo, HttpPostedFileBase thumb, FormCollection values)
         {
             try
@@ -127,6 +133,12 @@ namespace MyLegacyMaps.Controllers
                             mapTypeIds.Add(typeId);
                         }
                     }
+                }
+
+                int chosenAspectRation = 0;
+                if (values["aspectRatio"] != null && Int32.TryParse(values["aspectRatio"], out chosenAspectRation))
+                {
+                    map.AspectRatioId = chosenAspectRation;
                 }
 
                 map.DateCreated = DateTime.Now;
@@ -181,11 +193,9 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
 
-                var mapViewModel = resp.Item.ToViewModel();              
-                var mapTypes = await GetMapTypes();
-
-                ViewBag.MapTypes = mapTypes;
-                return View(mapViewModel);
+                ViewBag.MapTypes =  await GetMapTypes();
+                ViewBag.AspectRatios = await GetAspectRatios();
+                return View(resp.Item.ToViewModel());
             }
             catch (Exception ex)
             {
@@ -203,7 +213,7 @@ namespace MyLegacyMaps.Controllers
         [Authorize(Roles = "mapManager")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> MapEdit([Bind(Include =
-            "MapId,Name,Description,FileName,OrientationTypeId,IsActive,ImageUrl,ThumbUrl")] Map map,        
+            "MapId,AspectRatioId,Name,Description,FileName,OrientationTypeId,IsActive,ImageUrl,ThumbUrl")] Map map,        
             HttpPostedFileBase photo, HttpPostedFileBase thumb, FormCollection values)
         {
 
@@ -242,6 +252,12 @@ namespace MyLegacyMaps.Controllers
                             updatedMapTypeIds.Add(typeId);
                         }
                     }
+                }
+
+                int chosenAspectRation = 0;
+                if (values["aspectRatio"] != null && Int32.TryParse(values["aspectRatio"], out chosenAspectRation))
+                {
+                    map.AspectRatioId = chosenAspectRation;
                 }
 
                 map.DateModified = DateTime.Now;
@@ -287,7 +303,7 @@ namespace MyLegacyMaps.Controllers
                 }
 
                 //View
-                var mapTypesViewModel = resp.Item.ToViewModel();
+                var mapTypesViewModel = resp.Item.ToViewModel(true);
                 return View(mapTypesViewModel.OrderBy(m => m.Name));
 
             }
@@ -417,10 +433,20 @@ namespace MyLegacyMaps.Controllers
             {
                 return new List<MapType>();
             }
-            var viewModel = resp.Item.ToViewModel().ToList<MapType>().OrderBy(m => m.Name);
+            var viewModel = resp.Item.ToViewModel(true).ToList<MapType>().OrderBy(m => m.Name);
             return viewModel.ToList();
         }
 
+        private async Task<List<AspectRatio>> GetAspectRatios()
+        {
+            var resp = await mapsRepository.GetAspectRatiosAsync();
+            if (!resp.IsSuccess())
+            {
+                return new List<AspectRatio>();
+            }
+            var viewModel = resp.Item.ToViewModel().ToList<AspectRatio>().OrderBy(m => m.Name);
+            return viewModel.ToList();
+        }
 
 
         /// <summary>

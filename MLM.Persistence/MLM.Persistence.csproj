@@ -132,6 +132,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceResponse.cs" />
     <Compile Include="Schemas\AdoptedMapSchema.cs" />
+    <Compile Include="Schemas\AspectRatioSchema.cs" />
     <Compile Include="Schemas\FlagSchema.cs" />
     <Compile Include="Schemas\FlagTypeSchema.cs" />
     <Compile Include="Schemas\MapSchema.cs" />

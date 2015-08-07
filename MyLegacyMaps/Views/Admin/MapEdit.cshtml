@@ -19,6 +19,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MapId)
         @Html.HiddenFor(model => model.OrientationTypeId)
+        @Html.HiddenFor(model => model.AspectRatioId)
         @Html.HiddenFor(model => model.FileName)
         @Html.HiddenFor(model => model.ImageUrl)
         @Html.HiddenFor(model => model.ThumbUrl)
@@ -46,7 +47,7 @@
             <div class="col-md-10">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="ddlOrientation"
-                            data-toggle="dropdown"><span id="ddlOrientationSelectedVal">@Html.DisplayFor(model => model.OrientationType.Name)</span><span class="caret"></span></button>    
+                            data-toggle="dropdown"><span id="ddlOrientationSelectedVal">@Html.DisplayFor(model => model.OrientationType.Name)</span>&nbsp;<span class="caret"></span></button>    
                     &nbsp;                    
                     <ul class="dropdown-menu" role="menu">
                         <li role="presentation" onclick="onOrientationSelected(1, 'Horizontal')">
@@ -59,6 +60,26 @@
                </div>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Aspect Ratio</label>
+            <div class="col-md-10">
+                @foreach (var item in (List<AspectRatio>)ViewBag.AspectRatios)
+                {
+                    if (Model.AspectRatioId == item.AspectRatioId)
+                    {
+                        <span><input type="radio" name="aspectRatio" value="@item.AspectRatioId" checked /> @Html.Label(@item.Name)</span>
+                    }
+                    else
+                    {
+                          <span style="margin-left:10px;"><input type="radio" name="aspectRatio" value="@item.AspectRatioId" /> @Html.Label(@item.Name)</span>
+
+                    }
+                }
+
+            </div>
+        </div>
+        
 
         <div class="form-group">
             <label class="control-label col-md-2">Category</label>

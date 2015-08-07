@@ -45,7 +45,7 @@ namespace MyLegacyMaps.Controllers
         public async Task<ActionResult> AdventureMaps(int? currentFilterId, int? page)
         {
             int mapTypeId = 0;
-            bool isRealtor = (HttpContext.User != null && HttpContext.User.IsInRole("realtor"));
+         
             try
             {
                 //Read in Map Type drop down value and save in cookie
@@ -67,12 +67,7 @@ namespace MyLegacyMaps.Controllers
                 var realEstateMapType = new MapType{ MapTypeId = 1, Name = "Real Estate", IsActive = true };
                 if (respMapTypes.IsSuccess())
                 {
-                    mapTypes = respMapTypes.Item.ToViewModel();
-
-                    if (!isRealtor)
-                    {
-                        mapTypes.Remove(realEstateMapType);
-                    }
+                    mapTypes = respMapTypes.Item.ToViewModel(false);                   
                     
                 }
 
@@ -91,7 +86,7 @@ namespace MyLegacyMaps.Controllers
 
                 int pageSize = 4;
                 int pageNumber = (page ?? 1);
-                var mapsViewModel = resp.Item.ToViewModel(isRealtor).OrderBy(m => m.Name);
+                var mapsViewModel = resp.Item.ToViewModel(false).OrderBy(m => m.Name);
                 return View(mapsViewModel.ToPagedList(pageNumber, pageSize));
 
             }
@@ -182,7 +177,7 @@ namespace MyLegacyMaps.Controllers
             {
                 return new SelectList(new List<MapType>(), "Value", "Text"); //empty list
             }
-            var mapTypes = resp.Item.ToViewModel();
+            var mapTypes = resp.Item.ToViewModel(false);
 
             IEnumerable<SelectListItem> types = mapTypes.OrderBy(m => m.Name).Select(m => 
                 new SelectListItem() { Text = m.Name, Value = m.MapTypeId.ToString() });

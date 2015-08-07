@@ -40,6 +40,7 @@ namespace MyLegacyMaps.Extensions
             return new DomainModel.Map
             {
                 MapId = value.MapId,
+                AspectRatioId = value.AspectRatioId,
                 Name = value.Name,
                 Description = value.Description,
                 FileName = value.FileName,
@@ -51,7 +52,8 @@ namespace MyLegacyMaps.Extensions
                 DateModified = value.DateModified,
                 ModifiedBy = value.ModifiedBy,                
                 MapTypes = value.MapTypes.ToDomainModel(),
-                OrientationType = value.OrientationType.ToDomainModel()
+                OrientationType = value.OrientationType.ToDomainModel(),
+                AspectRatio = value.AspectRatio.ToDomainModel()
             };
         }
 
@@ -186,6 +188,32 @@ namespace MyLegacyMaps.Extensions
                 return null;
 
             var retVal = new List<DomainModel.PartnerLogo>();
+            foreach (var type in value)
+            {
+                retVal.Add(type.ToDomainModel());
+            }
+            return retVal;
+        }
+
+        public static DomainModel.AspectRatio ToDomainModel(this ViewModels.AspectRatio value)
+        {
+            if (value == null)
+                return null;
+
+            return new DomainModel.AspectRatio
+            {
+                AspectRatioId = value.AspectRatioId,
+                Name = value.Name
+            };
+
+        }
+
+        public static ICollection<DomainModel.AspectRatio> ToDomainModel(this ICollection<ViewModels.AspectRatio> value)
+        {
+            if (value == null)
+                return null;
+
+            List<DomainModel.AspectRatio> retVal = new List<DomainModel.AspectRatio>();
             foreach (var type in value)
             {
                 retVal.Add(type.ToDomainModel());
