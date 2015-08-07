@@ -32,7 +32,17 @@ namespace MyLegacyMaps.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
-        public async Task<ActionResult> Index(int? currentFilterId, int? page)
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Get Public List of Active Maps
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public async Task<ActionResult> AdventureMaps(int? currentFilterId, int? page)
         {
             int mapTypeId = 0;
             bool isRealtor = (HttpContext.User != null && HttpContext.User.IsInRole("realtor"));
@@ -98,7 +108,7 @@ namespace MyLegacyMaps.Controllers
         /// <param name="values">ddlMapTypeId</param>
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult>Index(FormCollection values)
+        public async Task<ActionResult> AdventureMaps(FormCollection values)
         {
             int mapTypeId = 0;
             try
@@ -126,6 +136,37 @@ namespace MyLegacyMaps.Controllers
             {
                 log.Error(ex, String.Format("Error in MapsController POST Index mapTypeId = {0}",
                     mapTypeId));
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        /// <summary>
+        /// Get Public List of Active Maps
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public async Task<ActionResult> RealEstateMaps(int? page)
+        {
+            int mapTypeId = 1;            
+            try
+            {               
+                //Get Maps by map type id
+                var resp = await mapsRepository.GetMapsAsync(mapTypeId);
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                //View
+                int pageSize = 4;
+                int pageNumber = (page ?? 1);
+                var mapsViewModel = resp.Item.ToViewModel(true).OrderBy(m => m.Name);
+                return View(mapsViewModel.ToPagedList(pageNumber, pageSize));
+
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in MapsController GET Index");
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
         }

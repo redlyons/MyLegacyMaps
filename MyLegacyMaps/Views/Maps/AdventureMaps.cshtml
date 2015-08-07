@@ -1,0 +1,79 @@
+﻿@model  PagedList.IPagedList<MyLegacyMaps.Models.Map >
+@using PagedList.Mvc;
+@using MyLegacyMaps.Models;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Adventure Maps";
+}
+<h3>Adventure Maps</h3>
+
+@using (Html.BeginForm("Index", "AdventureMaps", FormMethod.Get, new { id = "maps" }))
+    {
+       @Html.Hidden("CurrentFilterId", ViewBag.CurrentFilterId as string)
+    
+       <div class="">        
+        <div class="">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="ddlOrientation"
+                        data-toggle="dropdown">
+                    <span>Map Type:&nbsp;</span>&nbsp;<span class="caret"></span>
+                </button>
+                &nbsp;@Html.Label(ViewBag.CurrentFilter as string)
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation" onclick="$('#CurrentFilterId').val('0'); $('#maps' ).submit();">
+                        <a role="menuitem" href="#">-- All --</a>
+                    </li>
+                    @foreach (var type in (List<MapType>)ViewBag.MapTypes)
+                    {
+                        <li role="presentation" onclick="$('#CurrentFilterId').val('@type.MapTypeId'); $('#maps' ).submit();">
+                            <a role="menuitem" href="#">@type.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="grid">
+    @foreach (var item in Model)
+    {       
+        if(item.OrientationTypeId == 1)
+        { 
+            <div class="grid-item"> 
+
+                <a class="lnkGridItem" href="@Url.Action("Details", new { id = item.MapId })">
+                    <img src="@item.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="grid-item vertical-item">
+
+                <a class="lnkGridItem" href="@Url.Action("Details", new { id = item.MapId })">
+                    <img src="@item.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                </a>
+            </div>
+        }
+    }
+</div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("AdventureMaps",
+    new { page }))
+
+<script>
+    $(document).ready(function () {
+
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: 310
+        });
+
+    });
+</script>
+    

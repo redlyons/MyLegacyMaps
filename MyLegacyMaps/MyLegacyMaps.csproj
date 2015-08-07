@@ -504,6 +504,8 @@
     <Content Include="Views\Shared\Partials\RealEstateMapCanvas.cshtml" />
     <Content Include="Views\AdoptedMaps\RealEstateMap.cshtml" />
     <Content Include="Views\Shared\Partials\AdoptedMapCanvas.cshtml" />
+    <Content Include="Views\Maps\AdventureMaps.cshtml" />
+    <Content Include="Views\Maps\RealEstateMaps.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

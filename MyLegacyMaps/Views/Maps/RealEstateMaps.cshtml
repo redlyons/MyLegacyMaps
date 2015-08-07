@@ -1,0 +1,51 @@
+﻿@model  PagedList.IPagedList<MyLegacyMaps.Models.Map >
+@using PagedList.Mvc;
+@using MyLegacyMaps.Models;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Real Estate Maps";
+}
+<h3>Real Estate Maps</h3>
+
+<div class="grid">
+    @foreach (var item in Model)
+    {       
+        if(item.OrientationTypeId == 1)
+        { 
+            <div class="grid-item"> 
+
+                <a class="lnkGridItem" href="@Url.Action("Details", new { id = item.MapId })">
+                    <img src="@item.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="grid-item vertical-item">
+
+                <a class="lnkGridItem" href="@Url.Action("Details", new { id = item.MapId })">
+                    <img src="@item.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                </a>
+            </div>
+        }
+    }
+</div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("RealEstateMaps",
+    new { page }))
+
+<script>
+    $(document).ready(function () {
+
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: 310
+        });
+
+    });
+</script>
+    
