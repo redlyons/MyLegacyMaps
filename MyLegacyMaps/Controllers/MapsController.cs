@@ -16,13 +16,15 @@ namespace MyLegacyMaps.Controllers
 {
     public class MapsController : Controller
     {
-        private IMapsRepository mapsRepository = null;        
+        private IMapsRepository mapsRepository = null;
+        private IPartnerLogosRepository logosRepository = null;
         private ILogger log = null;
         private ICookieHelper cookies = null;
-        
-        public MapsController(IMapsRepository repositiory, ILogger logger, ICookieHelper cookieHelper)
+
+        public MapsController(IMapsRepository repositiory, IPartnerLogosRepository logosResource, ILogger logger, ICookieHelper cookieHelper)
         {
             mapsRepository = repositiory;
+            logosRepository = logosResource;
             log = logger;
             cookies = cookieHelper;
         }
@@ -206,7 +208,19 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
-                return View(resp.Item.ToViewModel());
+
+                var map = resp.Item.ToViewModel();
+
+                if (map.IsRealEstateMap())
+                {
+                    var respLogos = await logosRepository.GetPartnerLogosAsync();
+                    if (!respLogos.IsSuccess())
+                    {
+                        return new HttpStatusCodeResult(resp.HttpStatusCode);
+                    }
+                    ViewBag.PartnerLogos = respLogos.Item.ToViewModel();
+                }
+                return View(map);
             }
             catch (Exception ex)
             {

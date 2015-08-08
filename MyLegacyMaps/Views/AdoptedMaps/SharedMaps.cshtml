@@ -1,22 +1,43 @@
-﻿@model IEnumerable<MyLegacyMaps.Models.AdoptedMap>
+﻿@model PagedList.IPagedList<MyLegacyMaps.Models.AdoptedMap>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using MyLegacyMaps.Models;
 @{
     ViewBag.Title = "Shared Maps";
 }
 
 <br />
-<h2>Published Maps</h2>
+<h2>My Shared Maps</h2>
 <div class="grid">
     @foreach (var item in Model)
     {
-        <div class="grid-item">
-            <a href="@Url.Action("SharedMap", new { id = item.AdoptedMapId })">
-                <img src="@item.Map.GetThumbImageUrl()" height="310" width="310" class="mlm-li-thumb">
-                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
-                <p>@Html.DisplayFor(modelItem => item.Description)</p>
-            </a>
-        </div>
+        if (item.Map.OrientationTypeId == 1)
+        {
+            <div class="grid-item">
+
+                <a class="lnkGridItem" href="@Url.Action("SharedMap", new { id = item.AdoptedMapId })">
+                    <img src="@item.Map.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="grid-item vertical-item">
+
+                <a class="lnkGridItem" href="@Url.Action("SharedMap", new { id = item.AdoptedMapId })">
+                    <img src="@item.Map.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                </a>
+            </div>
+        }
     }
 </div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("SharedMaps",
+    new { page }))
 
 <script>
     $(document).ready(function () {
@@ -25,5 +46,6 @@
             itemSelector: '.grid-item',
             columnWidth: 310
         });
+
     });
 </script>

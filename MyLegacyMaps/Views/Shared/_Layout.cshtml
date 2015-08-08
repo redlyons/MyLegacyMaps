@@ -20,13 +20,13 @@
                 <a href="~/"><img src="~/images/icons/MLM-REM-text-logo.png" alt="globe" class="mlm-logo"></a>
                 @*@Html.ActionLink("My Legacy Maps", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
              </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" style="float:right;">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Maps", "Index", "Maps")</li>
-                    <li>@Html.ActionLink("Adopted Maps", "Index", "AdoptedMaps")</li>
-                    <li>@Html.ActionLink("Shared Maps", "SharedMaps", "AdoptedMaps")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="menuitem">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="menuitem">@Html.ActionLink("Maps", "Index", "Maps")</li>
+                    <li class="menuitem">@Html.ActionLink("Adopted Maps", "Index", "AdoptedMaps")</li>
+                    <li class="menuitem">@Html.ActionLink("Shared Maps", "SharedMaps", "AdoptedMaps")</li>
+                    <li class="menuitem">@Html.ActionLink("About", "About", "Home")</li>
                     
                 </ul>
                 @Html.Partial("_LoginPartial")

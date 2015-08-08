@@ -1,5 +1,4 @@
-﻿ body{
-        
+﻿ body{        
         height: 1800px;
         overflow: scroll;
         cursor: auto;
@@ -21,8 +20,7 @@
     height: 400px;
 }
 
-body {
-    
+body {    
     padding-bottom: 20px;
 }
 
@@ -51,4 +49,8 @@ textarea {
     width: 100px;
     float: left;
     margin-right: 10px;
+}
+
+.menuitem {
+    
 }

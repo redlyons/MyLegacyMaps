@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using MLM.Logging;
 using MLM.Persistence.Interfaces;
 using MyLegacyMaps.Models;
@@ -58,7 +59,7 @@ namespace MyLegacyMaps.Controllers
 
         // GET: Public AdoptedMaps
         [AllowAnonymous]
-        public async Task<ActionResult> SharedMaps(string id)
+        public async Task<ActionResult> SharedMaps(string id, int? page)
         {
            // string userId = String.Empty;
             try
@@ -80,8 +81,11 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
 
-                var viewModel = resp.Item.ToViewModel();
-                return View(viewModel.OrderBy(m => m.Name));
+                int pageSize = 4;
+                int pageNumber = (page ?? 1);
+
+                var mapsViewModel = resp.Item.ToViewModel().OrderBy(m => m.Name);
+                return View(mapsViewModel.ToPagedList(pageNumber, pageSize));
             }
             catch (Exception ex)
             {
@@ -120,6 +124,7 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: AdoptedMaps/Details/5
+        [AllowAnonymous]
         public async Task<ActionResult> SharedMap(int? id)
         {
             try

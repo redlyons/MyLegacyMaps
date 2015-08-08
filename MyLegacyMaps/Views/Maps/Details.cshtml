@@ -9,7 +9,7 @@
 @using (Html.BeginForm("Create", "AdoptedMaps", FormMethod.Post, new { id = "frmAdpotMap" }))
 {
     @Html.AntiForgeryToken();
-    @if(Model.IsRealEstateMap())
+    if(Model.IsRealEstateMap())
     {
         @Html.Partial("~/Views/Shared/Partials/RealEstateMapCanvas.cshtml", Model)
     }

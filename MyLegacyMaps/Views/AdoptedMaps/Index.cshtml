@@ -6,7 +6,7 @@
     var realEstateMapType = new MyLegacyMaps.Models.MapType{ MapTypeId =1, Name = "Real Estate", IsActive=true };
 }
 
-<h2>Adopted Maps</h2>
+<h2>My Adopted Maps</h2>
 <div>
     @Html.ActionLink(Html.Encode(User.Identity.GetUserName()), "Published", "AdoptedMaps", new { id = User.Identity.GetUserId() }, htmlAttributes: new { title = "Manage" })
 </div>
