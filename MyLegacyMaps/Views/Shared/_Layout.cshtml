@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/jquery")     
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse ">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,14 +18,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="~/"><img src="~/images/icons/MLM-REM-text-logo.png" alt="globe" class="mlm-logo"></a>
-                @Html.ActionLink("My Legacy Maps", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("My Legacy Maps", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
              </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Maps", "Index", "Maps")</li>
-                    <li>@Html.ActionLink("My Adopted Maps", "Index", "AdoptedMaps")</li>
-                    <li>@Html.ActionLink("My Shared Maps", "SharedMaps", "AdoptedMaps")</li>
+                    <li>@Html.ActionLink("Adopted Maps", "Index", "AdoptedMaps")</li>
+                    <li>@Html.ActionLink("Shared Maps", "SharedMaps", "AdoptedMaps")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     
                 </ul>

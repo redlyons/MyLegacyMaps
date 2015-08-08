@@ -5,35 +5,32 @@
 @{
     ViewBag.Title = "Adventure Maps";
 }
+
 <h3>Adventure Maps</h3>
 
 @using (Html.BeginForm("Index", "AdventureMaps", FormMethod.Get, new { id = "maps" }))
-    {
-       @Html.Hidden("CurrentFilterId", ViewBag.CurrentFilterId as string)
-    
-       <div class="">        
-        <div class="">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="ddlOrientation"
-                        data-toggle="dropdown">
-                    <span>Map Type:&nbsp;</span>&nbsp;<span class="caret"></span>
-                </button>
-                &nbsp;@Html.Label(ViewBag.CurrentFilter as string)
-                <ul class="dropdown-menu" role="menu">
-                    <li role="presentation" onclick="$('#CurrentFilterId').val('0'); $('#maps' ).submit();">
-                        <a role="menuitem" href="#">-- All --</a>
-                    </li>
-                    @foreach (var type in (List<MapType>)ViewBag.MapTypes)
-                    {
-                        <li role="presentation" onclick="$('#CurrentFilterId').val('@type.MapTypeId'); $('#maps' ).submit();">
-                            <a role="menuitem" href="#">@type.Name</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
+{
+    @Html.Hidden("CurrentFilterId", ViewBag.CurrentFilterId as string)       
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="ddlOrientation"
+                data-toggle="dropdown">
+            <span>Map Type:&nbsp;</span>&nbsp;<span class="caret"></span>
+        </button>
+        &nbsp;@Html.Label(ViewBag.CurrentFilter as string)
+        <ul class="dropdown-menu" role="menu">
+            <li role="presentation" onclick="$('#CurrentFilterId').val('0'); $('#maps' ).submit();">
+                <a role="menuitem" href="#">-- All --</a>
+            </li>
+            @foreach (var type in (List<MapType>)ViewBag.MapTypes)
+            {
+                <li role="presentation" onclick="$('#CurrentFilterId').val('@type.MapTypeId'); $('#maps' ).submit();">
+                    <a role="menuitem" href="#">@type.Name</a>
+                </li>
+            }
+        </ul>
+    </div>     
 }
+<br />
 
 <div class="grid">
     @foreach (var item in Model)

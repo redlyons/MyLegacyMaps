@@ -1,5 +1,5 @@
 ﻿ body{
-        padding-top: 5px;
+        
         height: 1800px;
         overflow: scroll;
         cursor: auto;
@@ -17,8 +17,12 @@
     overflow:scroll;          
 }
 
+.sample-map {
+    height: 400px;
+}
+
 body {
-    padding-top: 50px;
+    
     padding-bottom: 20px;
 }
 
@@ -43,8 +47,8 @@ textarea {
 }
 
 .mlm-logo{
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
     float: left;
     margin-right: 10px;
 }

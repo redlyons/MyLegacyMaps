@@ -2,29 +2,27 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<div class="" style="text-align:center">
     <img src="~/images/sample-map.png" class="sample-map"> 
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>AFTER YOU RETURN</h2>
+        <h3>AFTER YOU RETURN</h3>
         <p>
             home from your vacation/trip, <strong>WHAT</strong> are you going to do with all of the keep-sake pictures and video you took? 
             <strong>HOW</strong> will you share your trip's video, pictures and Travel Journal Entries?..... Simple... place them all on your <i>Legacy Map&trade;</i>!
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </p>       
     </div>
     <div class="col-md-4">
-        <h2>NOW, YOU CAN PLACE</h2>
+        <h3>NOW, YOU CAN PLACE</h3>
         <p>them on an Internet-based, beautiful, full-color, custom-made, special-interest map that can record a life-time of your travel experiences, 
         including your Travel Journal entries! Because your <i>Legacy Map&trade;</i> is on the Internet, you can choose to share it with friends or keep it private.
-         You also have the option to have your <i>Legacy Map&trade;</i> printed for wall display.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+         You also have the option to have your <i>Legacy Map&trade;</i> printed for wall display.</p>       
     </div>
     <div class="col-md-4">
-        <h2>Start your Legacy Map&trade; today!</h2>
+        <h3>Start your Legacy Map&trade; today!</h3>
         <p>MyLegacyMap.com has tons of beautifully-illustrated, special-interest, theme maps being made ready for you, including, Spectator Sports, Participant Sports, Education, Tourist Destinations, States, Natural History, Civilization, and many more… "</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+        <p>@Html.ActionLink("Try It Now !!!", "AdventureMaps", "Maps", null,  new {controller="Maps", @class = "btn btn-default" } )</p>
+    </div> 
 </div>
