@@ -34,8 +34,27 @@ MLM.MapCanvas = (function () {
         },
 
         wireUpZoom: function () {          
-            slider.change(function () {                
-                $("#canvas").css('zoom',slider.val());
+            slider.change(function () {
+                var newVal = slider.val();
+                $("#canvas").css('zoom', newVal);
+            });
+
+            $("#zoomIn").click(function () {
+                var newVal = parseFloat(slider.val()) - parseFloat(slider.attr("step"));
+                slider.val(newVal);
+                slider.change();
+            });
+
+            $("#zoomOut").click(function () {
+                var newVal = parseFloat(slider.val()) + parseFloat(slider.attr("step"));
+                slider.val(newVal);
+                slider.change();
+            });
+
+            $('#ex1').slider({
+                formatter: function (value) {
+                    return 'Current value: ' + value;
+                }
             });
         },
 

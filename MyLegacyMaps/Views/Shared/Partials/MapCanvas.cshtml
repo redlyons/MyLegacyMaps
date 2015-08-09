@@ -4,30 +4,37 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="canvasWrapper span12">
+            
             <div>
-            <ul class="canvasToolList">
-               <li>
-                    <a id="btnWasHere" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/red-flag-icon.png" />I was here</a>
-                </li>
-                <li>
-                    <a id="btnHereNow" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/checked-flag-icon.png" />I'm here now</a>
-                </li>
-                <li>
-                    <a id="btnWantToGoHere" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/yellow-flag-icon.png" />Planning to go</a>
-                </li> 
-                <li>
-                    <a id="lnkSaveMap" href="#" class="btn btn-info btn-sm toolbar-btn btnSaveMap"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
-                </li>                           
-                <li>
-                    <div class="sliderWrapper">                       
-                        <input id="zoomSlider" type="range" value=".5" min=".01" max="1.5" step=".0005">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </div>
-                </li>
-            </ul>  
-            </div> <br />        
-            <div id="canvas"></div>    
-            <h3>@Html.DisplayFor(model => Model.Name)</h3>        
+                <h3>@Html.DisplayFor(model => Model.Name)</h3>
+               
+                <ul class="canvasToolList">
+                    <li>
+                        <a id="btnWasHere" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/red-flag-icon.png" />I was here</a>
+                    </li>
+                    <li>
+                        <a id="btnHereNow" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/checked-flag-icon.png" />I'm here now</a>
+                    </li>
+                    <li>
+                        <a id="btnWantToGoHere" href="#" class="btn btn-info btn-sm toolbar-btn"><img class="flag-icon" src="~/Images/icons/yellow-flag-icon.png" />Planning to go</a>
+                    </li> 
+                    <li>
+                        <a id="lnkSaveMap" href="#" class="btn btn-info btn-sm toolbar-btn btnSaveMap"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                    </li>                           
+                    <li>
+                   
+                    </li>
+                </ul>  
+               <br /><br/>
+                <div class="sliderWrapper">
+                    <a href="#" id="zoomIn"><span class="glyphicon glyphicon-minus"></span></a>
+                    <input id="zoomSlider" type="range" value=".8" min=".5" max="1" step=".01">
+                    <a href="#" id="zoomOut"><span class="glyphicon glyphicon-plus"></span></a>
+                </div>
+            
+            </div> 
+            <br />         
+            <div id="canvas"></div>                   
         </div>
     </div>   
 </div>

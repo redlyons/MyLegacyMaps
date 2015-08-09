@@ -3,11 +3,10 @@
     <div class="fooboo row-fluid">
         <div id="toolbar" class="span4">
             <h3>@Html.DisplayFor(model => Model.Name)</h3>          
-            <div class="zoom-buttons">
-                <a href="#" id="zoomIn">Zoom In</a>&nbsp;
-                <a href="#" id="zoomOut">Zoom Out</a>
-                <input id="zoomSlider" type="range" min="1.0" max="1.5" step=".0005">
-                <a href="#" id="zoomReset">Reset</a>
+            <div class="sliderWrapper">
+                <a href="#" id="zoomIn"><span class="glyphicon glyphicon-minus"></span></a>
+                <input id="zoomSlider" type="range" value=".8" min=".5" max="1" step=".01">              
+                <a href="#" id="zoomOut"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
         </div>
         <div id="canvas"></div>
