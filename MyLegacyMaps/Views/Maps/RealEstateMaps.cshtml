@@ -6,6 +6,11 @@
     ViewBag.Title = "Real Estate Maps";
 }
 <h3>Real Estate Maps</h3>
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("RealEstateMaps",
+    new { page }))
+</div>
 
 <div class="grid">
     @foreach (var item in Model)
@@ -34,9 +39,8 @@
         }
     }
 </div>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("RealEstateMaps",
-    new { page }))
+<br/>
+<br/>
 
 <script>
     $(document).ready(function () {

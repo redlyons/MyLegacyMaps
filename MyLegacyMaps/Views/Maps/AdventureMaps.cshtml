@@ -7,6 +7,11 @@
 }
 
 <h3>Adventure Maps</h3>
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("AdventureMaps",
+    new { page }))
+</div>
 
 @using (Html.BeginForm("Index", "AdventureMaps", FormMethod.Get, new { id = "maps" }))
 {
@@ -59,9 +64,6 @@
         }
     }
 </div>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("AdventureMaps",
-    new { page }))
 
 <script>
     $(document).ready(function () {
@@ -73,4 +75,6 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
     });
 </script>
+<br />
+<br />
     
