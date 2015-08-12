@@ -65,8 +65,7 @@ namespace MyLegacyMaps.Controllers
                 }
 
                 var mapTypes = new List<MapType>();
-                var respMapTypes = await mapsRepository.GetMapTypesAsync();
-                var realEstateMapType = new MapType{ MapTypeId = 1, Name = "Real Estate", IsActive = true };
+                var respMapTypes = await mapsRepository.GetMapTypesAsync();                
                 if (respMapTypes.IsSuccess())
                 {
                     mapTypes = respMapTypes.Item.ToViewModel(false);                   

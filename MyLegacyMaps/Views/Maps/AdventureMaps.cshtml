@@ -13,7 +13,7 @@
     new { page }))
 </div>
 
-@using (Html.BeginForm("Index", "AdventureMaps", FormMethod.Get, new { id = "maps" }))
+@using (Html.BeginForm("AdventureMaps", "Maps", FormMethod.Get, new { id = "maps" }))
 {
     @Html.Hidden("CurrentFilterId", ViewBag.CurrentFilterId as string)       
     <div class="dropdown">
