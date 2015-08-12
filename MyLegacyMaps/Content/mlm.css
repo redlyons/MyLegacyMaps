@@ -173,6 +173,7 @@
 
 .grid { 
   max-width: 1300px;
+  height: 800px;
 }
 
 /* clearfix */
