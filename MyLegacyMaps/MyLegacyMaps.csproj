@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201508070449000_AspectRation.Designer.cs">
       <DependentUpon>201508070449000_AspectRation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508310208092_UserCredits.cs" />
+    <Compile Include="Migrations\201508310208092_UserCredits.Designer.cs">
+      <DependentUpon>201508310208092_UserCredits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
@@ -510,6 +514,8 @@
     <Content Include="Views\Shared\Partials\AdoptedMapCanvas.cshtml" />
     <Content Include="Views\Maps\AdventureMaps.cshtml" />
     <Content Include="Views\Maps\RealEstateMaps.cshtml" />
+    <Content Include="Views\Admin\UsersManage.cshtml" />
+    <Content Include="Views\Admin\UserEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -560,6 +566,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508070449000_AspectRation.resx">
       <DependentUpon>201508070449000_AspectRation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508310208092_UserCredits.resx">
+      <DependentUpon>201508310208092_UserCredits.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

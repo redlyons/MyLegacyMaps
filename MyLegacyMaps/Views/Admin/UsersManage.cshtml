@@ -1,0 +1,62 @@
+﻿@model PagedList.IPagedList<MyLegacyMaps.Models.Account.ApplicationUser>
+@using PagedList.Mvc;
+@using MyLegacyMaps.Models.Account;
+@{
+    ViewBag.Title = "Manage Users";
+}
+<h3>Manage Maps</h3>
+<p>
+    @Html.ActionLink("Back to Admin", "Index")
+</p>
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("UsersManage",
+    new { page }))
+</div>
+
+@using (Html.BeginForm("UsersManage", "Admin", FormMethod.Get))
+{
+    <table class="table">
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                EmailConfirmed
+            </th>
+            <th>
+               DisplayName
+            </th>  
+            <th>
+               Credits
+            </th>          
+            <th>
+            </th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailConfirmed)
+            </td> 
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>           
+            <td>
+                @Html.ActionLink("Edit", "UserEdit", new { id=item.Id })          
+            </td>
+        </tr>
+    }
+
+    </table>
+}
+
+@Html.ActionLink("Back to Admin", "Index")
+
+

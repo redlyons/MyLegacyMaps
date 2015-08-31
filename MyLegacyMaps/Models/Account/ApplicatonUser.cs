@@ -12,6 +12,8 @@ namespace MyLegacyMaps.Models.Account
     {
         public string HomeTown { get; set; }
         public System.DateTime? BirthDate { get; set; }
+        public string DisplayName { get; set; }
+        public int Credits { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {            

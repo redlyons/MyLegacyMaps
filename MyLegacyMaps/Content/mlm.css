@@ -86,15 +86,12 @@
 
 .draggableFlag {
     width: 100px;
-    height: 80px;
-    background-color: white;
-    
+    height: 80px;    
 }
 
 .draggableFlag, .locked{
     width: 100px;
-    height: 80px;
-    background-color: white;
+    height: 80px;    
 }
 
 #overlay {

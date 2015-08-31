@@ -123,7 +123,7 @@
         });
     };
 
-    method.buyListing = function () {
+   method.buyListing = function () {
         $.ajax({
             url: window.location.origin + "/flags/createListing/",
             type: 'POST',

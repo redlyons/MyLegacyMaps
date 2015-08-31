@@ -5,6 +5,12 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using PagedList;
+using MyLegacyMaps.Managers;
+using MyLegacyMaps.Models.Account;
 using MLM.Logging;
 using MLM.Persistence.Interfaces;
 using MLM.Persistence;
@@ -22,6 +28,20 @@ namespace MyLegacyMaps.Controllers
         private IMapsRepository mapsRepository = null;
         private IPartnerLogosRepository logosRepository = null;
         private ILogger log = null;
+        private ApplicationUserManager _userManager;
+
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         public AdminController(IMapsRepository mapsResource,
                                IPartnerLogosRepository logosResource, 
@@ -40,6 +60,110 @@ namespace MyLegacyMaps.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        /// <summary>
+        /// Get List of Maps to Manage
+        /// </summary>
+        [Authorize(Roles = "mapManager")]
+        [HttpGet]
+        public ActionResult UsersManage(int? page)
+        {
+            try
+            {
+                // Get Maps by map type id
+                var users = UserManager.Users.ToList<ApplicationUser>();
+                var usersViewModel = users.OrderBy(m => m.Email);
+
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                return View(usersViewModel.ToPagedList(pageNumber, pageSize));
+
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdminController GET MapsManage");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        // GET: Maps/Edit/5
+        [Authorize(Roles = "mapManager")]
+        public async Task<ActionResult> UserEdit(string id)
+        {
+            try
+            {
+
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                if (String.IsNullOrEmpty(id))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "missing id parameter");
+                }
+
+                var user = await UserManager.FindByIdAsync(id);
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdminController UserEdit id = {0} ",
+                  (!String.IsNullOrEmpty(id)) ? id: "null");
+
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        // POST: Maps/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "mapManager")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UserEdit([Bind(Include =
+            "Id,Email,EmailConfirmed,DisplayName,Credits")] ApplicationUser updatedUser)
+        {
+
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var user = await UserManager.FindByIdAsync(updatedUser.Id);
+
+                if(user == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                user.DisplayName = (String.IsNullOrEmpty(updatedUser.DisplayName)) ? String.Empty : updatedUser.DisplayName;
+                user.Email = updatedUser.Email;
+                user.EmailConfirmed = updatedUser.EmailConfirmed;
+                user.Credits = (updatedUser.Credits <= 0)? 0 : updatedUser.Credits;          
+
+
+                await UserManager.UpdateAsync(user);
+
+                
+
+                return RedirectToAction("UsersManage");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in AdminController POST MapEdit UserId = {0} ",
+                 updatedUser.Id);
+
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         /// <summary>

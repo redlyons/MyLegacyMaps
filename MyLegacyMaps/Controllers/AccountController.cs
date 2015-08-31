@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MyLegacyMaps.Models.Account;
 using MyLegacyMaps.Managers;
+using MLM.Logging;
 
 namespace MyLegacyMaps.Controllers
 {
@@ -18,15 +19,18 @@ namespace MyLegacyMaps.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly ILogger log = null;
 
-        public AccountController()
+        public AccountController(ILogger logger)
         {
+            log = logger;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ILogger logger)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            log = logger;
         }
 
         public ApplicationSignInManager SignInManager
@@ -163,45 +167,61 @@ namespace MyLegacyMaps.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    //  Comment the following line to prevent log in until the user is confirmed.
-                    //  await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var user = new ApplicationUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        DisplayName = model.DisplayName,
+                        Credits = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["DefaultCredits"].ToString())
+                    };
 
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
-                                      
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    
-                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account",
-                    //   new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id,
-                    //   "Confirm your account", "Please confirm your account by clicking <a href=\""
-                    //   + callbackUrl + "\">here</a>");
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        //  Comment the following line to prevent log in until the user is confirmed.
+                        //  await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    // Uncomment to debug locally 
-                    // TempData["ViewBagLink"] = callbackUrl;
+                        string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
 
-                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                                    + "before you can log in.";
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return View("Info");
+                        //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        //var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                        //   new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        //await UserManager.SendEmailAsync(user.Id,
+                        //   "Confirm your account", "Please confirm your account by clicking <a href=\""
+                        //   + callbackUrl + "\">here</a>");
 
-                    //return RedirectToAction("Index", "Home");
+                        // Uncomment to debug locally 
+                        // TempData["ViewBagLink"] = callbackUrl;
+
+                        ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                        + "before you can log in.";
+
+                        return View("Info");
+
+                        //return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
-            }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+                // If we got this far, something failed, redisplay form
+                return View(model);
+            }
+            catch(Exception ex)
+            {
+                log.Error(
+                    ex.Message + ((ex.InnerException != null)? " " + ex.InnerException.Message : ""));
+                throw ex;
+            }
         }
 
         //
