@@ -22,7 +22,8 @@ namespace MyLegacyMaps
            
             //Database.SetInitializer<MLM.Persistence.MyLegacyMapsContext>(
             //  new  DropCreateDatabaseIfModelChanges<MLM.Persistence.MyLegacyMapsContext>()); 
-    
+
+           // Database.SetInitializer<MyLegacyMaps.MyLegacyMapsMembershipContext>(new DropCreateDatabaseAlways<MyLegacyMaps.MyLegacyMapsMembershipContext>());
 
             AreaRegistration.RegisterAllAreas();
             DependenciesConfig.RegisterDependencies();
@@ -35,7 +36,7 @@ namespace MyLegacyMaps
           
             DbConfiguration.SetConfiguration(new MLM.Persistence.EFConfiguration());
 
-            //var configuration = new MyLegacyMaps.Migrations.Configuration();
+            //var configuration = new MyLegacyMaps.MembershipContextMigrations.Configuration();
             //var migrator = new DbMigrator(configuration);
             //migrator.Update();
 

@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Data.Entity.SqlServer;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyLegacyMaps.Models.Account;
@@ -29,4 +30,6 @@ namespace MyLegacyMaps
             base.OnModelCreating(modelBuilder);
         }
     }
+
+    
 }
