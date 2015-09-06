@@ -14,6 +14,8 @@ namespace MyLegacyMaps.Models.Account
         public System.DateTime? BirthDate { get; set; }
         public string DisplayName { get; set; }
         public int Credits { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {            

@@ -3,8 +3,6 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using MyLegacyMaps.Models.Account;
 using MLM.Models;
 
@@ -548,76 +546,7 @@ namespace MyLegacyMaps.Migrations
 
             _aspectRatios.ForEach(type => context.AspectRatios.AddOrUpdate(t => t.Name, type));
            
-            context.SaveChanges();
-
-
-            var membershipContext = MyLegacyMapsMembershipContext.Create();   
-            AddUserAndRole(membershipContext);
-            membershipContext.SaveChanges();
-        }
-
-
-        bool AddUserAndRole(MyLegacyMapsMembershipContext context)
-        {
-            try
-            {
-                IdentityResult ir;
-                var rm = new RoleManager<IdentityRole>
-                    (new RoleStore<IdentityRole>(context));
-
-                if (!rm.RoleExists("mapManager"))
-                {
-                    ir = rm.Create(new IdentityRole("mapManager"));
-                }
-
-                if (!rm.RoleExists("realtor"))
-                {
-                    ir = rm.Create(new IdentityRole("realtor"));
-                }
-
-                var um = new UserManager<MyLegacyMaps.Models.Account.ApplicationUser>(
-                    new UserStore<MyLegacyMaps.Models.Account.ApplicationUser>(context));
-
-
-                var admin1 = System.Configuration.ConfigurationManager.AppSettings["admin1"].Split(
-                    new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
-
-               
-                var user1 = new MyLegacyMaps.Models.Account.ApplicationUser
-                {
-                    UserName = admin1[0],
-                    Email = admin1[0]
-                };
-                ir = um.Create(user1, admin1[1]);
-                if (ir.Succeeded)
-                {
-                    ir = um.AddToRole(user1.Id, "mapManager");
-                    ir = um.AddToRole(user1.Id, "realtor");
-                }
-                
-                var admin2 = System.Configuration.ConfigurationManager.AppSettings["admin2"].Split(
-                  new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
-
-                var user2 = new MyLegacyMaps.Models.Account.ApplicationUser
-                {
-                    UserName = admin2[0],
-                    Email = admin2[0]
-                };
-                ir = um.Create(user2, admin2[1]);
-                if (ir.Succeeded)
-                {
-                    ir = um.AddToRole(user2.Id, "mapManager");
-                    ir = um.AddToRole(user1.Id, "realtor");
-                }
-                
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                return false;
-            }
+            context.SaveChanges();          
         }
 
 

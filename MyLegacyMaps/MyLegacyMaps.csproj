@@ -214,6 +214,10 @@
     <Compile Include="MembershipContextMigrations\201509010436059_Initial.Designer.cs">
       <DependentUpon>201509010436059_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="MembershipContextMigrations\201509020404464_UserDates.cs" />
+    <Compile Include="MembershipContextMigrations\201509020404464_UserDates.Designer.cs">
+      <DependentUpon>201509020404464_UserDates.cs</DependentUpon>
+    </Compile>
     <Compile Include="MembershipContextMigrations\Configuration.cs" />
     <Compile Include="Migrations\201507120440433_PhotosUrlAdded2.cs" />
     <Compile Include="Migrations\201507120440433_PhotosUrlAdded2.Designer.cs">
@@ -526,6 +530,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="DataAccess\" />
     <Folder Include="Security\" />
+    <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
@@ -553,6 +558,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MembershipContextMigrations\201509010436059_Initial.resx">
       <DependentUpon>201509010436059_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MembershipContextMigrations\201509020404464_UserDates.resx">
+      <DependentUpon>201509020404464_UserDates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507120440433_PhotosUrlAdded2.resx">
       <DependentUpon>201507120440433_PhotosUrlAdded2.cs</DependentUpon>

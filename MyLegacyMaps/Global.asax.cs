@@ -23,7 +23,7 @@ namespace MyLegacyMaps
             //Database.SetInitializer<MLM.Persistence.MyLegacyMapsContext>(
             //  new  DropCreateDatabaseIfModelChanges<MLM.Persistence.MyLegacyMapsContext>()); 
 
-           // Database.SetInitializer<MyLegacyMaps.MyLegacyMapsMembershipContext>(new DropCreateDatabaseAlways<MyLegacyMaps.MyLegacyMapsMembershipContext>());
+           //Database.SetInitializer<MyLegacyMaps.MyLegacyMapsMembershipContext>(new DropCreateDatabaseAlways<MyLegacyMaps.MyLegacyMapsMembershipContext>());
 
             AreaRegistration.RegisterAllAreas();
             DependenciesConfig.RegisterDependencies();
