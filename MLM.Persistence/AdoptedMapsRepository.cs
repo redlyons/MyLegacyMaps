@@ -116,6 +116,11 @@ namespace MLM.Persistence
 
                 bool isSuccess = (result > 0);
                 resp.Item = adoptedMap;
+                if (isSuccess)
+                {
+                    adoptedMap.Map = await db.Maps.FindAsync(adoptedMap.MapId);
+                }
+
                 resp.HttpStatusCode = (isSuccess)
                     ? System.Net.HttpStatusCode.OK
                     : System.Net.HttpStatusCode.InternalServerError;
@@ -144,7 +149,11 @@ namespace MLM.Persistence
                     "UserId = {0} MapId={1} Name={2}", adoptedMap.UserId, adoptedMap.MapId, adoptedMap.Name);
 
                 bool isSuccess = (result > 0);
-                resp.Item = adoptedMap;
+                resp.Item = adoptedMap;                
+                if (isSuccess)
+                {
+                    adoptedMap.Map = await db.Maps.FindAsync(adoptedMap.MapId);
+                }
                 resp.HttpStatusCode = (isSuccess)
                     ? System.Net.HttpStatusCode.OK
                     : System.Net.HttpStatusCode.InternalServerError;

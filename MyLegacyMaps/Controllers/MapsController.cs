@@ -20,6 +20,7 @@ namespace MyLegacyMaps.Controllers
         private IPartnerLogosRepository logosRepository = null;
         private ILogger log = null;
         private ICookieHelper cookies = null;
+      
 
         public MapsController(IMapsRepository repositiory, IPartnerLogosRepository logosResource, ILogger logger, ICookieHelper cookieHelper)
         {
@@ -85,10 +86,10 @@ namespace MyLegacyMaps.Controllers
                    ? mapTypes.Find(mt => mt.MapTypeId == mapTypeId).Name
                    : String.Empty;
 
-                int pageSize = 4;
+                
                 int pageNumber = (page ?? 1);
                 var mapsViewModel = resp.Item.ToViewModel(false).OrderBy(m => m.Name);
-                return View(mapsViewModel.ToPagedList(pageNumber, pageSize));
+                return View(mapsViewModel.ToPagedList(pageNumber, Constants.PAGE_SIZE));
 
             }
             catch(Exception ex)
@@ -154,10 +155,9 @@ namespace MyLegacyMaps.Controllers
                 }
 
                 //View
-                int pageSize = 4;
                 int pageNumber = (page ?? 1);
                 var mapsViewModel = resp.Item.ToViewModel(true).OrderBy(m => m.Name);
-                return View(mapsViewModel.ToPagedList(pageNumber, pageSize));
+                return View(mapsViewModel.ToPagedList(pageNumber, Constants.PAGE_SIZE));
 
             }
             catch (Exception ex)

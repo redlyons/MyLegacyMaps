@@ -198,11 +198,12 @@
     <Compile Include="Classes\Flags\FlagTypes.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AdoptedMapsController.cs" />
+    <Compile Include="Controllers\MyMapsController.cs" />
     <Compile Include="Controllers\FlagsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Extensions\DomainModelConverter.cs" />
     <Compile Include="Extensions\ViewModelConvertor.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,7 +292,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\mlm.css" />
+    <Content Include="Content\mlm\mlm.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -501,36 +502,40 @@
     <Content Include="Views\Maps\Details.cshtml" />
     <Content Include="Views\Admin\MapEdit.cshtml" />
     <Content Include="Views\Maps\Index.cshtml" />
-    <Content Include="Views\AdoptedMaps\Delete.cshtml" />
-    <Content Include="Views\AdoptedMaps\AdoptedMap.cshtml" />
-    <Content Include="Views\AdoptedMaps\Edit.cshtml" />
-    <Content Include="Views\AdoptedMaps\Index.cshtml" />
+    <Content Include="Views\MyMaps\Delete.cshtml" />
+    <Content Include="Views\MyMaps\AdoptedMap.cshtml" />
+    <Content Include="Views\MyMaps\Edit.cshtml" />
+    <Content Include="Views\MyMaps\AdoptedMaps.cshtml" />
     <Content Include="Views\Shared\Partials\MapCanvas.cshtml" />
     <Content Include="Views\Admin\MapsManage.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\MapTypesManage.cshtml" />
     <Content Include="Views\Admin\MapTypeEdit.cshtml" />
     <Content Include="Views\Admin\MapTypeCreate.cshtml" />
-    <Content Include="Views\AdoptedMaps\SharedMaps.cshtml" />
-    <Content Include="Views\AdoptedMaps\SharedMap.cshtml" />
+    <Content Include="Views\MyMaps\SharedMaps.cshtml" />
+    <Content Include="Views\MyMaps\SharedMap.cshtml" />
     <Content Include="Views\Shared\Partials\SharedMapCanvas.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Admin\PartnerLogoCreate.cshtml" />
     <Content Include="Views\Admin\PartnerLogoEdit.cshtml" />
     <Content Include="Views\Admin\PartnerLogosManage.cshtml" />
     <Content Include="Views\Shared\Partials\RealEstateMapCanvas.cshtml" />
-    <Content Include="Views\AdoptedMaps\RealEstateMap.cshtml" />
+    <Content Include="Views\MyMaps\RealEstateMap.cshtml" />
     <Content Include="Views\Shared\Partials\AdoptedMapCanvas.cshtml" />
     <Content Include="Views\Maps\AdventureMaps.cshtml" />
     <Content Include="Views\Maps\RealEstateMaps.cshtml" />
     <Content Include="Views\Admin\UsersManage.cshtml" />
     <Content Include="Views\Admin\UserEdit.cshtml" />
+    <Content Include="Views\Profile\Private.cshtml" />
+    <Content Include="Views\Shared\ProfileNav.cshtml" />
+    <Content Include="Views\Shared\Partials\AdoptedRealEstateMapCanvas.cshtml" />
+    <Content Include="Views\Profile\Credits.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DataAccess\" />
     <Folder Include="Security\" />
-    <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />

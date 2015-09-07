@@ -214,3 +214,27 @@
 .grid-item-text{
     color: white;
 }
+
+.profile-nav-wrapper{
+    background: lightgray;
+    width: 100%;
+    height: 30px;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.profile-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-nav li{
+    display: inline;
+    float: left;
+}
+
+.profile-nav li a{
+    display: block;
+    width: 200px;
+}

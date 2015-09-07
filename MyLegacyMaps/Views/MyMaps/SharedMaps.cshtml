@@ -1,0 +1,62 @@
+﻿@model PagedList.IPagedList<MyLegacyMaps.Models.AdoptedMap>
+@using PagedList.Mvc;
+@using MyLegacyMaps.Models;
+@{
+    ViewBag.Title = "Shared Maps";
+}
+@Html.Partial("~/Views/Shared/ProfileNav.cshtml")
+
+@if(!ViewBag.HasSharedMaps)
+{ 
+    <p>
+        You have not yet shared any maps. To share a map, visit your @Html.ActionLink("Adopted Maps", "AdoptedMaps", "MyMaps") and
+        click the map you would like to share with the public. From the map detail page change the share status to "public". That's 
+        it, your shared map can now be found here under your "Shared Maps" and will be visible to anyone with the link.
+    </p>
+}
+else 
+{     
+
+    <div class="grid">
+        @foreach (var item in Model)
+        {
+            if (item.Map.OrientationTypeId == 1)
+            {
+                <div class="grid-item">
+
+                    <a class="lnkGridItem" href="@Url.Action("SharedMap", new { id = item.AdoptedMapId })">
+                        <img src="@item.Map.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="grid-item vertical-item">
+
+                    <a class="lnkGridItem" href="@Url.Action("SharedMap", new { id = item.AdoptedMapId })">
+                        <img src="@item.Map.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
+                        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+  
+
+    <script>
+        $(document).ready(function () {
+
+            $('.grid').masonry({
+                itemSelector: '.grid-item',
+                columnWidth: 310
+            });
+
+        });
+    </script>
+}
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("SharedMaps",
+        new { page }))

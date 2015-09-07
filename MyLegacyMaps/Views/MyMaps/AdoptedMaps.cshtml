@@ -1,0 +1,68 @@
+﻿@model PagedList.IPagedList<MyLegacyMaps.Models.AdoptedMap>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Adopted Maps";
+    var realEstateMapType = new MyLegacyMaps.Models.MapType{ MapTypeId =1, Name = "Real Estate", IsActive=true };
+}
+
+@Html.Partial("~/Views/Shared/ProfileNav.cshtml")
+
+@if (!ViewBag.HasAdoptedMaps)
+{
+    <p style="height:500px;">
+        You have not yet Adopted any maps. Please browse our collection of @Html.ActionLink("Maps", "Index", "Maps"). To Adopt
+        a map simple click on the map of interest and from the Map Details page, click the "Save" button. This will save the map
+        to your adopted maps collection here. Once you've adopted a map you can start adding flags, photos and videos. Enjoy!
+    </p>
+
+}
+else
+{
+
+
+    <div class="grid">
+        @foreach (var item in Model)
+        {
+            if (item.Map.OrientationTypeId == 1)
+            {
+                <div class="grid-item">
+
+                    <a class="lnkGridItem" href="@Url.Action("AdoptedMap", new { id = item.AdoptedMapId })">
+                        <img src="@item.Map.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="grid-item vertical-item">
+
+                    <a class="lnkGridItem" href="@Url.Action("AdoptedMap", new { id = item.AdoptedMapId })">
+                        <img src="@item.Map.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
+                        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+
+            $('.grid').masonry({
+                itemSelector: '.grid-item',
+                columnWidth: 310
+            });
+
+        });
+    </script>
+}
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("AdoptedMaps",
+        new { page }))
+
+

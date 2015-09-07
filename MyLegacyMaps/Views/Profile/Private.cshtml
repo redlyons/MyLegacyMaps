@@ -1,0 +1,25 @@
+﻿@model MyLegacyMaps.Models.Account.ApplicationUser
+
+@{
+    ViewBag.Title = "My Maps";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Shared/ProfileNav.cshtml")
+
+<div style="height:300px">
+<p>
+    @Html.DisplayNameFor(model => model.DisplayName): @Html.DisplayFor(model => model.DisplayName)
+</p>
+
+<p>
+    @Html.DisplayNameFor(model => model.Email): @Html.DisplayFor(model => model.Email)
+</p>
+
+<p>
+    Member Since:  @Html.DisplayFor(model => model.DateCreated)
+</p>
+<p>
+    @Html.ActionLink("Edit Profile", "Edit")
+</p>
+</div>

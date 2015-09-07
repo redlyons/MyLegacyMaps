@@ -2,30 +2,32 @@
 
 @{
     ViewBag.Title = "Adopted Map";
-    var flagElem = "\"<a href='#' class='mlm-flag-lnk'><div  class='makeMeDraggable {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
-                         "data-flagtypeid={3} data-flagId={4} style='{5}' title='Name: {6} Date: {7} ' ></div></a>\"";
+    var flagElem = "\"<a href='#' class='mlm-flag-lnk'><div class='makeMeDraggable draggableFlag {0} masterTooltip' data-xpos='{1}' data-ypos='{2}' " +
+                         "data-flagtypeid={3} data-flagId={4} style='{5}' title='Name: {6} Date: {7} ' ></div></a>\"";                        
 }
 
-@section Scripts{
+@section Scripts{      
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/mlm")
 }
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
 {
+    @Html.AntiForgeryToken();
     @Html.Hidden("adoptedMapId", Model.AdoptedMapId);
     @Html.Hidden("mapImageUrl", Model.Map.GetMainImageUrl())
     @Html.Hidden("mapCanvasHeight", Model.Map.GetCanvasHeight())
     @Html.Hidden("mapCanvasWidth", Model.Map.GetCanvasWidth())
 
+    
 }
 
-@Html.Partial("~/Views/Shared/Partials/RealEstateMapCanvas.cshtml", Model.Map)
+@Html.Partial("~/Views/Shared/Partials/AdoptedMapCanvas.cshtml", Model.Map)
 
 <script type="text/javascript">
     $(document).ready(function () {
         @foreach(var flag in @Model.Flags)
-        {
+        {                        
             var elem =
                 String.Format(flagElem,
                               flag.GetCssClass(),
@@ -35,10 +37,28 @@
                               flag.FlagId,
                               @Html.AttributeEncode(flag.GetStyle()),
                               @Html.AttributeEncode(flag.Name),
-                              flag.DateModified.ToShortDateString());
-
+                              (flag.Date.HasValue)? flag.Date.Value.ToShortDateString() : "");
+           
             @Html.Raw(String.Format("$('#canvas').append({0}); MLM.MapCanvas.wireUpFlags();", elem));
         }
     });
 </script>
+
+<h2>Map Details</h2> 
+<p>
+    Shared Status: @Html.DisplayFor(model => model.ShareStatusType.Name)
+</p>
+<p>
+    @Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)
+</p>
+<p>
+    @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)
+</p>
+<p>
+    @Html.ActionLink("Edit Map Details", "Edit", new { id = Model.AdoptedMapId }) | @Html.ActionLink("Delete Map", "Delete", new { id = Model.AdoptedMapId })
+</p>
+   
+
+
+
 

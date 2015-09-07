@@ -14,15 +14,16 @@ using MyLegacyMaps.Extensions;
 using MyLegacyMaps.Classes;
 
 
+
 namespace MyLegacyMaps.Controllers
 {
-    public class AdoptedMapsController : Controller
+    public class MyMapsController : Controller
     {
         private IAdoptedMapsRepository adoptedMapsRepository = null;
         private IPartnerLogosRepository logosRepository = null;
         private ILogger log = null;
-
-        public AdoptedMapsController(IAdoptedMapsRepository adoptedMapsResource, IPartnerLogosRepository logosResource, ILogger logger)
+       
+        public MyMapsController(IAdoptedMapsRepository adoptedMapsResource, IPartnerLogosRepository logosResource, ILogger logger)
         {
             adoptedMapsRepository = adoptedMapsResource;
             logosRepository = logosResource;
@@ -30,7 +31,7 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: AdoptedMaps
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> AdoptedMaps(int? page)
         {
             string userId = String.Empty;
             try
@@ -47,52 +48,21 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
 
-                var viewModel = resp.Item.ToViewModel();
-                return View(viewModel.OrderBy(m => m.Name));
+                ViewBag.HasAdoptedMaps = resp.Item.Count > 0;
+
+                var mapsViewModel = (resp.Item.Count > 0)
+                    ? resp.Item.ToViewModel().OrderBy(m => m.Name)
+                    : new List<MyLegacyMaps.Models.AdoptedMap>().OrderBy(m => m.Name);              
+
+                int pageNumber = (page ?? 1);
+                return View(mapsViewModel.ToPagedList(pageNumber, Constants.PAGE_SIZE));
             }
             catch(Exception ex)
             {
                 log.Error(ex, String.Format("Error in AdoptedMapsController GET Index UserId = {0}", userId));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
-        }
-
-        // GET: Public AdoptedMaps
-        [AllowAnonymous]
-        public async Task<ActionResult> SharedMaps(string id, int? page)
-        {
-           // string userId = String.Empty;
-            try
-            {
-                if (String.IsNullOrEmpty(id) && HttpContext.User != null)
-                {
-                    id = HttpContext.User.Identity.GetUserId();
-                }
-              
-                if(String.IsNullOrEmpty(id))//return empty list
-                {
-                    return View(new List<AdoptedMap>());
-                }
-
-                var resp = await adoptedMapsRepository.GetPublicAdoptedMapsByUserIdAsync(id);
-
-                if (!resp.IsSuccess())
-                {
-                    return new HttpStatusCodeResult(resp.HttpStatusCode);
-                }
-
-                int pageSize = 4;
-                int pageNumber = (page ?? 1);
-
-                var mapsViewModel = resp.Item.ToViewModel().OrderBy(m => m.Name);
-                return View(mapsViewModel.ToPagedList(pageNumber, pageSize));
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex, String.Format("Error in AdoptedMapsController GET Index UserId = {0}", id));
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
-            }
-        }
+        }      
 
         // GET: AdoptedMaps/Details/5
         public async Task<ActionResult> AdoptedMap(int? id)
@@ -119,6 +89,76 @@ namespace MyLegacyMaps.Controllers
             {
                 log.Error(ex, "Error in AdoptedMapsController GET Details id = {0} ", 
                     (id.HasValue)? id.Value.ToString() : "null");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        // GET: SharedMaps 
+        [AllowAnonymous]
+        public async Task<ActionResult> SharedMaps(int? page)
+        {
+            string userId = String.Empty;
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                userId = HttpContext.User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(userId))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                
+                var resp = await adoptedMapsRepository.GetPublicAdoptedMapsByUserIdAsync(userId);
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+
+                ViewBag.HasSharedMaps = resp.Item.Count > 0;
+
+                var mapsViewModel = (resp.Item.Count > 0)
+                    ? resp.Item.ToViewModel().OrderBy(m => m.Name)
+                    : new List<MyLegacyMaps.Models.AdoptedMap>().OrderBy(m => m.Name);
+                            
+
+                int pageNumber = (page ?? 1);                            
+                return View(mapsViewModel.ToPagedList(pageNumber, Constants.PAGE_SIZE));
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in AdoptedMapsController GET Index UserId = {0}", userId));
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        // GET: SharedMaps 
+        [AllowAnonymous]
+        public async Task<ActionResult> SharedMapsByUserId(string userId, int? page)
+        {
+            // string userId = String.Empty;
+            try
+            {
+                if (String.IsNullOrEmpty(userId))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var resp = await adoptedMapsRepository.GetPublicAdoptedMapsByUserIdAsync(userId);
+                if (!resp.IsSuccess())
+                {
+                    return new HttpStatusCodeResult(resp.HttpStatusCode);
+                }
+                            
+                int pageNumber = (page ?? 1);
+                var mapsViewModel = resp.Item.ToViewModel().OrderBy(m => m.Name);
+                return View(mapsViewModel.ToPagedList(pageNumber, Constants.PAGE_SIZE));
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, String.Format("Error in AdoptedMapsController GET Index UserId = {0}", userId));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
         }
@@ -189,17 +229,7 @@ namespace MyLegacyMaps.Controllers
             }
         }
 
-        // GET: AdoptedMaps/Create
-        //public ActionResult Create()
-        //{
-        //    if(!HttpContext.User.Identity.IsAuthenticated)
-        //    {
-        //        return new HttpUnauthorizedResult();
-        //    }
-        //    return View();
-        //}
-
-        // POST: AdoptedMaps/Create
+        // POST: MyMaps/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -230,8 +260,17 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
-               
-                return RedirectToAction("Index");
+
+                var mapViewModel = resp.Item.ToViewModel();
+
+                if (mapViewModel.Map.IsRealEstateMap())
+                {
+                    return RedirectToAction("RealEstateMap", new { id = resp.Item.AdoptedMapId });
+                }
+                else
+                {
+                    return RedirectToAction("AdoptedMap", new { id = resp.Item.AdoptedMapId });
+                }
              
             }
             catch (Exception ex)
@@ -309,7 +348,7 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(saveResp.HttpStatusCode);
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("AdoptedMap", new { id = adoptedMap.AdoptedMapId });
             }
             catch (Exception ex)
             {
@@ -379,7 +418,7 @@ namespace MyLegacyMaps.Controllers
 
                 var deleteResp = await adoptedMapsRepository.DeleteAdoptedMapAsync(getResp.Item);
                 
-                return RedirectToAction("Index");
+                return RedirectToAction("AdoptedMaps");
 
             }
             catch (Exception ex)
