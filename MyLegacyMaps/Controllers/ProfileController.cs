@@ -48,6 +48,7 @@ namespace MyLegacyMaps.Controllers
         }
        
         // GET: Profile/Private/5
+        [HttpGet]
         public async Task<ActionResult> Private()
         {
             string userId = String.Empty;
@@ -80,6 +81,7 @@ namespace MyLegacyMaps.Controllers
         }
 
         // GET: Profile/Credits/5
+        [HttpGet]
         public async Task<ActionResult> Credits()
         {
             try
@@ -109,6 +111,37 @@ namespace MyLegacyMaps.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<ActionResult> TotalCredits()
+        {
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                string id = HttpContext.User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(id))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var applicationUser = await UserManager.FindByIdAsync(id);
+                if (applicationUser == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return Json(applicationUser.Credits, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in ProfileController GET TotalCredits");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
+     
 
         // GET: Maps/Edit/5
         public async Task<ActionResult> Edit()

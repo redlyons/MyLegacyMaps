@@ -27,7 +27,7 @@ else
             {
                 <div class="grid-item">
 
-                    <a class="lnkGridItem" href="@Url.Action("AdoptedMap", new { id = item.AdoptedMapId })">
+                    <a class="lnkGridItem" href="@Url.Action(item.Map.IsRealEstateMap()? "RealEstateMap":"AdoptedMap", new { id = item.AdoptedMapId })">
                         <img src="@item.Map.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
                         <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
                         <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
@@ -38,7 +38,7 @@ else
             {
                 <div class="grid-item vertical-item">
 
-                    <a class="lnkGridItem" href="@Url.Action("AdoptedMap", new { id = item.AdoptedMapId })">
+                    <a class="lnkGridItem" href="@Url.Action(item.Map.IsRealEstateMap() ? "RealEstateMap" : "AdoptedMap", new { id = item.AdoptedMapId })">
                         <img src="@item.Map.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
                         <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
                         <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>

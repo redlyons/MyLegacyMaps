@@ -232,9 +232,11 @@
 .profile-nav li{
     display: inline;
     float: left;
+    padding-left:  20px;
+    padding-right: 20px;
 }
 
 .profile-nav li a{
     display: block;
-    width: 200px;
+   
 }

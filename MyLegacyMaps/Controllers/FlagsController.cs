@@ -8,7 +8,13 @@ using System.Net;
 using System.Web;
 using System.Web.Routing;
 using System.Web.Mvc;
+
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+
+using MyLegacyMaps.Managers;
+using MyLegacyMaps.Models.Account;
 using MLM.Persistence.Interfaces;
 using MLM.Logging;
 using MyLegacyMaps.Models;
@@ -21,6 +27,20 @@ namespace MyLegacyMaps.Controllers
         private readonly IFlagsRepository flagRepository = null;
         private readonly IAdoptedMapsRepository adoptedMapRepository = null;
         private readonly ILogger log = null;
+        private ApplicationUserManager _userManager;
+
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         public FlagsController(IFlagsRepository flagsRepository, IAdoptedMapsRepository adoptedMapsRepository, ILogger logger)
         {
@@ -45,14 +65,12 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-
                 var respFlag = await flagRepository.FindFlagByIdAsync((int)id);
                 if (!respFlag.IsSuccess())
                 {
                     return new HttpStatusCodeResult(respFlag.HttpStatusCode);
                 }
-
-
+                
                 var respAdoptedMap = await adoptedMapRepository.GetAdoptedMapByIdAsync(respFlag.Item.AdoptedMapId);
                 if (!respAdoptedMap.IsSuccess())
                 {
@@ -98,6 +116,8 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
 
+                await ConsumeCredit();
+
                 return Json(resp.Item.ToViewModel(), JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
@@ -133,6 +153,8 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(resp.HttpStatusCode);
                 }
+
+                await ConsumeCredit();
 
                 return Json(resp.Item.ToViewModel(), JsonRequestBehavior.AllowGet);
             }
@@ -308,6 +330,47 @@ namespace MyLegacyMaps.Controllers
                     HttpContext.User.Identity.GetUserId(), id));
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
-        }       
+        }
+
+
+
+       
+        private async Task<bool> ConsumeCredit()
+        {
+            string userId = String.Empty;
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return false;
+                }
+                userId = HttpContext.User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(userId))
+                {
+                    return false;
+                }
+
+                var user = await UserManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return false;
+                }
+
+                if (user.Credits > 0)
+                {
+                    user.Credits = user.Credits - 1;
+                    await UserManager.UpdateAsync(user);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in FlagsController POST Edit ");
+                return false;
+            }
+
+
+        }
     }
 }

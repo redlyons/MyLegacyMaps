@@ -348,7 +348,16 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(saveResp.HttpStatusCode);
                 }
-                return RedirectToAction("AdoptedMap", new { id = adoptedMap.AdoptedMapId });
+
+                var viewModel = saveResp.Item.ToViewModel();
+                if (viewModel.Map.IsRealEstateMap())
+                {
+                    return RedirectToAction("RealEstateMap", new { id = adoptedMap.AdoptedMapId });
+                }
+                else
+                {
+                    return RedirectToAction("AdoptedMap", new { id = adoptedMap.AdoptedMapId });
+                }
             }
             catch (Exception ex)
             {

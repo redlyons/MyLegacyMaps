@@ -74,8 +74,10 @@
         }
 
         if (flag.flagId != null) {
-            method.getFlag(flag.flagId);           
+            method.getFlag(flag.flagId);
+            
         }
+        method.getTotalCredits();
 
         $modal.css({
             width: settings.width || 'auto',
@@ -96,7 +98,7 @@
         $(window).unbind('resize.modal');
     };
 
-    method.buyNow = function () {
+    method.createFlag = function () {
         $.ajax({
             url: window.location.origin + "/flags/create/",
             type: 'POST',
@@ -123,7 +125,7 @@
         });
     };
 
-   method.buyListing = function () {
+   method.createListing = function () {
         $.ajax({
             url: window.location.origin + "/flags/createListing/",
             type: 'POST',
@@ -273,6 +275,34 @@
             }
         });
 
+    };
+
+    method.getTotalCredits = function () {
+        $.ajax({
+            url: window.location.origin + "/profile/totalcredits/",
+            type: 'GET',
+            success: function (data) {
+                if (data > 0) {
+                    var saveText = "Save (1 of " + data + " token";
+                    if (data > 1) saveText += "s";
+                    saveText += ")";
+
+                    $('#btnCreateFlag').text(saveText);
+                    $('#btnCreateFlag').show();
+                    $('#btnGetMoreTokens').hide();
+                }
+                else {
+                    $('#btnCreateFlag').hide();
+                    $('#btnGetMoreTokens').show();
+                    $('#btnGetMoreTokens').attr("href", window.location.origin + "/profile/credits")
+                }
+            },
+            error: function (data) {
+                $('#btnCreateFlag').hide();
+                $('#btnGetMoreTokens').hide();
+                      
+            }
+        });
     };
 
     method.getFlag = function (flagId) {
