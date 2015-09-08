@@ -531,6 +531,7 @@
     <Content Include="Views\Shared\Partials\AdoptedRealEstateMapCanvas.cshtml" />
     <Content Include="Views\Profile\Credits.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\ThankYou.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

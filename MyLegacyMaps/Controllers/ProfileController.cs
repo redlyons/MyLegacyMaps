@@ -111,6 +111,37 @@ namespace MyLegacyMaps.Controllers
             }
         }
 
+        // GET: Profile/Credits/5
+        [HttpGet]
+        public async Task<ActionResult> ThankYou()
+        {
+            try
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                string id = HttpContext.User.Identity.GetUserId();
+                if (String.IsNullOrEmpty(id))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var applicationUser = await UserManager.FindByIdAsync(id);
+                if (applicationUser == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(applicationUser);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Error in ProfileController GET Credits");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult> TotalCredits()
         {
