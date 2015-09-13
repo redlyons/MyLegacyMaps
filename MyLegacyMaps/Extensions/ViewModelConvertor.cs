@@ -251,6 +251,36 @@ namespace MyLegacyMaps.Extensions
             return retVal;
         }
 
+        public static List<ViewModels.Payment> ToViewModel(this ICollection<DomainModel.Payment> value)
+        {
+            List<ViewModels.Payment> retVal = new List<ViewModels.Payment>();
+            foreach (var type in value)
+            {
+                retVal.Add(type.ToViewModel());
+            }
+            return retVal;
+        }
+
+        public static ViewModels.Payment ToViewModel(this DomainModel.Payment value)
+        {
+            if (value == null)
+                return null;
+
+            return new ViewModels.Payment
+            {
+                TransactionId = value.TransactionId,
+                TransactionDate = value.TransactionDate,
+                TransactionStatus = value.TransactionStatus,
+                GrossTotal = value.GrossTotal,
+                Currency = value.Currency,
+                PayerFirstName = value.PayerFirstName,
+                PayerLastName = value.PayerLastName,
+                PayerEmail = value.PayerEmail,
+                Tokens = value.Tokens,
+            };
+
+        }
+
 
     }
 }

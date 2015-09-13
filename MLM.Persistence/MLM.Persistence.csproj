@@ -121,8 +121,10 @@
     <Compile Include="FlagsRepository.cs" />
     <Compile Include="Interfaces\IAdoptedMapsRepository.cs" />
     <Compile Include="Interfaces\IFlagsRepository.cs" />
+    <Compile Include="Interfaces\IPaymentsRepository.cs" />
     <Compile Include="Interfaces\IPartnerLogosRepository.cs" />
     <Compile Include="Interfaces\IPhotoService.cs" />
+    <Compile Include="PaymentsRepository.cs" />
     <Compile Include="MyLegacyMapsContext.cs" />
     <Compile Include="MapsRepository.cs" />
     <Compile Include="Interfaces\IMapsRepository.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="Schemas\AspectRatioSchema.cs" />
     <Compile Include="Schemas\FlagSchema.cs" />
     <Compile Include="Schemas\FlagTypeSchema.cs" />
+    <Compile Include="Schemas\PaymentSchema.cs" />
     <Compile Include="Schemas\MapSchema.cs" />
     <Compile Include="Schemas\MapTypeSchema.cs" />
     <Compile Include="Schemas\OrientationTypeSchema.cs" />

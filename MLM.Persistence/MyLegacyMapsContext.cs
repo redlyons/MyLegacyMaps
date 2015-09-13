@@ -33,6 +33,7 @@ namespace MLM.Persistence
             modelBuilder.Configurations.Add(new OrientationTypeSchema());
             modelBuilder.Configurations.Add(new PartnerLogoSchema());
             modelBuilder.Configurations.Add(new AspectRatioSchema());
+            modelBuilder.Configurations.Add(new PaymentSchema());
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
@@ -50,6 +51,7 @@ namespace MLM.Persistence
         public DbSet<OrientationType> OrientationTypes { get; set; }
         public DbSet<PartnerLogo> PartnerLogos { get; set; }
         public DbSet<AspectRatio> AspectRatios { get; set; }
+        public DbSet<Payment> Payments { get; set; }
     }
 
     // EF follows a Code based Configration model and will look for a class that

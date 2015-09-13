@@ -28,6 +28,7 @@ namespace MyLegacyMaps.App_Start
             builder.RegisterType<FlagsRepository>().As<IFlagsRepository>();
             builder.RegisterType<PhotoService>().As<IPhotoService>().SingleInstance();
             builder.RegisterType<PartnerLogosRepository>().As<IPartnerLogosRepository>();
+            builder.RegisterType<PaymentsRepository>().As<IPaymentsRepository>();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

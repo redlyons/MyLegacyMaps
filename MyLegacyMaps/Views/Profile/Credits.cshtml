@@ -1,4 +1,5 @@
 ﻿@model MyLegacyMaps.Models.Account.ApplicationUser
+@using MyLegacyMaps.Models;
 
 @{
     ViewBag.Title = "My Maps";
@@ -6,38 +7,105 @@
 }
 
 @Html.Partial("~/Views/Shared/ProfileNav.cshtml")
-<div style="height:300px">
+<div style="height:500px">
     <p>
-        Tokens allow you to save flags to you map collection. Credits ar .99 cents each and can be purchased up to fifty at a time.
-        Once you purchased credits you will be able to save flags as long as you have available credits left. Once saved, you can edit or
-        move a flag on a given map as much as you'd like. Note that once a flag is saved to a map it will remain on that map indefinately,
-        in other words you cannot transfer flags between maps.
+        Tokens allow you to save flags to you map collection.
     </p>
     <p>
         <h4>Total Tokens Left: @Html.DisplayFor(model => model.Credits)</h4>
     </p>
-    
-       
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <br/>
+
+    <div>
+    <form action="@ViewBag.PaypalSubmitUrl" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="hosted_button_id" value="HUKE7E9W948EY">
+        <input type="hidden" name="hosted_button_id" value="KNMKA47XMFCHS">
         <table>
             <tr><td><input type="hidden" name="on0" value="Quantity">Quantity</td></tr>
             <tr>
                 <td>
                     <select name="os0">
+                        <option value="20 Tokens (Best Value)">20 Tokens (Best Value) $14.85 USD</option>
+                        <option value="5 Tokens">5 Tokens $3.96 USD</option>
                         <option value="1 Token">1 Token $0.99 USD</option>
-                        <option value="3 Tokens">3 Tokens $2.97 USD</option>
-                        <option value="5 Tokens">5 Tokens $4.95 USD</option>
-                        <option value="10 Tokens">10 Tokens $9.90 USD</option>
-                        <option value="25 Tokens">25 Tokens $24.75 USD</option>
                     </select>
                 </td>
             </tr>
         </table>
+        <input type="hidden" name="custom" value="@Model.Id">
         <input type="hidden" name="currency_code" value="USD">
-        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
     </form>   
+    </div>
+
+
+    <br/>
+    <br/>
+
+    @if (ViewBag.Payments != null)
+    {
+        <h3>Payment History</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    Transaction Id
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>               
+                <th>
+                    Amount
+                </th>
+                <th>
+                   Tokens
+                </th>
+                <th>
+                    Date
+                </th>
+            </tr>
+
+            @foreach (var item in (List<Payment>)ViewBag.Payments)
+            {
+                <tr>
+                    <td>
+                        @Html.Label(item.TransactionId)
+                    </td>
+                    <td>
+                       @Html.Label(item.TransactionStatus)
+                    </td>
+                    <td>
+                        @Html.Label(item.PayerFirstName)
+                    </td>
+                    <td>
+                       @Html.Label(item.PayerLastName)
+                    </td>                  
+                    <td>
+                         @Html.Raw(item.GrossTotal.ToString("C2"))&nbsp;
+                         @Html.Label(item.Currency)
+                    </td>
+                    <td>
+                        @Html.Label(item.Tokens.ToString())
+                    </td>
+                    <td>
+                        @Html.Label(item.TransactionDate.ToShortDateString())
+                    </td>
+                  
+                </tr>
+            }
+
+        </table>     
+    }
+      
+  
 </div>
+<br/>
+<br/>
+<br/>
 

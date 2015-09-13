@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -19,6 +22,7 @@ using MLM.Persistence.Interfaces;
 using MLM.Logging;
 using MyLegacyMaps.Models;
 using MyLegacyMaps.Extensions;
+using MyLegacyMaps.Classes.Paypal;
 
 
 namespace MyLegacyMaps.Controllers
@@ -28,6 +32,7 @@ namespace MyLegacyMaps.Controllers
        
         private readonly ILogger log = null;
         private ApplicationUserManager _userManager;
+        private readonly IPaymentsRepository _paymentRepository;
 
 
         public ApplicationUserManager UserManager
@@ -42,9 +47,18 @@ namespace MyLegacyMaps.Controllers
             }
         }
 
-        public ProfileController(ILogger logger)
+        public ProfileController(IPaymentsRepository paymentRepository, ILogger logger)
         {
+            _paymentRepository = paymentRepository;
             log = logger;
+        }
+
+        public string PaypalSubmitUrl
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["PayPalSubmitUrl"];
+            }
         }
        
         // GET: Profile/Private/5
@@ -102,6 +116,13 @@ namespace MyLegacyMaps.Controllers
                     return HttpNotFound();
                 }
 
+                var payments = await _paymentRepository.GetPaymentsAsync(id);
+                if(payments.IsSuccess())
+                {
+                    ViewBag.Payments = payments.Item.ToViewModel();
+                }
+
+                ViewBag.PaypalSubmitUrl = PaypalSubmitUrl;
                 return View(applicationUser);
             }
             catch (Exception ex)
@@ -115,25 +136,111 @@ namespace MyLegacyMaps.Controllers
         [HttpGet]
         public async Task<ActionResult> ThankYou()
         {
+            string authenticatedUserId = HttpContext.User.Identity.GetUserId();
+            if (String.IsNullOrEmpty(authenticatedUserId))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             try
             {
-                if (!HttpContext.User.Identity.IsAuthenticated)
+                var authToken = System.Configuration.ConfigurationManager.AppSettings["PDTToken"].ToString();
+                
+                //read in txn token from querystring
+                var txToken = Request.QueryString.Get("tx");
+                var paymentResp = await _paymentRepository.GetPaymentAsync(txToken);
+                if(paymentResp.IsSuccess())
                 {
-                    return new HttpUnauthorizedResult();
+                    var tx = paymentResp.Item;
+                    var details = new StringBuilder();
+                    details.AppendLine(
+                       string.Format("Thank you {0} {1} ({2}) for your payment of {3} {4}!",
+                       tx.PayerFirstName, tx.PayerLastName,
+                       tx.PayerEmail, tx.GrossTotal, tx.Currency));
+
+                    details.AppendLine(System.Environment.NewLine);
+                    details.AppendLine(string.Format("Your account has been credited with {0} token{1}. Happy pinning!",
+                        tx.Tokens.ToString(), (tx.Tokens > 1) ? "s" : ""));
+
+                    ViewBag.Message = details.ToString();
+                    return View();
+                }
+                
+                var query = string.Format("cmd=_notify-synch&tx={0}&at={1}",
+                                      txToken, authToken);
+
+                // Create the request back
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(PaypalSubmitUrl);
+
+                // Set values for the request back
+                req.Method = "POST";
+                req.ContentType = "application/x-www-form-urlencoded";
+                req.ContentLength = query.Length;
+
+                // Write the request back IPN strings
+                StreamWriter stOut = new StreamWriter(req.GetRequestStream(),
+                                         System.Text.Encoding.ASCII);
+                stOut.Write(query);
+                stOut.Close();
+
+                // Do the request to PayPal and get the response
+                StreamReader stIn = new StreamReader(req.GetResponse().GetResponseStream());
+                var strResponse = stIn.ReadToEnd();
+                stIn.Close();
+                              
+                var message = new StringBuilder();
+                var pdt = PDTHolder.Parse(strResponse);
+
+                //Log Payment Record
+                var payment = pdt.ToPaymentModel(authenticatedUserId);
+                var addPaymentResp = await _paymentRepository.AddPaymentAsync(payment);
+                if(!addPaymentResp.IsSuccess())
+                {
+                    log.Error("Failed to Add Payment record, transaction detials = {0}", pdt.TransactionDetails);
                 }
 
-                string id = HttpContext.User.Identity.GetUserId();
-                if (String.IsNullOrEmpty(id))
+                // If response was SUCCESS, parse response string and output details                
+                if (strResponse.StartsWith("SUCCESS"))
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    //Update user Tokens
+                    var addUserTokens = true;
+                    var user = await UserManager.FindByIdAsync(authenticatedUserId);
+                    if (user == null)
+                    {
+                        addUserTokens = false;
+                    }
+                    else
+                    {
+                        user.Credits = user.Credits + payment.Tokens;
+                        var updateUserResp = await UserManager.UpdateAsync(user);
+                        if(!updateUserResp.Succeeded)
+                        {
+                            addUserTokens = false;
+                        }
+                    }
+                    
+                    message.AppendLine(
+                        string.Format("Thank you {0} {1} ({2}) for your payment of {3} {4}!",
+                        pdt.PayerFirstName, pdt.PayerLastName,
+                        pdt.PayerEmail, pdt.GrossTotal, pdt.Currency));
+
+                    message.AppendLine(System.Environment.NewLine);
+                    message.AppendLine(string.Format("Your account has been credited with {0} token{1}. Happy pinning!",
+                        pdt.Tokens.ToString(), (pdt.Tokens > 1) ? "s" : ""));
+
+
+                    if(!addUserTokens)
+                    {
+                        message.AppendLine("While your transaction has succeeded, there was a problem crediting your account. We're terribly sorry, please contact us at mylegacymaps@gmail.com.");
+                    }                  
                 }
-                var applicationUser = await UserManager.FindByIdAsync(id);
-                if (applicationUser == null)
+                else
                 {
-                    return HttpNotFound();
+                    message.AppendLine("Oooops, something went wrong, please check your PayPal account for details. If you have questions concerns please contact us at mylegacymaps@gmail.com");
                 }
 
-                return View(applicationUser);
+                ViewBag.Message = message.ToString();
+                return View();
             }
             catch (Exception ex)
             {
