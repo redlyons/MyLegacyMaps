@@ -221,6 +221,14 @@
     <Compile Include="MembershipContextMigrations\201509020404464_UserDates.Designer.cs">
       <DependentUpon>201509020404464_UserDates.cs</DependentUpon>
     </Compile>
+    <Compile Include="MembershipContextMigrations\201509131452076_UserProfileUpdates.cs" />
+    <Compile Include="MembershipContextMigrations\201509131452076_UserProfileUpdates.Designer.cs">
+      <DependentUpon>201509131452076_UserProfileUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MembershipContextMigrations\201509131503451_UserDates1.cs" />
+    <Compile Include="MembershipContextMigrations\201509131503451_UserDates1.Designer.cs">
+      <DependentUpon>201509131503451_UserDates1.cs</DependentUpon>
+    </Compile>
     <Compile Include="MembershipContextMigrations\Configuration.cs" />
     <Compile Include="Migrations\201507120440433_PhotosUrlAdded2.cs" />
     <Compile Include="Migrations\201507120440433_PhotosUrlAdded2.Designer.cs">
@@ -265,6 +273,10 @@
     <Compile Include="Migrations\201509130626461_PaymentsGrossTotal.cs" />
     <Compile Include="Migrations\201509130626461_PaymentsGrossTotal.Designer.cs">
       <DependentUpon>201509130626461_PaymentsGrossTotal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509131523343_AdoptedMapXss.cs" />
+    <Compile Include="Migrations\201509131523343_AdoptedMapXss.Designer.cs">
+      <DependentUpon>201509131523343_AdoptedMapXss.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
@@ -583,6 +595,12 @@
     <EmbeddedResource Include="MembershipContextMigrations\201509020404464_UserDates.resx">
       <DependentUpon>201509020404464_UserDates.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MembershipContextMigrations\201509131452076_UserProfileUpdates.resx">
+      <DependentUpon>201509131452076_UserProfileUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MembershipContextMigrations\201509131503451_UserDates1.resx">
+      <DependentUpon>201509131503451_UserDates1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507120440433_PhotosUrlAdded2.resx">
       <DependentUpon>201507120440433_PhotosUrlAdded2.cs</DependentUpon>
     </EmbeddedResource>
@@ -615,6 +633,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509130626461_PaymentsGrossTotal.resx">
       <DependentUpon>201509130626461_PaymentsGrossTotal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509131523343_AdoptedMapXss.resx">
+      <DependentUpon>201509131523343_AdoptedMapXss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

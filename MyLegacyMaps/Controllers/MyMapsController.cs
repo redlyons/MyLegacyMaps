@@ -336,7 +336,7 @@ namespace MyLegacyMaps.Controllers
                 }
                 if (!ModelState.IsValid)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return View(adoptedMap);
                 }
                                
                 adoptedMap.IsActive = true;

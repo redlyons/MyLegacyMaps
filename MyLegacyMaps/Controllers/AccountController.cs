@@ -79,7 +79,7 @@ namespace MyLegacyMaps.Controllers
             }
 
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByNameAsync(model.Email);           
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
@@ -175,7 +175,10 @@ namespace MyLegacyMaps.Controllers
                     {
                         UserName = model.Email,
                         Email = model.Email,
-                        DisplayName = model.DisplayName,
+                        EmailPrevious = model.Email,
+                        DisplayName = String.IsNullOrEmpty( model.DisplayName)
+                         ? String.Empty : model.DisplayName,
+                        ProfileImageUrl = String.Empty,
                         Credits = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["DefaultCredits"].ToString())
                     };
 
@@ -422,9 +425,7 @@ namespace MyLegacyMaps.Controllers
                 var user = new ApplicationUser 
                 { 
                     UserName = model.Email, 
-                    Email = model.Email,
-                    BirthDate = model.BirthDate,
-                    HomeTown = model.HomeTown
+                    Email = model.Email,                  
                 };
 
                 var result = await UserManager.CreateAsync(user);

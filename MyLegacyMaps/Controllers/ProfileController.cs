@@ -9,7 +9,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -321,6 +320,12 @@ namespace MyLegacyMaps.Controllers
         public async Task<ActionResult> Edit([Bind(Include ="Id,Email,DisplayName")] ApplicationUser updatedUser)
         {
             string userId = String.Empty;
+
+            if(!ModelState.IsValid)
+            {
+                return View(updatedUser);
+            }
+
             try
             {
                 if (!HttpContext.User.Identity.IsAuthenticated)
@@ -349,8 +354,17 @@ namespace MyLegacyMaps.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                user.DisplayName = (String.IsNullOrEmpty(updatedUser.DisplayName)) ? String.Empty : updatedUser.DisplayName;
+                user.DisplayName = (String.IsNullOrEmpty(updatedUser.DisplayName)) 
+                    ? String.Empty : updatedUser.DisplayName;
+
+                user.ProfileImageUrl = (String.IsNullOrEmpty(updatedUser.ProfileImageUrl))
+                   ? String.Empty : updatedUser.ProfileImageUrl;
+                
+                user.EmailPrevious = user.Email;
                 user.Email = updatedUser.Email;
+                user.UserName = updatedUser.Email;
+                user.EmailConfirmed = (user.Email.ToLower() != user.EmailPrevious.ToLower());
+                user.DateModified = System.DateTime.Now;
                 await UserManager.UpdateAsync(user);
 
                 return RedirectToAction("Private");
