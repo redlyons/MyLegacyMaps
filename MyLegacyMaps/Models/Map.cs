@@ -25,9 +25,11 @@ namespace MyLegacyMaps.Models
 
         [Required(ErrorMessage="A Name is required")]
         [StringLength(60)]
+        [RegularExpression(MyLegacyMaps.Constants.TEXT_REGEX, ErrorMessage = "Enter only alphabets and numbers for Name")]
         public string Name { get; set; }
         [StringLength(500)]
         [DataType(DataType.MultilineText)]
+        [RegularExpression(MyLegacyMaps.Constants.TEXT_REGEX, ErrorMessage = "Enter only alphabets and numbers for Description")]
         public string Description { get; set; }
         [StringLength(500)]
         public string ImageUrl { get; set; }

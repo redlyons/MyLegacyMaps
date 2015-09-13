@@ -116,10 +116,12 @@ namespace MyLegacyMaps.Controllers
                 }
 
                 var payments = await _paymentRepository.GetPaymentsAsync(id);
-                if(payments.IsSuccess())
+                if (payments.IsSuccess())
                 {
                     ViewBag.Payments = payments.Item.ToViewModel();
+                    ViewBag.HasPayments = payments.Item.Count > 0;
                 }
+                else ViewBag.HasPayments = false;
 
                 ViewBag.PaypalSubmitUrl = PaypalSubmitUrl;
                 return View(applicationUser);
