@@ -12,7 +12,7 @@ namespace MyLegacyMaps.Models.Account
         public string Email { get; set; }
 
         [MaxLength(50)]
-        [RegularExpression("([a-zA-Z0-9&#32;.&amp;amp;&amp;#39;-]+)", ErrorMessage = "Enter only alphabets and numbers for Display Name")]
+        [RegularExpression(MyLegacyMaps.Constants.TEXT_REGEX, ErrorMessage = "Enter only alphabets and numbers for Display Name")]
         [Display(Name = "Display Name (what others see)")]
         public string DisplayName { get; set; }
 

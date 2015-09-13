@@ -345,15 +345,30 @@ namespace MyLegacyMaps.Controllers
                     return new HttpUnauthorizedResult();
                 }
 
+               
                 if (!ModelState.IsValid)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+
+
+
                 var user = await UserManager.FindByIdAsync(updatedUser.Id);
 
                 if (user == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if(user.Email != updatedUser.Email)
+                {
+                    //check that email is not already in use
+                    var existingUser = await UserManager.FindByEmailAsync(updatedUser.Email);
+                    if(existingUser != null)
+                    {
+                        ModelState.AddModelError("Email", "Email Address Not Available");
+                        return View(updatedUser);
+                    }
                 }
 
                 user.DisplayName = (String.IsNullOrEmpty(updatedUser.DisplayName)) 
