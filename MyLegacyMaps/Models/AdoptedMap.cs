@@ -30,11 +30,18 @@ namespace MyLegacyMaps.Models
         [RegularExpression(MyLegacyMaps.Constants.TEXT_REGEX, ErrorMessage = "Enter only alphabets and numbers for Name")]
         public string Description { get; set; }
         public bool IsActive { get; set; }
+
         [Required]
         public int ShareStatusTypeId { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public string ModifiedBy { get; set; }
+
+
+        public bool IsShared()
+        {
+            return (ShareStatusTypeId != 1);
+        }
 
         public virtual Map Map { get; set; }
         public virtual ShareStatusType ShareStatusType { get; set; }

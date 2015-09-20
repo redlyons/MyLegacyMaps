@@ -5,13 +5,18 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+
 using PagedList;
 using MLM.Logging;
 using MLM.Persistence.Interfaces;
 using MyLegacyMaps.Models;
 using MyLegacyMaps.Extensions;
 using MyLegacyMaps.Classes;
+using MyLegacyMaps.Managers;
 
 
 
@@ -20,6 +25,7 @@ namespace MyLegacyMaps.Controllers
     public class MyMapsController : Controller
     {
         private IAdoptedMapsRepository adoptedMapsRepository = null;
+        private ApplicationUserManager _userManager;
         private IPartnerLogosRepository logosRepository = null;
         private ILogger log = null;
        
@@ -28,6 +34,18 @@ namespace MyLegacyMaps.Controllers
             adoptedMapsRepository = adoptedMapsResource;
             logosRepository = logosResource;
             log = logger;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
 
         // GET: AdoptedMaps
@@ -110,6 +128,12 @@ namespace MyLegacyMaps.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+
+                var applicationUser = await UserManager.FindByIdAsync(userId);
+                if (applicationUser == null)
+                {
+                    return HttpNotFound();
+                }               
                 
                 var resp = await adoptedMapsRepository.GetPublicAdoptedMapsByUserIdAsync(userId);
                 if (!resp.IsSuccess())
@@ -118,6 +142,7 @@ namespace MyLegacyMaps.Controllers
                 }
 
                 ViewBag.HasSharedMaps = resp.Item.Count > 0;
+                ViewBag.DisplayName = applicationUser.DisplayName;
 
                 var mapsViewModel = (resp.Item.Count > 0)
                     ? resp.Item.ToViewModel().OrderBy(m => m.Name)

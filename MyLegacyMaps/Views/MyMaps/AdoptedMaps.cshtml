@@ -18,7 +18,12 @@
 }
 else
 {
+    <p>
+        This is your collection of Adopted Maps. Maps you've shared will have a <font color="green">green</font> border. Click a map to add your pins, photo and
+        video links. When your ready, click the Edit Map Details link and change your share status to "Public". Once shared your map
+        will appear on your public @Html.ActionLink("My Shared Maps", "SharedMaps", "MyMaps") page.
 
+    </p>
 
     <div class="grid">
         @foreach (var item in Model)
@@ -27,8 +32,8 @@ else
             {
                 <div class="grid-item">
 
-                    <a class="lnkGridItem" href="@Url.Action(item.Map.IsRealEstateMap()? "RealEstateMap":"AdoptedMap", new { id = item.AdoptedMapId })">
-                        <img src="@item.Map.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                    <a class="lnkGridItem" @(item.IsShared() ? "title=Shared" : "title=Private") href="@Url.Action(item.Map.IsRealEstateMap()? "RealEstateMap":"AdoptedMap", new { id = item.AdoptedMapId })">
+                        <img src="@item.Map.GetThumbImageUrl()" height="167" width="250" @(item.IsShared() ? "class=grid-thumb-shared" : "")>
                         <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
                         <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
                     </a>
@@ -38,8 +43,8 @@ else
             {
                 <div class="grid-item vertical-item">
 
-                    <a class="lnkGridItem" href="@Url.Action(item.Map.IsRealEstateMap() ? "RealEstateMap" : "AdoptedMap", new { id = item.AdoptedMapId })">
-                        <img src="@item.Map.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
+                    <a class="lnkGridItem" @(item.IsShared() ? "title=Shared" : "title=Private") href="@Url.Action(item.Map.IsRealEstateMap() ? "RealEstateMap" : "AdoptedMap", new { id = item.AdoptedMapId })">
+                        <img src="@item.Map.GetThumbImageUrl()" height="315" width="210" @(item.IsShared() ? "class=grid-thumb-shared" : "")>
                         <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
                         <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
                     </a>

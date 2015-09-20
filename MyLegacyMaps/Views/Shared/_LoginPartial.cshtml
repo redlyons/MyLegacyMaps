@@ -7,6 +7,7 @@
 
         <ul class="nav navbar-nav navbar-right">
            <li>@Html.ActionLink("My Maps", "AdoptedMaps", "MyMaps")</li>
+            <li>@Html.ActionLink("My Shared Maps", "SharedMaps", "MyMaps")</li>
            <li>@Html.ActionLink(Html.Encode(User.Identity.GetUserName()), "Private", "Profile")</li>
            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>

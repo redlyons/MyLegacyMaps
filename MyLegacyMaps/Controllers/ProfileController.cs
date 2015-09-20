@@ -33,6 +33,8 @@ namespace MyLegacyMaps.Controllers
         private ApplicationUserManager _userManager;
         private readonly IPaymentsRepository _paymentRepository;
 
+        private readonly string mySharedMapsLogoHtml = @"<a href='https://mylegacymaps.com/MyMaps/SharedMaps/{0}'><img src='https://mylegacymaps.com/images/icons/mlm-logo.png' style='width:50px; height: 64px; display:block;'/></a>";
+
 
         public ApplicationUserManager UserManager
         {
@@ -82,8 +84,10 @@ namespace MyLegacyMaps.Controllers
                 if (applicationUser == null)
                 {
                     return HttpNotFound();
-                }               
-
+                } 
+              
+                ViewBag.SharedLogoHtml = String.Format(mySharedMapsLogoHtml, applicationUser.Id);                   
+                    
                 return View(applicationUser);
             }
             catch (Exception ex)

@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Shared Maps";
 }
-@Html.Partial("~/Views/Shared/ProfileNav.cshtml")
 
 @if(!ViewBag.HasSharedMaps)
 { 
@@ -16,6 +15,9 @@
 }
 else 
 {     
+    <p>
+        <h3>Maps By: @ViewBag.DisplayName</h3>
+    </p>
 
     <div class="grid">
         @foreach (var item in Model)

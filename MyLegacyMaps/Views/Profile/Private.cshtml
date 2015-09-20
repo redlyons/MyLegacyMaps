@@ -7,7 +7,7 @@
 
 @Html.Partial("~/Views/Shared/ProfileNav.cshtml")
 
-<div style="height:300px">
+<div style="height:550px">
 <p>
     @Html.DisplayNameFor(model => model.DisplayName): @Html.DisplayFor(model => model.DisplayName)
 </p>
@@ -22,4 +22,65 @@
 <p>
     @Html.ActionLink("Edit Profile", "Edit")
 </p>
+ <br/>
+<div>
+    <h4>My Shared Maps</h4>
+    <p>There are two ways you can share your maps with your friends.</p>
+    <ul>
+        <li>Share your link directly via email or social media: 
+        <br/><a id="js-mysharedmapslink" href="@Url.Action("SharedMaps", "MyMaps", new { id = @Model.Id })">@Url.Action("SharedMaps", "MyMaps", new { id = @Model.Id }, this.Request.Url.Scheme)</a>
+        <br/>
+            <p><button class="js-linkcopybtn">Copy Link</button></p>
+        </li>
+        <li>If you have a website you can add the MyLegacyMaps.com logo to your site by uploading the following HTML to your site: @Html.ActionLink("My Shared Maps","SharedMaps", "MyMaps", routeValues: new { id = @Model.Id }, htmlAttributes: new { @class = "my-shared-maps-logo" })
+            <textarea id="copytext" rows="5" cols="200">@ViewBag.SharedLogoHtml</textarea>
+            <textarea id="holdtext" style="display:none;"></textarea>
+            <br />
+            <p style="padding-top:3px;"><button class="js-textareacutbtn" disable>Copy To Clipboard</button></p>
+        </li>
+    </ul> 
+   
 </div>
+</div>
+
+<script language="JavaScript">
+
+    var copyEmailBtn = document.querySelector('.js-linkcopybtn');
+    copyEmailBtn.addEventListener('click', function (event) {
+        // Select the email link anchor text  
+        var sharedMapsLink = document.querySelector('#js-mysharedmapslink');
+        var range = document.createRange();
+        range.selectNode(sharedMapsLink);
+        window.getSelection().addRange(range);
+
+        try {
+            // Now that we've selected the anchor text, execute the copy command  
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copy email command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+
+        // Remove the selections - NOTE: Should use   
+        // removeRange(range) when it is supported  
+        window.getSelection().removeAllRanges();
+    });
+
+
+    var cutTextareaBtn = document.querySelector('.js-textareacutbtn');
+
+    cutTextareaBtn.addEventListener('click', function (event) {
+        var cutTextarea = document.querySelector('#copytext');
+        cutTextarea.select();
+
+        try {
+            var successful = document.execCommand('cut');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Cutting text command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to cut');
+        }
+    });
+
+</script>

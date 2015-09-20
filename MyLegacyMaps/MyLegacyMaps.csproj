@@ -364,6 +364,7 @@
     <Content Include="Images\icons\checked-flag.png" />
     <Content Include="Images\icons\checked-flag100x80.png" />
     <Content Include="Images\icons\enterprise-logo.png" />
+    <Content Include="Images\icons\MLM-logo-blk-txt.png" />
     <Content Include="Images\icons\MLM-REM-text-logo.png" />
     <Content Include="Images\icons\red-flag-icon.png" />
     <Content Include="Images\icons\red-flag-sm.png" />
