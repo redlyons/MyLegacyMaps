@@ -24,7 +24,8 @@
                 <ul class="nav navbar-nav">
                     <li class="menuitem">@Html.ActionLink("Home", "Index", "Home")</li>
                     <li class="menuitem">@Html.ActionLink("Maps", "Index", "Maps")</li>                  
-                    <li class="menuitem">@Html.ActionLink("About", "About", "Home")</li>                    
+                    <li class="menuitem">@Html.ActionLink("About", "About", "Home")</li>  
+                    <li class="menuitem">@Html.ActionLink("Contact", "Contact", "Home")</li>                  
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,11 +35,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <div style="padding-left: 10px;">
-                <h4>*Business Model and Graphic Content are Patent and/or Copyright protected.</h4>
-            </div>
-            <p>&copy; @DateTime.Now.Year - My LegacyMaps&trade;</p>
+            <ul class="horizontal-list">
+                <li>&copy; @DateTime.Now.Year - My LegacyMaps&trade; | </li>
+                <li>@Html.ActionLink("Terms And Conditions", "Terms", "Home") | </li>
+                <li>@Html.ActionLink("Privacy Policy", "Privacy", "Home")</li>
+            </ul>        
 
+            Other Resources:
             <div>
 
                 <a href="http://www.premierpropertymaps.com/washington/king/capitolhill/wakingcapitolhill.php">

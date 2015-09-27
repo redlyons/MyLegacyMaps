@@ -55,3 +55,7 @@ textarea {
     
 }
 
+ul.horizontal-list li {
+    display:inline;
+}
+
