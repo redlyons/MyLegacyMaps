@@ -354,6 +354,8 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\zocial\zocial.css" />
+    <Content Include="Content\zocial\zocial.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -415,6 +417,7 @@
     <Content Include="Images\maps\skiing-north-america.png" />
     <Content Include="Images\maps\washington-adv.png" />
     <Content Include="Images\maps\yosemite.png" />
+    <Content Include="Images\MLM-logo-blk-txt.png" />
     <Content Include="Images\mlm_earth-logo50x50.png" />
     <Content Include="Images\sample-map.png" />
     <Content Include="newrelic\Extensions\CoreInstrumentation.xml" />
@@ -455,6 +458,9 @@
     <Content Include="newrelic\Extensions\extension.xsd">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\zocial\zocial.eot" />
+    <Content Include="Content\zocial\zocial.ttf" />
+    <Content Include="Content\zocial\zocial.woff" />
     <None Include="newrelic\newrelic.xsd">
       <SubType>Designer</SubType>
     </None>

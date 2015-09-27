@@ -61,6 +61,14 @@ namespace MyLegacyMaps.Controllers
                 return System.Configuration.ConfigurationManager.AppSettings["PayPalSubmitUrl"];
             }
         }
+
+        public string PaypalButtonId
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["PayPalButtonId"];
+            }
+        }
        
         // GET: Profile/Private/5
         [HttpGet]
@@ -128,6 +136,7 @@ namespace MyLegacyMaps.Controllers
                 else ViewBag.HasPayments = false;
 
                 ViewBag.PaypalSubmitUrl = PaypalSubmitUrl;
+                ViewBag.PaypalButtonId = PaypalButtonId;
                 return View(applicationUser);
             }
             catch (Exception ex)

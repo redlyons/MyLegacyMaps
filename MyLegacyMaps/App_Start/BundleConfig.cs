@@ -38,7 +38,8 @@ namespace MyLegacyMaps
                       "~/Content/site.css",
                       "~/Content/mlm/mlm.css",
                       "~/Content/jquery-ui.css",
-                      "~/Content/PagedList.css"));
+                      "~/Content/PagedList.css",
+                      "~/Content/zocial/zocial.css"));
 
            
         }
