@@ -376,8 +376,11 @@
     <Content Include="Images\icons\yellow-flag-sm.png" />
     <Content Include="Images\icons\yellow-flag.png" />
     <Content Include="Images\icons\yellow-flag100x80.png" />
+    <Content Include="Images\maps\air-france-thumb.png" />
     <Content Include="Images\maps\air-france.png" />
+    <Content Include="Images\maps\alaska-thumb.png" />
     <Content Include="Images\maps\alaska.png" />
+    <Content Include="Images\maps\baseball-thumb.png" />
     <Content Include="Images\maps\baseball.png" />
     <Content Include="Images\maps\blue-flag.png" />
     <Content Include="Images\maps\california.png" />

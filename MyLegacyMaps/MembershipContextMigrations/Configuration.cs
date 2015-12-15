@@ -81,6 +81,26 @@ namespace MyLegacyMaps.MembershipContextMigrations
                 {
                     ir = um.AddToRole(user2.Id, "mapManager");                    
                 }
+
+                var admin3 = System.Configuration.ConfigurationManager.AppSettings["admin3"].Split(
+                 new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+
+                var user3 = new MyLegacyMaps.Models.Account.ApplicationUser
+                {
+                    UserName = admin3[0],
+                    Email = admin3[0],
+                    DisplayName = String.Empty,
+                    Credits = 5,
+                    EmailConfirmed = true,
+                    DateCreated = System.DateTime.Now,
+                    DateModified = System.DateTime.Now
+                };
+                ir = um.Create(user3, admin3[1]);
+                if (ir.Succeeded)
+                {
+                    ir = um.AddToRole(user3.Id, "mapManager");
+                }
+
                 return true;
             }
             catch (Exception ex)
