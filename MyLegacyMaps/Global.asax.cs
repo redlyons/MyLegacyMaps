@@ -19,11 +19,20 @@ namespace MyLegacyMaps
     {
         protected void Application_Start()
         {
-           
+            // Map Database
             //Database.SetInitializer<MLM.Persistence.MyLegacyMapsContext>(
             //  new  DropCreateDatabaseIfModelChanges<MLM.Persistence.MyLegacyMapsContext>()); 
 
-           //Database.SetInitializer<MyLegacyMaps.MyLegacyMapsMembershipContext>(new DropCreateDatabaseAlways<MyLegacyMaps.MyLegacyMapsMembershipContext>());
+            //Database.SetInitializer<MLM.Persistence.MyLegacyMapsContext>(
+            //  new  DropCreateDatabaseAlways<MLM.Persistence.MyLegacyMapsContext>()); 
+
+
+            // Membership Database
+            //Database.SetInitializer<MyLegacyMaps.MyLegacyMapsMembershipContext>(
+            //   new DropCreateDatabaseIfModelChanges<MyLegacyMaps.MyLegacyMapsMembershipContext>());
+
+            //Database.SetInitializer<MyLegacyMaps.MyLegacyMapsMembershipContext>(
+            //   new DropCreateDatabaseAlways<MyLegacyMaps.MyLegacyMapsMembershipContext>());
 
             AreaRegistration.RegisterAllAreas();
             DependenciesConfig.RegisterDependencies();
