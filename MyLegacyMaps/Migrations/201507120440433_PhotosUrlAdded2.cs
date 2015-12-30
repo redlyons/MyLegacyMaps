@@ -12,7 +12,7 @@ namespace MyLegacyMaps.Migrations
 
         public override void Down()
         {
-            DropColumn("dbo.Flags", "PhotosUrl");
+            //DropColumn("dbo.Flags", "PhotosUrl");
         }
     }
 }

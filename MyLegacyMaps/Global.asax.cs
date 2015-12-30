@@ -19,12 +19,17 @@ namespace MyLegacyMaps
     {
         protected void Application_Start()
         {
+
+            //Update-Database -configuration MyLegacyMaps.MembershipContextMigrations.Configuration  -V
+            //Update-Database -configuration MyLegacyMaps.Migrations.Configuration -V
+
+
             // Map Database
             //Database.SetInitializer<MLM.Persistence.MyLegacyMapsContext>(
             //  new  DropCreateDatabaseIfModelChanges<MLM.Persistence.MyLegacyMapsContext>()); 
 
             //Database.SetInitializer<MLM.Persistence.MyLegacyMapsContext>(
-            //  new  DropCreateDatabaseAlways<MLM.Persistence.MyLegacyMapsContext>()); 
+            //  new DropCreateDatabaseAlways<MLM.Persistence.MyLegacyMapsContext>()); 
 
 
             // Membership Database

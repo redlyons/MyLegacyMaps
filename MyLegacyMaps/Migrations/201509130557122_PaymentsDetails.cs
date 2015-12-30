@@ -7,12 +7,12 @@ namespace MyLegacyMaps.Migrations
     {
         public override void Up()
         {
-            AlterColumn("dbo.Payments", "TransactionDetails", c => c.String(maxLength: 1500));
+            //AlterColumn("dbo.Payments", "TransactionDetails", c => c.String(maxLength: 1500));
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.Payments", "TransactionDetails", c => c.String(maxLength: 200));
+            //AlterColumn("dbo.Payments", "TransactionDetails", c => c.String(maxLength: 200));
         }
     }
 }

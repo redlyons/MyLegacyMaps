@@ -525,12 +525,12 @@ namespace MyLegacyMaps.Migrations
         protected override void Seed(MLM.Persistence.MyLegacyMapsContext context)
         {
             //  This method will be called after migrating to the latest version.
-            //_maps.ForEach(map =>
-            //    {
-            //        map.DateCreated = map.DateModified = DateTime.Now;
-            //        map.ModifiedBy = "Seed Method";
-            //        context.Maps.AddOrUpdate(m => m.Name, map);
-            //    });
+            _maps.ForEach(map =>
+                {
+                    map.DateCreated = map.DateModified = DateTime.Now;
+                    map.ModifiedBy = "Seed Method";
+                    context.Maps.AddOrUpdate(m => m.Name, map);
+                });
 
             _flagTypes.ForEach(type => 
                 {

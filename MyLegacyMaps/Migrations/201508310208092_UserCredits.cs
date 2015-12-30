@@ -7,14 +7,14 @@ namespace MyLegacyMaps.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.AspNetUsers", "DisplayName", c => c.String(nullable: false));
-            AddColumn("dbo.AspNetUsers", "Credits", c => c.Int(nullable: false));
+            //AddColumn("dbo.AspNetUsers", "DisplayName", c => c.String(nullable: false));
+            //AddColumn("dbo.AspNetUsers", "Credits", c => c.Int(nullable: false));
         }
 
         public override void Down()
         {
-            DropColumn("dbo.AspNetUsers", "DisplayName");
-            DropColumn("dbo.AspNetUsers", "Credits");
+            //DropColumn("dbo.AspNetUsers", "DisplayName");
+            //DropColumn("dbo.AspNetUsers", "Credits");
         }
     }
 }
