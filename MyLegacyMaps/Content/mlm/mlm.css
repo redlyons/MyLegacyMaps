@@ -1,13 +1,18 @@
 ﻿
 
 .container {
-  max-width: 100%;
-  margin-left:5px;
-  margin-right:5px;  
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
 }
 
-#toolbar{  
-    text-align:center;
+.container:before, .container:after {
+    display:inherit;
+    content:none;
+}
+
+#toolbar {
+    text-align: center;
     margin: 5px 5px 5px 5px;
 }
 
@@ -15,11 +20,10 @@
     text-align: center;
 }
 
-#canvas{
+#canvas {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-
 }
 
 .toolbar-btn {
@@ -30,19 +34,16 @@
 .canvasToolList li {
     display: inline;
     margin-bottom: 5px;
-
 }
 
 .canvasToolList {
     list-style: none;
-    
     padding: 0;
-    
 }
 
-.canvasToolList li {
-     display: inline;     
-}
+    .canvasToolList li {
+        display: inline;
+    }
 
 .btnSaveMap {
     background-color: #8AC007;
@@ -51,13 +52,13 @@
 
 #zoomSlider {
     width: 100%;
-
 }
 
-.sliderWrapper{
+.sliderWrapper {
     margin-top: 5px;
 }
-.zoom-buttons{
+
+.zoom-buttons {
     margin: 3px 5px 3px 5px;
 }
 
@@ -71,27 +72,29 @@
 .flgWasHere {
     background-image: url("../../images/icons/red-flag100x80.png");
 }
+
 .flgHereNow {
     background-image: url("../../images/icons/checked-flag100x80.png");
-} 
+}
+
 .flgPlanToGo {
     background-image: url("../../images/icons/yellow-flag100x80.png");
-} 
+}
 
 .makeMeDraggable {
-    position: relative;    
+    position: relative;
     left: 100px;
-    top: 100px;                   
+    top: 100px;
 }
 
 .draggableFlag {
     width: 100px;
-    height: 80px;    
+    height: 80px;
 }
 
-.draggableFlag, .locked{
+.draggableFlag, .locked {
     width: 100px;
-    height: 80px;    
+    height: 80px;
 }
 
 #overlay {
@@ -106,21 +109,21 @@
 }
 
 #modal {
-    position:absolute;
-    background:url(tint20.png) 0 0 repeat;
-    background:rgba(0,0,0,0.2);
-    border-radius:14px;
-    padding:8px;
+    position: absolute;
+    background: url(tint20.png) 0 0 repeat;
+    background: rgba(0,0,0,0.2);
+    border-radius: 14px;
+    padding: 8px;
 }
 
 #modalContent {
-    border-radius:8px;
-    background:#fff;
-    padding:20px;
+    border-radius: 8px;
+    background: #fff;
+    padding: 20px;
     color: #000000;
 }
 
-.modal-text{
+.modal-text {
     width: 100%;
     margin-top: 3px;
     margin-bottom: 3px;
@@ -132,98 +135,97 @@
     margin-bottom: 3px;
     border: none;
 }
-    
 
-.readonly{
+
+.readonly {
     border: none;
 }
 
 
-.modal-state{
+.modal-state {
     width: 35px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.modal-postalcode{
+.modal-postalcode {
     width: 100px;
     float: right;
     margin-top: 5px;
-    
 }
 
 #close {
-    position:absolute;
-    background:url(../../images/close.png) 0 0 no-repeat;
-    width:24px;
-    height:27px;
-    display:block;
-    text-indent:-9999px;
-    top:10px;
-    right:8px;
+    position: absolute;
+    background: url(../../images/close.png) 0 0 no-repeat;
+    width: 24px;
+    height: 27px;
+    display: block;
+    text-indent: -9999px;
+    top: 10px;
+    right: 8px;
 }
 
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-.grid { 
-  max-width: 1300px;
-  height: 800px;
+.grid {
+    max-width: 1300px;
+    height: 800px;
 }
 
-/* clearfix */
-.grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
+    /* clearfix */
+    .grid:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
 
 .grid-item {
-  width: 250px;
-  height: 300px;
-  float: left;
-  border: 0px solid #333;
-  border-color: hsla(0, 0%, 0%, 0.5);
-  border-radius: 5px;
+    width: 250px;
+    height: 300px;
+    float: left;
+    border: 0px solid #333;
+    border-color: hsla(0, 0%, 0%, 0.5);
+    border-radius: 5px;
 }
 
 .vertical-item {
-  width: 210px;
-  height: 415px; 
+    width: 210px;
+    height: 415px;
 }
 
 .grid-item h2 {
     padding-left: 5px;
 }
-.grid-item p{
+
+.grid-item p {
     padding-left: 5px;
 }
 
-.grid-item img{
+.grid-item img {
     padding: 3px;
     /*padding-left: 3px;
     padding-right: 3px;
     background-color: white;*/
-    
 }
 
-.grid-thumb-shared{
+.grid-thumb-shared {
     padding: 3px;
     border: 5px solid green;
     background-color: white;
 }
 
-.lnkGridItem{
+.lnkGridItem {
     text-decoration: none !important;
 }
 
-.grid-item-text{
+.grid-item-text {
     color: white;
 }
 
-.profile-nav-wrapper{
+.profile-nav-wrapper {
     background: lightgray;
     width: 100%;
     height: 30px;
@@ -237,24 +239,21 @@
     padding: 0;
 }
 
-.profile-nav li{
-    display: inline;
-    float: left;
-    padding-left:  20px;
-    padding-right: 20px;
-}
+    .profile-nav li {
+        display: inline;
+        float: left;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 
-.profile-nav li a{
+        .profile-nav li a {
+            display: block;
+        }
+
+a.my-shared-maps-logo {
+    background: url(../../images/icons/MLM-logo-blk-txt.png) no-repeat top left;
     display: block;
-   
-}
-
-a.my-shared-maps-logo
-{
-     background: url(../../images/icons/MLM-logo-blk-txt.png) no-repeat top left;
-     display: block;
-     width: 50px;
-     height: 64px;
-     text-indent: -9999px; /* hides the link text */
-     
+    width: 50px;
+    height: 64px;
+    text-indent: -9999px; /* hides the link text */
 }
