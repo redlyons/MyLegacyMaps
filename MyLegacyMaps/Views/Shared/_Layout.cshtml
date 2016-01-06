@@ -17,17 +17,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="~/"><img src="~/images/icons/MLM-REM-text-logo.png" alt="globe" class="mlm-logo"></a>
+                <a class="mlm-logo-link" href="~/">
+                    <img src="~/images/icons/MLM-REM-text-logo.png" alt="globe" class="mlm-logo">
+                    <span>"Show your world"&trade;</span>
+                </a>
+                <img src="~/Images/mlm_home-pg_header_maps.png" alt="maps" class="mlm-header-maps" />
+                <p class="mlm-tagline phone">"Pick your maps, plant your flags, show your world."&trade;</p>
                 @*@Html.ActionLink("My Legacy Maps", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
              </div>
-            <div class="navbar-collapse collapse" style="float:right;">
+            <div class="navbar-collapse collapse">
+                <p class="mlm-tagline">"Pick your maps, plant your flags, show your world."&trade;</p>
                 <ul class="nav navbar-nav">
                     <li class="menuitem">@Html.ActionLink("Home", "Index", "Home")</li>
                     <li class="menuitem">@Html.ActionLink("Maps", "Index", "Maps")</li>                  
                     <li class="menuitem">@Html.ActionLink("About", "About", "Home")</li>  
-                    <li class="menuitem">@Html.ActionLink("Contact", "Contact", "Home")</li>                  
+                    <li class="menuitem">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>
+                        @Html.Partial("_LoginPartial")
+                    </li>               
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
