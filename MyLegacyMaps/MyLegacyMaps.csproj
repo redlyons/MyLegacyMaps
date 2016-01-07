@@ -468,7 +468,6 @@
     <None Include="newrelic\newrelic.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\PublishProfiles\mylegacymaps.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -576,6 +575,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DataAccess\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
