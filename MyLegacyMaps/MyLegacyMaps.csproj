@@ -368,6 +368,9 @@
     <Content Include="Images\icons\enterprise-logo.png" />
     <Content Include="Images\icons\MLM-logo-blk-txt.png" />
     <Content Include="Images\icons\MLM-REM-text-logo.png" />
+    <Content Include="Images\icons\mlm_flag_green-wht.png" />
+    <Content Include="Images\icons\mlm_flag_red-wht.png" />
+    <Content Include="Images\icons\mlm_flag_yellow-wht.png" />
     <Content Include="Images\icons\red-flag-icon.png" />
     <Content Include="Images\icons\red-flag-sm.png" />
     <Content Include="Images\icons\red-flag.png" />
@@ -423,6 +426,8 @@
     <Content Include="Images\MLM-logo-blk-txt.png" />
     <Content Include="Images\mlm_earth-logo50x50.png" />
     <Content Include="Images\mlm_home-pg_header_maps.png" />
+    <Content Include="Images\mlm_web_home-page_adventure-maps.png" />
+    <Content Include="Images\mlm_web_home-page_real-estate-maps.png" />
     <Content Include="Images\sample-map.png" />
     <Content Include="newrelic\Extensions\CoreInstrumentation.xml" />
     <Content Include="newrelic\Extensions\NewRelic.Collections.dll" />
