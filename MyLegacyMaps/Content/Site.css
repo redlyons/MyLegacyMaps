@@ -13,6 +13,7 @@
 a, .navbar-inverse .navbar-nav > li > a {
     color: navy;
 }
+h3 {display:inline-block;}
 
 .navbar-toggle {top:20px;}
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {background-color:transparent;}
@@ -111,6 +112,7 @@ textarea {
 
 ul.horizontal-list li {
     display:inline;
+    padding:0;
 }
 
 .navbar-header {
@@ -133,25 +135,23 @@ ul.horizontal-list li {
     background-color:#fff;
     position:relative;
 }
-.horizontal-list{
-    padding:0;
-}
+    .horizontal-list {
+        padding: 0;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
 
 .socialLogin button{margin-right:10px;}
 .socialLogin button:last-child {margin-right:0;}
 
-
-/* ipad styles */
-/*@media screen and (min-width:768px){
-    .navbar-collapse {
-        width:auto;
-    }
-}*/
-/*@media screen and (max-width:767px){
-    .mlm-tagline {
-        display:none;
-    }
-}*/
 @media screen and (max-width:767px){
     .mlm-tagline {
         display:none;
@@ -196,11 +196,55 @@ ul.horizontal-list li {
         display: none;
     }
 }
-/*@media screen and (max-width:767px) {
-    .mlm-header-maps {
-        display: none;
-    }
-}*/
+
+.mlm-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    justify-content:center;
+}
+.mlm-list li {
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.mlm-list a span{margin-left:15px;}
+.mlm-list img {
+    width:300px;
+    display:block;
+    margin:0 auto;
+    height:auto;
+}
+
+.mlm-flags{
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: center;
+    justify-content:center;
+}
+img.flag {
+    width:100px;
+}
 
 @media screen and (max-width:1199px) {
     .mlm-header-maps {
@@ -209,10 +253,66 @@ ul.horizontal-list li {
     }
 }
 
+@media screen and (min-width:768px) {
+    .mlm-list {
+        margin-top:20px;
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+	    -webkit-align-items: baseline;
+	    -moz-align-items: baseline;
+	    -ms-align-items: baseline;
+	    align-items: baseline;
+    }
+
+    .mlm-list li {
+        text-align: left;
+    }
+
+    .mlm-list li:not(:last-child) {
+        margin-right: 10px;
+    }
+
+    .mlm-list img {
+        width: 300px;
+        display: block;
+        margin: 0 auto;
+        height: auto;
+    }
+
+    .mlm-flags {
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+    }
+    img.flag{
+        width:125px;
+    }
+}
+@media screen and (min-width:1024px){
+    .mlm-list img{
+        width:85%;
+    }
+}
 @media screen and (min-width:990px) and (max-width:1269px){
     .navbar-collapse{
         top:20px;
         margin-bottom:20px;
+    }
+}
+@media screen and (min-width:568px) {
+    .horizontal-list {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    }
+    ul.horizontal-list li {
+        padding:0 10px;
+    }
+    ul.horizontal-list li:not(:last-child){
+        border-right:1px solid #2d2d2d;
     }
 }
 @media screen and (min-width:568px) and (max-width:767px){
@@ -221,13 +321,17 @@ ul.horizontal-list li {
         width:40%;
     }
 }
-
 @media screen and (max-width:1269px) {
     .mlm-tagline {
         position: absolute;
         top: -44px;
         font-size: 12px;
         right: 5px;
+    }
+}
+@media screen and (min-width:1270px){
+    .mlm-list img {
+        width:100%;
     }
 }
 
