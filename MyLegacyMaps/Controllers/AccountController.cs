@@ -80,16 +80,16 @@ namespace MyLegacyMaps.Controllers
 
             // Require the user to have a confirmed email before they can log on.
             var user = await UserManager.FindByNameAsync(model.Email);           
-            if (user != null)
-            {
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-                {
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+            //if (user != null)
+            //{
+            //    if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+            //    {
+            //        string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
 
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
-                    return View("Error");
-                }
-            }
+            //        ViewBag.errorMessage = "You must have a confirmed email to log on.";
+            //        return View("Error");
+            //    }
+            //}
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -186,9 +186,10 @@ namespace MyLegacyMaps.Controllers
                     if (result.Succeeded)
                     {
                         //  Comment the following line to prevent log in until the user is confirmed.
-                        //  await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                        await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                        string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                        //Uncomment following line to require emmail validation;
+                        //string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
 
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
@@ -206,10 +207,15 @@ namespace MyLegacyMaps.Controllers
                         // Uncomment to debug locally 
                         // TempData["ViewBagLink"] = callbackUrl;
 
-                        ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                                        + "before you can log in.";
+                        //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                       // + "before you can log in.";
 
-                        return View("Info");
+                        ViewBag.Message =
+                            String.Format("Your account has been successfully created and you are now logged in as {0} !", model.Email)
+                                        +  "You can now start saving maps and adding pins, enjoy!";
+                                      
+
+                        return View("Welcome");
 
                         //return RedirectToAction("Index", "Home");
                     }

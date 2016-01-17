@@ -5,8 +5,6 @@
     var realEstateMapType = new MyLegacyMaps.Models.MapType{ MapTypeId =1, Name = "Real Estate", IsActive=true };
 }
 
-@Html.Partial("~/Views/Shared/ProfileNav.cshtml")
-
 @if (!ViewBag.HasAdoptedMaps)
 {
     <p style="height:500px;">
@@ -18,13 +16,6 @@
 }
 else
 {
-    <p>
-        This is your collection of Adopted Maps. Maps you've shared will have a <font color="green">green</font> border. Click a map to add your pins, photo and
-        video links. When your ready, click the Edit Map Details link and change your share status to "Public". Once shared your map
-        will appear on your public @Html.ActionLink("My Shared Maps", "SharedMaps", "MyMaps") page.
-
-    </p>
-
     <div class="grid">
         @foreach (var item in Model)
         {

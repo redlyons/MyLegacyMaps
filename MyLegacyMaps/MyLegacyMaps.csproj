@@ -205,6 +205,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\PublishedMapsController.cs" />
     <Compile Include="Extensions\DomainModelConverter.cs" />
     <Compile Include="Extensions\PaypalConverter.cs" />
     <Compile Include="Extensions\ViewModelConvertor.cs" />
@@ -571,6 +572,10 @@
     <Content Include="Views\Profile\ThankYou.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Home\Privacy.cshtml" />
+    <Content Include="Views\Account\Welcome.cshtml" />
+    <Content Include="Views\PublishedMaps\Index.cshtml" />
+    <Content Include="Views\Shared\_LoggedInNav.cshtml" />
+    <Content Include="Views\PublishedMaps\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

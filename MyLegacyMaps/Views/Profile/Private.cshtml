@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("~/Views/Shared/ProfileNav.cshtml")
-
 <div style="height:550px">
 <p>
     @Html.DisplayNameFor(model => model.DisplayName): @Html.DisplayFor(model => model.DisplayName)
@@ -24,11 +22,11 @@
 </p>
  <br/>
 <div>
-    <h4>My Shared Maps</h4>
-    <p>There are two ways you can share your maps with your friends.</p>
+    @*<h4>My Published Maps</h4>
+    <p>The link below can be</p>
     <ul>
         <li>Share your link directly via email or social media: 
-        <br/><a id="js-mysharedmapslink" target="_blank" href="@Url.Action("SharedMaps", "MyMaps", new { id = @Model.Id })">@Url.Action("SharedMaps", "MyMaps", new { id = @Model.Id }, this.Request.Url.Scheme)</a>
+        <br/><a id="js-mysharedmapslink" target="_blank" href="@Url.Action("", "PublishedMaps", new { u = @Model.Id })">@Url.Action("", "PublishedMaps", new { u = @Model.Id }, this.Request.Url.Scheme)</a>
         <br/>
             <p><button class="js-linkcopybtn">Copy To Clipboard</button></p>
         </li>
@@ -38,8 +36,7 @@
             <br />
             <p style="padding-top:3px;"><button class="js-textareacutbtn" disable>Copy To Clipboard</button></p>
         </li>
-    </ul> 
-   
+    </ul>*@    
 </div>
 </div>
 

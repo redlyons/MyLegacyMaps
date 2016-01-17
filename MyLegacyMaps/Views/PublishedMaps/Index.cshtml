@@ -1,0 +1,62 @@
+﻿@model PagedList.IPagedList<MyLegacyMaps.Models.AdoptedMap>
+@using PagedList.Mvc;
+@using MyLegacyMaps.Models;
+@{
+    ViewBag.Title = "Published Maps";
+}
+
+<p>
+    <h3>Maps By: @ViewBag.DisplayName</h3>
+</p>
+
+@if(Model.Count <=0 )
+{ 
+    <p>
+        Sorry, this user has not yet published any maps.
+    </p>
+}
+else 
+{  
+    <div class="grid">
+        @foreach (var item in Model)
+        {
+            if (item.Map.OrientationTypeId == 1)
+            {
+                <div class="grid-item">
+
+                    <a class="lnkGridItem" href="@Url.Action("Map", new { id = item.AdoptedMapId })">
+                        <img src="@item.Map.GetThumbImageUrl()" height="167" width="250" class="mlm-li-thumb">
+                        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="grid-item vertical-item">
+
+                    <a class="lnkGridItem" href="@Url.Action("Map", new { id = item.AdoptedMapId })">
+                        <img src="@item.Map.GetThumbImageUrl()" height="315" width="210" class="mlm-li-thumb">
+                        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <p class="grid-item-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+  
+
+    <script>
+        $(document).ready(function () {
+
+            $('.grid').masonry({
+                itemSelector: '.grid-item',
+                columnWidth: 310
+            });
+
+        });
+    </script>
+}
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("SharedMaps",
+        new { page }))
