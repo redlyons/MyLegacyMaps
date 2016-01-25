@@ -22,11 +22,9 @@
                     <span>"Show your world"&trade;</span>
                 </a>
                 <img src="~/Images/mlm_home-pg_header_maps.png" alt="maps" class="mlm-header-maps" />
-                <p class="mlm-tagline phone">"Pick your maps, plant your flags, show your world."&trade;</p>
                 @*@Html.ActionLink("My Legacy Maps", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
              </div>
             <div class="navbar-collapse collapse">
-                <p class="mlm-tagline">"Pick your maps, plant your flags, show your world."&trade;</p>
                 <ul class="nav navbar-nav">
                     <li class="menuitem">@Html.ActionLink("Home", "Index", "Home")</li>
                     <li class="menuitem">@Html.ActionLink("Adventure Maps", "AdventureMaps", "Maps")</li> 
@@ -45,7 +43,7 @@
         <hr />
         <footer>
             <ul class="horizontal-list">
-                <li>&copy; @DateTime.Now.Year - My LegacyMaps&trade;</li>
+                <li>&copy; @DateTime.Now.Year - S. Robert Sherby</li>
                 <li>@Html.ActionLink("Terms And Conditions", "Terms", "Home")</li>
                 <li>@Html.ActionLink("Privacy Policy", "Privacy", "Home")</li>
             </ul>        

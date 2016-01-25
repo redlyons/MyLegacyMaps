@@ -362,6 +362,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\fadedBar.png" />
     <Content Include="Images\icons\checked-flag-icon.png" />
     <Content Include="Images\icons\checked-flag-sm.png" />
     <Content Include="Images\icons\checked-flag.png" />
@@ -369,6 +370,7 @@
     <Content Include="Images\icons\enterprise-logo.png" />
     <Content Include="Images\icons\MLM-logo-blk-txt.png" />
     <Content Include="Images\icons\MLM-REM-text-logo.png" />
+    <Content Include="Images\icons\mlm-telephone.png" />
     <Content Include="Images\icons\mlm_flag_green-wht.png" />
     <Content Include="Images\icons\mlm_flag_red-wht.png" />
     <Content Include="Images\icons\mlm_flag_yellow-wht.png" />

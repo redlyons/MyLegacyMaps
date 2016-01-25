@@ -2,10 +2,8 @@
     height: 1800px;
     overflow: scroll;
     cursor: auto;
-    /*background-image: url(/Images/Maps/NorthAmerica.png);*/
-    background-repeat: no-repeat;
-    background-position: 30px 80px;
-    background: #8ec9cd;
+    background: url('../Images/fadedBar.png') repeat-x;
+    background-attachment:fixed;
     border-color: #454545;
     color: #2d2d2d;
 }
@@ -14,7 +12,9 @@ a, .navbar-inverse .navbar-nav > li > a {
     color: navy;
 }
 h3 {display:inline-block;}
-
+.bottom-text{
+    font-style:italic;
+}
 .navbar-toggle {top:20px;}
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {background-color:transparent;}
 
@@ -27,7 +27,7 @@ h3 {display:inline-block;}
     margin:0;
 }
  .navbar-inverse {
-    background: #8ec9cd;
+    background: transparent;
     border:none;
  }
 
@@ -66,8 +66,12 @@ body {
 input,
 select,
 textarea {
-    max-width: 350px;
+    max-width: 300px;
 }
+#dlgWasHere input, #dlgWasHere select, #dlgWasHere textarea{
+    width:96%;
+}
+
 
 .mlm-logo{
     height: 100px;
@@ -212,13 +216,19 @@ ul.horizontal-list li {
     flex-direction: column;
     -webkit-justify-content: center;
     justify-content:center;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    -moz-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items:baseline;
 }
 .mlm-list li {
     text-align:center;
     margin-bottom:10px;
+    width:100%;
 }
 
-.mlm-list a span{margin-left:15px;}
+.mlm-list a span{margin-left:15px; display:inline-block;}
 .mlm-list img {
     width:300px;
     display:block;
@@ -227,7 +237,7 @@ ul.horizontal-list li {
 }
 
 .mlm-flags{
-    margin: 20px 0;
+    margin: 20px auto;
     padding: 0;
     list-style: none;
     display: -webkit-box;
@@ -239,8 +249,7 @@ ul.horizontal-list li {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-    -webkit-justify-content: center;
-    justify-content:center;
+    width:300px;
 }
 img.flag {
     width:100px;
@@ -256,45 +265,63 @@ img.flag {
 @media screen and (min-width:768px) {
     .mlm-list {
         margin-top:20px;
-        flex-direction: row;
+        /*flex-direction: row;
         -webkit-flex-direction: row;
         -ms-flex-direction: row;
-        flex-direction: row;
-        -webkit-justify-content: space-around;
-        justify-content: space-around;
-	    -webkit-align-items: baseline;
-	    -moz-align-items: baseline;
-	    -ms-align-items: baseline;
-	    align-items: baseline;
-    }
-
-    .mlm-list li {
-        text-align: left;
+        flex-direction: row;*/
     }
 
     .mlm-list li:not(:last-child) {
         margin-right: 10px;
     }
 
-    .mlm-list img {
-        width: 300px;
-        display: block;
-        margin: 0 auto;
-        height: auto;
-    }
-
     .mlm-flags {
-        -webkit-justify-content: space-around;
-        justify-content: space-around;
+        min-height:80px;
     }
-    img.flag{
-        width:125px;
+    .mlm-list img.flag{
+        width:100px;
     }
 }
+.mlm-list li img.phone {
+    width:30px;
+}
+.tablet-desktop-view{
+    display:none;
+}
+li.phone-view{
+    width:250px;
+    margin:0 auto;
+}
 @media screen and (min-width:1024px){
+    .mlm-list {
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+    }
+    .mlm-list li {
+        width:initial;
+    }
+
     .mlm-list img{
         width:85%;
     }
+    .mlm-list li.tablet-desktop-view {
+        display:inline;
+        position:relative;
+        width:275px;
+    }
+    .mlm-flag{
+        width:initial;
+    }
+    .tablet-desktop-view div {
+        position:absolute;
+        bottom:0;
+    }
+    .mlm-list li.phone-view{
+        display:none;
+    }
+    
 }
 @media screen and (min-width:990px) and (max-width:1269px){
     .navbar-collapse{
@@ -331,7 +358,7 @@ img.flag {
 }
 @media screen and (min-width:1270px){
     .mlm-list img {
-        width:100%;
+        width:375px;
     }
 }
 
