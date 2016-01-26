@@ -382,6 +382,9 @@
     <Content Include="Images\icons\yellow-flag-sm.png" />
     <Content Include="Images\icons\yellow-flag.png" />
     <Content Include="Images\icons\yellow-flag100x80.png" />
+    <Content Include="Images\logos\mlm_client_logo_jls-teressa-port-townsend.png" />
+    <Content Include="Images\logos\mlm_client_logo_remax-eastside-brokers-king_72-21.png" />
+    <Content Include="Images\logos\mlm_client_logo_windermere-hood-canal-hood-canal_72-30.png" />
     <Content Include="Images\maps\air-france-thumb.png" />
     <Content Include="Images\maps\air-france.png" />
     <Content Include="Images\maps\alaska-thumb.png" />

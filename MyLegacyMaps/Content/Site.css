@@ -11,7 +11,10 @@
 a, .navbar-inverse .navbar-nav > li > a {
     color: navy;
 }
-h3 {display:inline-block;}
+h3 {
+    display: inline-block;
+    margin-bottom: 0;
+}
 .bottom-text{
     font-style:italic;
 }
@@ -236,7 +239,7 @@ ul.horizontal-list li {
     height:auto;
 }
 
-.mlm-flags{
+.mlm-flags, .mlm-real-estate-logos{
     margin: 20px auto;
     padding: 0;
     list-style: none;
@@ -275,7 +278,7 @@ img.flag {
         margin-right: 10px;
     }
 
-    .mlm-flags {
+    .mlm-flags, .mlm-real-estate-logos {
         min-height:80px;
     }
     .mlm-list img.flag{
@@ -284,7 +287,13 @@ img.flag {
 }
 .mlm-list li img.phone {
     width:30px;
+    margin-bottom:10px;
 }
+
+.mlm-list .mlm-real-estate-logos img {
+    width:72px;
+}
+
 .tablet-desktop-view{
     display:none;
 }
@@ -309,11 +318,16 @@ li.phone-view{
     .mlm-list li.tablet-desktop-view {
         display:inline;
         position:relative;
-        width:275px;
+        width:200px;
+        margin-right:30px;
     }
     .mlm-flag{
         width:initial;
     }
+    .mlm-flags {
+        margin-left: 0;
+    }
+
     .tablet-desktop-view div {
         position:absolute;
         bottom:0;
