@@ -284,6 +284,10 @@ img.flag {
     .mlm-list img.flag{
         width:100px;
     }
+
+    .navbar-collapse{
+        margin-bottom:26px;
+    }
 }
 .mlm-list li img.phone {
     width:30px;
@@ -340,7 +344,7 @@ li.phone-view{
 @media screen and (min-width:990px) and (max-width:1269px){
     .navbar-collapse{
         top:20px;
-        margin-bottom:20px;
+        margin-bottom:50px;
     }
 }
 @media screen and (min-width:568px) {
@@ -360,6 +364,9 @@ li.phone-view{
     .navbar-collapse {
         float:right;
         width:40%;
+        position:absolute;
+        right:10px;
+        top:99px;
     }
 }
 @media screen and (max-width:1269px) {
